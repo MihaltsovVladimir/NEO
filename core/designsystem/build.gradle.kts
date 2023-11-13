@@ -5,20 +5,13 @@ plugins {
 }
 
 android {
-    namespace = "com.mihaltsov.core.model"
+    namespace = "com.mihaltsov.core.designsystem"
     compileSdk = 34
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-}
-
-dependencies {
-
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    kotlinOptions {
+        jvmTarget = "17"
+    }
 }
