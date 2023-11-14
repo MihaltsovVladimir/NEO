@@ -1,23 +1,17 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.org.jetbrains.kotlin.android)
 }
 
 android {
-    namespace = "com.mihaltsov.neo"
-    compileSdk = 34
+    namespace = "com.mihaltsov.mylibrary"
+    compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.mihaltsov.neo"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary = true
-        }
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -39,14 +33,16 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.2"
     }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
 }
 
 dependencies {
+
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.appcompat)
+    implementation(libs.material)
+
+
+
     implementation(libs.hilt.android)
 //    implementation(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
@@ -69,11 +65,4 @@ dependencies {
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-    implementation(project(mapOf("path" to ":core:data")))
-    implementation(project(mapOf("path" to ":core:model")))
-    implementation(project(mapOf("path" to ":core:domain")))
-    implementation(project(mapOf("path" to ":core:ui")))
-    implementation(project(mapOf("path" to ":core:designsystem")))
-    implementation(project(mapOf("path" to ":feature:mainQueue")))
-    implementation(project(mapOf("path" to ":core:mylibrary")))
 }

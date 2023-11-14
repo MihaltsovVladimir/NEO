@@ -1,4 +1,4 @@
-package com.mihaltsov.neo.ui.theme
+package com.mihaltsov.mylibrary.theme
 
 import androidx.compose.ui.graphics.Color
 
