@@ -1,4 +1,4 @@
-package com.mihaltsov.neo.ui.theme
+package com.mihaltsov.core.designsystem.theme
 
 import android.app.Activity
 import android.os.Build
@@ -16,40 +16,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import com.mihaltsov.mylibrary.theme.Blue10
-import com.mihaltsov.mylibrary.theme.Blue20
-import com.mihaltsov.mylibrary.theme.Blue30
-import com.mihaltsov.mylibrary.theme.Blue40
-import com.mihaltsov.mylibrary.theme.Blue80
-import com.mihaltsov.mylibrary.theme.Blue90
-import com.mihaltsov.mylibrary.theme.DarkPurpleGray10
-import com.mihaltsov.mylibrary.theme.DarkPurpleGray20
-import com.mihaltsov.mylibrary.theme.DarkPurpleGray90
-import com.mihaltsov.mylibrary.theme.DarkPurpleGray95
-import com.mihaltsov.mylibrary.theme.DarkPurpleGray99
-import com.mihaltsov.mylibrary.theme.Orange10
-import com.mihaltsov.mylibrary.theme.Orange20
-import com.mihaltsov.mylibrary.theme.Orange30
-import com.mihaltsov.mylibrary.theme.Orange40
-import com.mihaltsov.mylibrary.theme.Orange80
-import com.mihaltsov.mylibrary.theme.Orange90
-import com.mihaltsov.mylibrary.theme.Purple10
-import com.mihaltsov.mylibrary.theme.Purple20
-import com.mihaltsov.mylibrary.theme.Purple30
-import com.mihaltsov.mylibrary.theme.Purple40
-import com.mihaltsov.mylibrary.theme.Purple80
-import com.mihaltsov.mylibrary.theme.Purple90
-import com.mihaltsov.mylibrary.theme.PurpleGray30
-import com.mihaltsov.mylibrary.theme.PurpleGray50
-import com.mihaltsov.mylibrary.theme.PurpleGray60
-import com.mihaltsov.mylibrary.theme.PurpleGray80
-import com.mihaltsov.mylibrary.theme.PurpleGray90
-import com.mihaltsov.mylibrary.theme.Red10
-import com.mihaltsov.mylibrary.theme.Red20
-import com.mihaltsov.mylibrary.theme.Red30
-import com.mihaltsov.mylibrary.theme.Red40
-import com.mihaltsov.mylibrary.theme.Red80
-import com.mihaltsov.mylibrary.theme.Red90
 
 @VisibleForTesting
 val LightDefaultColorScheme = lightColorScheme(

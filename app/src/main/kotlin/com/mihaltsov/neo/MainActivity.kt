@@ -19,8 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.mihaltsov.core.domain.FirstUseCase
 import com.mihaltsov.core.ui.FirstUiView
 import com.mihaltsov.feature.mainQueue.MainQueueScreen
-import com.mihaltsov.mylibrary.Dtaf
-import com.mihaltsov.neo.ui.theme.NEOTheme
+import com.mihaltsov.core.designsystem.theme.NEOTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,7 +31,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         FirstUseCase()
         FirstUiView()
-        Dtaf()
         setContent {
             NEOTheme {
                 val color = if (isSystemInDarkTheme()) {

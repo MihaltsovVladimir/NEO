@@ -1,4 +1,4 @@
-package com.mihaltsov.mylibrary.theme
+package com.mihaltsov.core.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 
