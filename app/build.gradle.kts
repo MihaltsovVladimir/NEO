@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.mihaltsov.neo"
         minSdk = 26
-        targetSdk = 32
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -73,4 +73,5 @@ dependencies {
     implementation(project(mapOf("path" to ":core:domain")))
     implementation(project(mapOf("path" to ":core:ui")))
     implementation(project(mapOf("path" to ":core:designsystem")))
+    implementation(project(mapOf("path" to ":feature:mainQueue")))
 }

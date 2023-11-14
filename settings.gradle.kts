@@ -15,7 +15,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "NEO"
 include(":app")
-include(":core")
 include(":core:data")
 include(":core:domain")
 include(":core:ui")
@@ -24,3 +23,4 @@ include(":core:database")
 include(":core:common")
 include(":core:model")
 include(":core:designsystem")
+include(":feature:mainQueue")
