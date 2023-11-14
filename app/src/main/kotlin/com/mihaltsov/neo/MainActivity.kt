@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mihaltsov.core.domain.FirstUseCase
 import com.mihaltsov.core.ui.FirstUiView
-import com.mihaltsov.feature.mainQueue.HelloPreview
+import com.mihaltsov.feature.mainQueue.MainQueueScreen
 import com.mihaltsov.neo.ui.theme.NEOTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier,
                     color = color
                 ) {
-                    HelloPreview(Modifier.fillMaxWidth())
+                    MainQueueScreen(Modifier.fillMaxWidth())
                 }
             }
         }
