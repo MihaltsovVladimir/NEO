@@ -1,4 +1,4 @@
-package com.mihaltsov.core.data
+package com.mihaltsov.core.data.dto
 
 data class UserDataDto(
     val nickName: String,

@@ -32,7 +32,7 @@ class NeoPreferencesDataSource @Inject constructor(
                 nickName = "it.bookmarkedNewsResourceIdsMap.keys",
                 phone = "it.viewedNewsResourceIdsMap.keys",
                 registrationDate = "it.followedTopicIdsMap.keys",
-                queueNumber = "it.useDynamicColor"
+                queueNumber = 1
             )
         }
 

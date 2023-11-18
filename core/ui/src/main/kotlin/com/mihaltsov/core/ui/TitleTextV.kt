@@ -1,4 +1,4 @@
-package com.mihaltsov.feature.mainQueue
+package com.mihaltsov.core.ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -7,14 +7,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.mihaltsov.core.designsystem.theme.NEOTheme
 
-@Preview()
 @Composable
-fun TitleTextV(modifier: Modifier) {
+fun TitleTextV(modifier: Modifier = Modifier) {
     Text(
         text = "First screen",
-        modifier = modifier.padding(start = 32.dp),
+        modifier = modifier.padding(20.dp),
         color = MaterialTheme.colorScheme.primary,
         style = MaterialTheme.typography.titleLarge
     )
+}
+
+@Preview()
+@Composable
+fun TitleTextVPreview() {
+    NEOTheme {
+        TitleTextV()
+    }
 }

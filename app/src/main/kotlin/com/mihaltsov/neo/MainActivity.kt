@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -16,10 +16,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.mihaltsov.core.domain.FirstUseCase
-import com.mihaltsov.core.ui.FirstUiView
-import com.mihaltsov.feature.mainQueue.MainQueueScreen
 import com.mihaltsov.core.designsystem.theme.NEOTheme
+import com.mihaltsov.core.domain.FirstUseCase
+import com.mihaltsov.feature.mainQueue.TestQueueScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,19 +29,16 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         FirstUseCase()
-        FirstUiView()
         setContent {
             NEOTheme {
-                val color = if (isSystemInDarkTheme()) {
-                    Color.Green.copy(alpha = 0.3F)
-                } else {
-                    MaterialTheme.colorScheme.background
-                }
+                val color = if (isSystemInDarkTheme()) Color.Green.copy(alpha = 0.3F) else MaterialTheme.colorScheme.background
+
                 Surface(
                     modifier = Modifier,
                     color = color
                 ) {
-                    MainQueueScreen(Modifier.fillMaxWidth())
+//                    MainQueueScreen(Modifier.fillMaxSize())
+                    TestQueueScreen(Modifier.fillMaxSize())
                 }
             }
         }

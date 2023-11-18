@@ -1,6 +1,6 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.org.jetbrains.kotlin.android)
 }
 
 android {
@@ -51,7 +51,6 @@ dependencies {
     implementation(project(mapOf("path" to ":core:data")))
     implementation(project(mapOf("path" to ":core:model")))
     implementation(project(mapOf("path" to ":core:domain")))
-    implementation(project(mapOf("path" to ":core:ui")))
     implementation(project(mapOf("path" to ":core:designsystem")))
     implementation(project(mapOf("path" to ":feature:mainQueue")))
 }
