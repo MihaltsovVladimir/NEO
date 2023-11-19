@@ -1,41 +1,31 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.nowinandroid.android.library)
+    alias(libs.plugins.nowinandroid.android.library.compose)
 }
-
 android {
     namespace = "com.mihaltsov.core.ui"
-    compileSdk = 34
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.2"
-    }
 }
-
 dependencies {
+    api(libs.androidx.compose.foundation)
+    api(libs.androidx.compose.foundation.layout)
+    api(libs.androidx.compose.material.iconsExtended)
+    api(libs.androidx.compose.material3)
+    api(libs.androidx.compose.runtime)
+    api(libs.androidx.compose.runtime.livedata)
+    api(libs.androidx.compose.ui.tooling.preview)
+    api(libs.androidx.compose.ui.util)
+    api(libs.androidx.metrics)
+    api(libs.androidx.tracing.ktx)
 
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    debugApi(libs.androidx.compose.ui.tooling)
+
+    implementation(projects.core.designsystem)
+    implementation(projects.core.domain)
+    implementation(projects.core.model)
     implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation(libs.ui)
-    implementation(libs.ui.graphics)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.material3)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-    debugImplementation(libs.androidx.compose.ui.testManifest)
-
-    implementation(project(mapOf("path" to ":core:designsystem")))
-    implementation(project(mapOf("path" to ":core:model")))
+    implementation(libs.androidx.browser)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.coil.kt)
+    implementation(libs.coil.kt.compose)
+    implementation(libs.kotlinx.datetime)
 }

@@ -1,29 +1,26 @@
 package com.mihaltsov.neo
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.mihaltsov.core.data.repository.UserDataRepository
+import com.mihaltsov.core.data.repository.TestHilt
+import com.mihaltsov.core.data.repository.TestHiltImp
 import com.mihaltsov.core.model.UserData
-import com.mihaltsov.neo.MainActivityUiState.Loading
-import com.mihaltsov.neo.MainActivityUiState.Success
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
-    userDataRepository: UserDataRepository,
+    userDataRepository: TestHilt,
 ) : ViewModel() {
-    val uiState: StateFlow<MainActivityUiState> = userDataRepository.userData.map {
-        Success(it)
-    }.stateIn(
-        scope = viewModelScope,
-        initialValue = Loading,
-        started = SharingStarted.WhileSubscribed(5_000),
-    )
+
+    val dd = userDataRepository.text()
+
+//    val uiState: StateFlow<MainActivityUiState> = userDataRepository.userData.map {
+//        Success(it)
+//    }.stateIn(
+//        scope = viewModelScope,
+//        initialValue = Loading,
+//        started = SharingStarted.WhileSubscribed(5_000),
+//    )
 }
 
 sealed interface MainActivityUiState {

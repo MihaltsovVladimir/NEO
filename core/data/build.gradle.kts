@@ -1,28 +1,19 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.nowinandroid.android.library)
+    alias(libs.plugins.nowinandroid.android.library.jacoco)
+    alias(libs.plugins.nowinandroid.android.hilt)
+    id("kotlinx-serialization")
 }
-
 android {
     namespace = "com.mihaltsov.core.data"
-    compileSdk = 34
-    defaultConfig {
-        minSdk = 26
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
 }
-
 dependencies {
-    implementation(libs.hilt.android)
+    implementation(projects.core.common)
+    implementation(projects.core.database)
+    implementation(projects.core.datastore)
+    implementation(projects.core.model)
     implementation(libs.androidx.core.ktx)
-
-    implementation(project(mapOf("path" to ":core:datastore")))
-    implementation(project(mapOf("path" to ":core:model")))
-    implementation(project(mapOf("path" to ":core:common")))
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.kotlinx.serialization.json)
 }

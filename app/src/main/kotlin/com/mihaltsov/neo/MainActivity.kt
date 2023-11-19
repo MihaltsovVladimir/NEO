@@ -17,7 +17,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mihaltsov.core.designsystem.theme.NEOTheme
-import com.mihaltsov.core.domain.FirstUseCase
 import com.mihaltsov.feature.mainQueue.TestQueueScreen
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,7 +27,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        FirstUseCase()
+        println(viewModel.dd)
         setContent {
             NEOTheme {
                 val color = if (isSystemInDarkTheme()) Color.Green.copy(alpha = 0.3F) else MaterialTheme.colorScheme.background

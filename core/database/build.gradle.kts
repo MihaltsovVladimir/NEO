@@ -1,22 +1,15 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.nowinandroid.android.library)
+    alias(libs.plugins.nowinandroid.android.library.jacoco)
+    alias(libs.plugins.nowinandroid.android.hilt)
+    alias(libs.plugins.nowinandroid.android.room)
 }
-
 android {
     namespace = "com.mihaltsov.core.database"
-    compileSdk = 34
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
 }
-
 dependencies {
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.appcompat)
-    implementation(libs.material)
+    implementation(projects.core.model)
+
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.datetime)
 }

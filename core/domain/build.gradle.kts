@@ -1,23 +1,17 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.nowinandroid.android.library)
+    alias(libs.plugins.nowinandroid.android.library.jacoco)
+    kotlin("kapt")
 }
-
 android {
     namespace = "com.mihaltsov.core.domain"
-    compileSdk = 34
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
 }
-
 dependencies {
+    implementation(projects.core.data)
+    implementation(projects.core.model)
+    implementation(libs.hilt.android)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.datetime)
 
-    implementation(libs.androidx.core.ktx)
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.10.0")
+    kapt(libs.hilt.compiler)
 }

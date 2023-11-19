@@ -1,21 +1,12 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.nowinandroid.android.library)
+    alias(libs.plugins.nowinandroid.android.library.jacoco)
+    alias(libs.plugins.nowinandroid.android.hilt)
     alias(libs.plugins.protobuf)
 }
-
 android {
     namespace = "com.mihaltsov.core.datastore"
-    compileSdk = 34
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
 }
-
 // Setup protobuf configuration, generating lite Java and Kotlin classes
 protobuf {
     protoc {
@@ -34,13 +25,17 @@ protobuf {
         }
     }
 }
-
+androidComponents.beforeVariants {
+    android.sourceSets.register(it.name) {
+        val buildDir = layout.buildDirectory.get().asFile
+        java.srcDir(buildDir.resolve("generated/source/proto/${it.name}/java"))
+        kotlin.srcDir(buildDir.resolve("generated/source/proto/${it.name}/kotlin"))
+    }
+}
 dependencies {
-    implementation(libs.androidx.core.ktx)
+    implementation(projects.core.common)
+    implementation(projects.core.model)
     implementation(libs.androidx.dataStore.core)
+    implementation(libs.kotlinx.coroutines.android)
     implementation(libs.protobuf.kotlin.lite)
-    implementation(libs.hilt.android)
-
-    implementation(project(mapOf("path" to ":core:common")))
-    implementation(project(mapOf("path" to ":core:model")))
 }

@@ -1,36 +1,22 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.nowinandroid.android.library)
+    alias(libs.plugins.nowinandroid.android.library.compose)
+    alias(libs.plugins.nowinandroid.android.library.jacoco)
 }
-
 android {
     namespace = "com.mihaltsov.core.designsystem"
-    compileSdk = 33
-    defaultConfig {
-        minSdk = 26
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.2"
-    }
 }
-
 dependencies {
+    api(libs.androidx.compose.foundation)
+    api(libs.androidx.compose.foundation.layout)
+    api(libs.androidx.compose.material.iconsExtended)
+    api(libs.androidx.compose.material3)
+    api(libs.androidx.compose.runtime)
+    api(libs.androidx.compose.ui.tooling.preview)
+    api(libs.androidx.compose.ui.util)
+
+    debugApi(libs.androidx.compose.ui.tooling)
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.compose.material3)
-    implementation(libs.androidx.compose.material3.windowSizeClass)
-    implementation(platform(libs.androidx.compose.bom))
-    implementation("androidx.compose.ui:ui-graphics")
-
+    implementation(libs.coil.kt.compose)
 }

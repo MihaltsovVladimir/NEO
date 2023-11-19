@@ -16,6 +16,8 @@
 
 package com.mihaltsov.core.data.di
 
+import com.mihaltsov.core.data.repository.UserDataRepository
+import com.mihaltsov.core.data.repository.fake.FakeOfflineFirstUserDataRepository
 import com.mihaltsov.core.data.util.ConnectivityManagerNetworkMonitor
 import com.mihaltsov.core.data.util.NetworkMonitor
 import dagger.Binds
@@ -29,4 +31,7 @@ interface DataModule {
 
     @Binds
     fun bindsNetworkMonitor(networkMonitor: ConnectivityManagerNetworkMonitor): NetworkMonitor
+
+    @Binds
+    fun bindsUserDataRepository(userDataRepository: FakeOfflineFirstUserDataRepository): UserDataRepository
 }
