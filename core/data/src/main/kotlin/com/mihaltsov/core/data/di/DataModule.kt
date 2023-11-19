@@ -16,6 +16,8 @@
 
 package com.mihaltsov.core.data.di
 
+import com.mihaltsov.core.data.repository.TestHilt
+import com.mihaltsov.core.data.repository.TestHiltImpl
 import com.mihaltsov.core.data.repository.UserDataRepository
 import com.mihaltsov.core.data.repository.fake.FakeOfflineFirstUserDataRepository
 import com.mihaltsov.core.data.util.ConnectivityManagerNetworkMonitor
@@ -34,4 +36,7 @@ interface DataModule {
 
     @Binds
     fun bindsUserDataRepository(userDataRepository: FakeOfflineFirstUserDataRepository): UserDataRepository
+
+    @Binds
+    fun bindsFakeUserDataRepository(test: TestHiltImpl): TestHilt
 }

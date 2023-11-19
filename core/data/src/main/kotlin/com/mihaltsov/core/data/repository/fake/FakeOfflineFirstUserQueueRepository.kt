@@ -4,20 +4,24 @@ import com.mihaltsov.core.data.repository.QueueDataRepository
 import com.mihaltsov.core.model.QueueData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
+import javax.inject.Inject
 
-class FakeOfflineFirstUserQueueRepository() : QueueDataRepository {
+private fun fakeQueue(): QueueData {
+    val list = mutableListOf<QueueData.PersonQueueData>()
+    repeat(100) {
+        list.add(
+            QueueData.PersonQueueData(
+                nickName = "Mihaltsov",
+                queueNumber = it,
+                oldPosition = 0,
+                newPosition = 2
+            )
+        )
+    }
+    return QueueData(list)
+}
 
-    private val model1 = QueueData.PersonQueueData(
-        nickName = "Mihaltsov1",
-        queueNumber = 0,
-        oldPosition = 0,
-        newPosition = 2
-    )
-    private val model2 = QueueData.PersonQueueData(
-        nickName = "Mihaltsov2",
-        queueNumber = 1,
-        oldPosition = 0,
-        newPosition = 2
-    )
-    override val queueData: Flow<QueueData> = flowOf(QueueData(listOf(model1, model2)))
+class FakeOfflineFirstUserQueueRepository @Inject constructor() : QueueDataRepository {
+
+    override val queueData: Flow<QueueData> = flowOf(fakeQueue())
 }

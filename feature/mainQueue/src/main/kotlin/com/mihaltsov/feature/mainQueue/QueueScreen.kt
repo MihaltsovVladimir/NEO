@@ -33,6 +33,7 @@ fun TestQueueScreen(
     val coroutineScope = rememberCoroutineScope()
 
     val queueData by viewModel.queueData.collectAsStateWithLifecycle()
+
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally,
