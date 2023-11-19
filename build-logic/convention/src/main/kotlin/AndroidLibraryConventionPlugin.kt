@@ -16,11 +16,11 @@
 
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
-import by.mihaltsov.neo.configureFlavors
-import by.mihaltsov.neo.configureGradleManagedDevices
-import by.mihaltsov.neo.configureKotlinAndroid
-import by.mihaltsov.neo.configurePrintApksTask
-import by.mihaltsov.neo.disableUnnecessaryAndroidTests
+import com.mihaltsov.neo.configureFlavors
+import com.mihaltsov.neo.configureGradleManagedDevices
+import com.mihaltsov.neo.configureKotlinAndroid
+import com.mihaltsov.neo.configurePrintApksTask
+import com.mihaltsov.neo.disableUnnecessaryAndroidTests
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure

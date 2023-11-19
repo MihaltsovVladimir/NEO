@@ -15,12 +15,12 @@
  */
 
 import com.android.build.api.dsl.ApplicationExtension
-import by.mihaltsov.neo.configureGradleManagedDevices
+import com.mihaltsov.neo.configureGradleManagedDevices
 import com.android.build.api.variant.ApplicationAndroidComponentsExtension
 import com.android.build.gradle.BaseExtension
-import by.mihaltsov.neo.configureBadgingTasks
-import by.mihaltsov.neo.configureKotlinAndroid
-import by.mihaltsov.neo.configurePrintApksTask
+import com.mihaltsov.neo.configureBadgingTasks
+import com.mihaltsov.neo.configureKotlinAndroid
+import com.mihaltsov.neo.configurePrintApksTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure

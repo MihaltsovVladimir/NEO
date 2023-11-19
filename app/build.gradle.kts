@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import by.mihaltsov.neo.NiaBuildType
+import com.mihaltsov.neo.NiaBuildType
 
 plugins {
     alias(libs.plugins.neo.android.application)
@@ -80,6 +80,7 @@ android {
 
 dependencies {
     implementation(projects.feature.mainQueue)
+    implementation(projects.feature.authorization)
 
     implementation(projects.core.common)
     implementation(projects.core.ui)

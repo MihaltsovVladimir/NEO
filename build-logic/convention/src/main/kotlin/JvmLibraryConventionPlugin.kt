@@ -14,7 +14,7 @@
  *   limitations under the License.
  */
 
-import by.mihaltsov.neo.configureKotlinJvm
+import com.mihaltsov.neo.configureKotlinJvm
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 

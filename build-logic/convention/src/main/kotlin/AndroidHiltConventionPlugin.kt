@@ -14,7 +14,7 @@
  *   limitations under the License.
  */
 
-import by.mihaltsov.neo.libs
+import com.mihaltsov.neo.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
