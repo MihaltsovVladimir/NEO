@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 
 import com.google.devtools.ksp.gradle.KspExtension
-import com.google.samples.apps.nowinandroid.libs
+import by.mihaltsov.neo.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.tasks.InputDirectory

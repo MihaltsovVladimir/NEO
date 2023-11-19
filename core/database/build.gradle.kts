@@ -1,8 +1,8 @@
 plugins {
-    alias(libs.plugins.nowinandroid.android.library)
-    alias(libs.plugins.nowinandroid.android.library.jacoco)
-    alias(libs.plugins.nowinandroid.android.hilt)
-    alias(libs.plugins.nowinandroid.android.room)
+    alias(libs.plugins.neo.android.library)
+    alias(libs.plugins.neo.android.library.jacoco)
+    alias(libs.plugins.neo.android.hilt)
+    alias(libs.plugins.neo.android.room)
 }
 android {
     namespace = "com.mihaltsov.core.database"

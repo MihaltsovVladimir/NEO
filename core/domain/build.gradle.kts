@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.nowinandroid.android.library)
-    alias(libs.plugins.nowinandroid.android.library.jacoco)
+    alias(libs.plugins.neo.android.library)
+    alias(libs.plugins.neo.android.library.jacoco)
     kotlin("kapt")
 }
 android {

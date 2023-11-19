@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -15,8 +15,8 @@
  */
 
 import com.android.build.gradle.LibraryExtension
-import com.google.samples.apps.nowinandroid.configureGradleManagedDevices
-import com.google.samples.apps.nowinandroid.libs
+import by.mihaltsov.neo.configureGradleManagedDevices
+import by.mihaltsov.neo.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -27,8 +27,8 @@ class AndroidFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply {
-                apply("nowinandroid.android.library")
-                apply("nowinandroid.android.hilt")
+                apply("neo.android.library")
+                apply("neo.android.hilt")
             }
             extensions.configure<LibraryExtension> {
                 defaultConfig {

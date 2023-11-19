@@ -1,7 +1,7 @@
 plugins {
-    alias(libs.plugins.nowinandroid.android.library)
-    alias(libs.plugins.nowinandroid.android.library.compose)
-    alias(libs.plugins.nowinandroid.android.library.jacoco)
+    alias(libs.plugins.neo.android.library)
+    alias(libs.plugins.neo.android.library.compose)
+    alias(libs.plugins.neo.android.library.jacoco)
 }
 android {
     namespace = "com.mihaltsov.core.designsystem"

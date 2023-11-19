@@ -1,6 +1,6 @@
 
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,14 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import com.google.samples.apps.nowinandroid.NiaBuildType
+import by.mihaltsov.neo.NiaBuildType
 
 plugins {
-    alias(libs.plugins.nowinandroid.android.application)
-    alias(libs.plugins.nowinandroid.android.application.compose)
-    alias(libs.plugins.nowinandroid.android.application.flavors)
-    alias(libs.plugins.nowinandroid.android.application.jacoco)
-    alias(libs.plugins.nowinandroid.android.hilt)
+    alias(libs.plugins.neo.android.application)
+    alias(libs.plugins.neo.android.application.compose)
+    alias(libs.plugins.neo.android.application.flavors)
+    alias(libs.plugins.neo.android.application.jacoco)
+    alias(libs.plugins.neo.android.hilt)
     id("jacoco")
     id("com.google.android.gms.oss-licenses-plugin")}
 
@@ -32,7 +32,7 @@ android {
         versionName = "0.1.2" // X.Y.Z; X = Major, Y = minor, Z = Patch level
 
         // Custom test runner to set up Hilt dependency graph
-        testInstrumentationRunner = "com.google.samples.apps.nowinandroid.core.testing.NiaTestRunner"
+        testInstrumentationRunner = "com.google.samples.apps.neo.core.testing.NiaTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }

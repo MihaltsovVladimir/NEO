@@ -1,5 +1,5 @@
 plugins {
-    alias(libs.plugins.nowinandroid.jvm.library)
+    alias(libs.plugins.neo.jvm.library)
 }
 //android {
 //    namespace = "com.mihaltsov.core.model"

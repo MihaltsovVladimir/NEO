@@ -1,6 +1,6 @@
 plugins {
-    alias(libs.plugins.nowinandroid.android.library)
-    alias(libs.plugins.nowinandroid.android.library.compose)
+    alias(libs.plugins.neo.android.library)
+    alias(libs.plugins.neo.android.library.compose)
 }
 android {
     namespace = "com.mihaltsov.core.ui"

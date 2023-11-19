@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 The Android Open Source Project
+ * Copyright 2023 The Android Open Source Project
  *
  *   Licensed under the Apache License, Version 2.0 (the "License");
  *   you may not use this file except in compliance with the License.
@@ -16,11 +16,11 @@
 
 import com.android.build.api.variant.LibraryAndroidComponentsExtension
 import com.android.build.gradle.LibraryExtension
-import com.google.samples.apps.nowinandroid.configureFlavors
-import com.google.samples.apps.nowinandroid.configureGradleManagedDevices
-import com.google.samples.apps.nowinandroid.configureKotlinAndroid
-import com.google.samples.apps.nowinandroid.configurePrintApksTask
-import com.google.samples.apps.nowinandroid.disableUnnecessaryAndroidTests
+import by.mihaltsov.neo.configureFlavors
+import by.mihaltsov.neo.configureGradleManagedDevices
+import by.mihaltsov.neo.configureKotlinAndroid
+import by.mihaltsov.neo.configurePrintApksTask
+import by.mihaltsov.neo.disableUnnecessaryAndroidTests
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -33,7 +33,7 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("com.android.library")
                 apply("org.jetbrains.kotlin.android")
-                apply("nowinandroid.android.lint")
+                apply("neo.android.lint")
             }
 
             extensions.configure<LibraryExtension> {
