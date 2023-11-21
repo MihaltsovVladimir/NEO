@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.mihaltsov.core.designsystem.theme.NEOTheme
+import com.mihaltsov.core.designsystem.theme.NeoTheme
 
 @Composable
 fun TitleTextV(modifier: Modifier = Modifier) {
@@ -22,7 +22,7 @@ fun TitleTextV(modifier: Modifier = Modifier) {
 @Preview()
 @Composable
 fun TitleTextVPreview() {
-    NEOTheme {
+    NeoTheme {
         TitleTextV()
     }
 }

@@ -8,7 +8,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
-import com.mihaltsov.core.designsystem.theme.NEOTheme
+import com.mihaltsov.core.designsystem.theme.NeoTheme
 
 @Composable
 fun TextWithBoldSuffix(
@@ -30,7 +30,7 @@ fun TextWithBoldSuffix(
 @Preview
 @Composable
 private fun TextWithBoldSuffixPreview() {
-    NEOTheme {
+    NeoTheme {
         TextWithBoldSuffix(
             prefix = "first:",
             suffix = "second",

@@ -11,8 +11,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.mihaltsov.core.designsystem.theme.NEOTheme
-import com.mihaltsov.core.ui.R
+import com.mihaltsov.core.designsystem.theme.NeoTheme
 
 @Composable
 fun ImageV(
@@ -36,7 +35,7 @@ fun ImageV(
 @Preview()
 @Composable
 fun ImageVPreview() {
-    NEOTheme {
+    NeoTheme {
         ImageV()
     }
 }

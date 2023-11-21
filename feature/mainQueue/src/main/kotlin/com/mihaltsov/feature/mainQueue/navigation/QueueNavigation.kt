@@ -25,20 +25,14 @@ import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.mihaltsov.feature.mainQueue.YourQueueRoute
 
-const val YOUR_QUEUE_RESOURCE_ID = "YourQueueResourceId"
-const val YourQueueNavigationRoute = "for_you_route/{$YOUR_QUEUE_RESOURCE_ID}"
-private const val DEEP_LINK_URI_PATTERN = "https://www.neo.by/queue/{$YOUR_QUEUE_RESOURCE_ID}"
+const val yourQueueNavigationRoute = "for_you_route"
 
-fun NavController.navigateToForYou(navOptions: NavOptions? = null) {
-    this.navigate(YourQueueNavigationRoute, navOptions)
+fun NavController.navigateToYourQueue(navOptions: NavOptions? = null) {
+    this.navigate(yourQueueNavigationRoute, navOptions)
 }
 
 fun NavGraphBuilder.queueScreen(onItemClick: (String) -> Unit) {
-    composable(
-        route = YourQueueNavigationRoute,
-        deepLinks = listOf(navDeepLink { uriPattern = DEEP_LINK_URI_PATTERN },),
-        arguments = listOf(navArgument(YOUR_QUEUE_RESOURCE_ID) { type = NavType.StringType },),
-    ) {
+    composable(route = yourQueueNavigationRoute,) {
         YourQueueRoute()
     }
 }

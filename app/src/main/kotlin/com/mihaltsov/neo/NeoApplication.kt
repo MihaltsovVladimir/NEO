@@ -7,6 +7,4 @@ import dagger.hilt.android.HiltAndroidApp
  * [Application] class for Neo
  */
 @HiltAndroidApp
-class NeoApplication : Application() {
-
-}
+class NeoApplication : Application()

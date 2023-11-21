@@ -13,7 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.R
-import com.mihaltsov.core.designsystem.theme.NEOTheme
+import com.mihaltsov.core.designsystem.theme.NeoTheme
 
 @Composable
 fun RowV(modifier: Modifier = Modifier) {
@@ -55,7 +55,7 @@ fun RowV(modifier: Modifier = Modifier) {
 @Preview()
 @Composable
 private fun RowVPreview() {
-    NEOTheme {
+    NeoTheme {
         RowV()
     }
 }

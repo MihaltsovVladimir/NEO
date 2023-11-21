@@ -79,7 +79,7 @@ val DarkDefaultColorScheme = darkColorScheme(
 )
 
 @Composable
-fun NEOTheme(
+fun NeoTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,

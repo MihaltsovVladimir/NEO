@@ -3,6 +3,7 @@ package com.mihaltsov.feature.authorization
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -13,6 +14,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -20,32 +22,41 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.R
-import com.mihaltsov.core.designsystem.theme.NEOTheme
-import com.mihaltsov.core.model.CardQueueModel
-import com.mihaltsov.core.ui.ButtonV
-import com.mihaltsov.core.ui.CardV
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.mihaltsov.core.designsystem.theme.NeoTheme
 import com.mihaltsov.core.ui.ImageV
 import com.mihaltsov.core.ui.TitleTextV
 
 @Composable
-fun AuthorizationRoute(modifier: Modifier = Modifier) {
+fun AuthorizationRoute(
+    modifier: Modifier = Modifier,
+    viewModel: AuthorizationViewModel = hiltViewModel(),
+) {
+
+    val textFieldValue by viewModel.inputTextFieldValue.collectAsStateWithLifecycle()
 
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.padding(bottom = 16.dp, end = 16.dp, start = 16.dp),
     ) {
-        Content(
-            Modifier
+        AuthorizationScreen(
+            modifier = Modifier
                 .fillMaxHeight()
-                .weight(1f)
+                .weight(1f),
+            textFieldValue = textFieldValue,
+            onTextFieldChanged = viewModel::onTextFieldChanged
         )
-        ButtonV(buttonText = "Click")
     }
 }
 
 @Composable
-private fun Content(modifier: Modifier = Modifier) {
+private fun AuthorizationScreen(
+    modifier: Modifier = Modifier,
+    textFieldValue: String = "",
+    onTextFieldChanged: (String) -> Unit
+) {
     Column(
         verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -54,14 +65,16 @@ private fun Content(modifier: Modifier = Modifier) {
         ) {
         CircularProgressIndicator(
             modifier = Modifier.size(50.dp),
-            strokeWidth = 15.dp
+            strokeWidth = 10.dp
         )
         TitleTextV()
         ImageV()
         TextField(
-            modifier = Modifier.clip(RoundedCornerShape(percent = 25)),
-            value = "Text field",
-            onValueChange = { println(it) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(percent = 25)),
+            value = textFieldValue,
+            onValueChange = { onTextFieldChanged(it) },
             placeholder = { Text(text = "plsh") },
             trailingIcon = {
                 Icon(
@@ -72,20 +85,13 @@ private fun Content(modifier: Modifier = Modifier) {
                 )
             }
         )
-        val model = CardQueueModel(
-            nickName = "Mihaltsov",
-            queueNumber = 1,
-            oldPosition = 0,
-            newPosition = 2
-        )
-        CardV(model)
     }
 }
 
 @Preview
 @Composable
 private fun MainQueueScreenPreview() {
-    NEOTheme {
+    NeoTheme {
         AuthorizationRoute()
     }
 }

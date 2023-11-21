@@ -16,11 +16,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.mihaltsov.core.designsystem.theme.NEOTheme
+import com.mihaltsov.core.designsystem.theme.NeoTheme
 import com.mihaltsov.core.model.CardQueueModel
 import com.mihaltsov.core.model.QueueData
 import com.mihaltsov.core.ui.ButtonV
 import com.mihaltsov.core.ui.CardV
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
@@ -28,11 +29,29 @@ fun YourQueueRoute(
     modifier: Modifier = Modifier,
     viewModel: YourQueueViewModel = hiltViewModel(),
 ) {
-    val listState = rememberLazyListState()
-    val coroutineScope = rememberCoroutineScope()
+    val listState: LazyListState = rememberLazyListState()
+    val coroutineScope: CoroutineScope = rememberCoroutineScope()
 
     val queueData by viewModel.queueData.collectAsStateWithLifecycle()
 
+    PeopleElectronicQueue(
+        listState = listState,
+        queueData = queueData,
+        onClick = {
+            viewModel.removeItem(it)
+        },
+        coroutineScope = coroutineScope,
+    )
+}
+
+@Composable
+private fun PeopleElectronicQueue(
+    listState: LazyListState,
+    modifier: Modifier = Modifier,
+    queueData: QueueData?,
+    coroutineScope: CoroutineScope,
+    onClick: (Int) -> Unit = {},
+) {
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -44,54 +63,39 @@ fun YourQueueRoute(
                 start = 16.dp
             ),
     ) {
-        PeopleElectronicQueue(
-            listState = listState,
-            queueData = queueData,
-            onClick = {
-                viewModel.removeItem(it)
-            },
-            modifier = Modifier.weight(1f)
-        )
-        ButtonV(buttonText = "Click", onClick = {
-            coroutineScope.launch {
-                listState.animateScrollToItem(0)
-            }
-        })
-    }
-}
-
-@Composable
-private fun PeopleElectronicQueue(
-    listState: LazyListState,
-    modifier: Modifier = Modifier,
-    queueData: QueueData?,
-    onClick: (Int) -> Unit = {},
-) {
-    LazyColumn(
-        state = listState,
-        modifier = modifier,
-        verticalArrangement = Arrangement.spacedBy(10.dp),
-    ) {
-        queueData?.persons?.forEach {
-            item {
-                CardV(
-                    model = CardQueueModel(
-                        nickName = "Mihaltsov",
-                        queueNumber = it.queueNumber,
-                        oldPosition = 0,
-                        newPosition = 2
-                    ),
-                    onClick = onClick
-                )
+        LazyColumn(
+            state = listState,
+            modifier = Modifier.weight(1f),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
+        ) {
+            queueData?.persons?.forEach {
+                item {
+                    CardV(
+                        model = CardQueueModel(
+                            nickName = "Mihaltsov",
+                            queueNumber = it.queueNumber,
+                            oldPosition = 0,
+                            newPosition = 2
+                        ),
+                        onClick = onClick
+                    )
+                }
             }
         }
+        ButtonV(buttonText = "Show my position",
+            modifier = Modifier,
+            onClick = {
+                coroutineScope.launch {
+                    listState.animateScrollToItem(10)
+                }
+            })
     }
 }
 
 @Preview
 @Composable
 private fun TestQueueScreenPreview() {
-    NEOTheme {
+    NeoTheme {
         YourQueueRoute()
     }
 }

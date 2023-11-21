@@ -19,23 +19,17 @@ package com.mihaltsov.feature.authorization.navigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
-import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
 import com.mihaltsov.feature.authorization.AuthorizationRoute
 
-const val AUTHORIZATION = "Authorization"
-const val AuthorizationNavigationRoute = "authorization/{$AUTHORIZATION}"
+const val authorizationNavigationRoute = "authorization"
 
 fun NavController.navigateToaAuthorization(navOptions: NavOptions? = null) {
-    this.navigate(AuthorizationNavigationRoute, navOptions)
+    navigate(authorizationNavigationRoute, navOptions)
 }
 
 fun NavGraphBuilder.authorizationScreen(onItemClick: (String) -> Unit) {
-    composable(
-        route = AuthorizationNavigationRoute,
-        arguments = listOf(navArgument(AUTHORIZATION) { type = NavType.StringType }),
-    ) {
+    composable(authorizationNavigationRoute) {
         AuthorizationRoute()
     }
 }
