@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.protobuf)
 }
 android {
-    namespace = "com.mihaltsov.core.datastore"
+    namespace = "com.mihaltsov.neo.core.datastore"
 }
 // Setup protobuf configuration, generating lite Java and Kotlin classes
 protobuf {

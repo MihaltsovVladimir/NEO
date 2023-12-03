@@ -1,8 +1,8 @@
 package com.mihaltsov.neo
 
 import androidx.lifecycle.ViewModel
-import com.mihaltsov.core.data.repository.TestHilt
-import com.mihaltsov.core.model.UserData
+import com.mihaltsov.neo.core.data.repository.TestHilt
+import com.mihaltsov.neo.core.model.UserData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.neo.android.library.compose)
 }
 android {
-    namespace = "com.mihaltsov.core.ui"
+    namespace = "com.mihaltsov.neo.core.ui"
 }
 dependencies {
     api(libs.androidx.compose.foundation)

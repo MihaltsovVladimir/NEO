@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.neo.android.library.jacoco)
 }
 android {
-    namespace = "com.mihaltsov.core.designsystem"
+    namespace = "com.mihaltsov.neo.core.designsystem"
 }
 dependencies {
     api(libs.androidx.compose.foundation)

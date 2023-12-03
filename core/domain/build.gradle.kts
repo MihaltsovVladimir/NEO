@@ -4,7 +4,7 @@ plugins {
     kotlin("kapt")
 }
 android {
-    namespace = "com.mihaltsov.core.domain"
+    namespace = "com.mihaltsov.neo.core.domain"
 }
 dependencies {
     implementation(projects.core.data)

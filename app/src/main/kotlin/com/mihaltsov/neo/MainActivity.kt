@@ -6,9 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material3.windowsizeclass.ExperimentalMaterial3WindowSizeClassApi
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
-import com.mihaltsov.core.data.repository.UserDataRepository
-import com.mihaltsov.core.data.util.NetworkMonitor
-import com.mihaltsov.core.designsystem.theme.NeoTheme
+import com.mihaltsov.neo.core.data.repository.UserDataRepository
+import com.mihaltsov.neo.core.data.util.NetworkMonitor
+import com.mihaltsov.neo.core.designsystem.theme.NeoTheme
 import com.mihaltsov.neo.ui.NeoApp
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject

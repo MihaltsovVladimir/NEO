@@ -19,9 +19,10 @@ package com.mihaltsov.neo.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
-import com.mihaltsov.feature.authorization.navigation.authorizationScreen
-import com.mihaltsov.feature.mainQueue.navigation.queueScreen
-import com.mihaltsov.feature.mainQueue.navigation.yourQueueNavigationRoute
+import com.mihaltsov.neo.feature.authorization.navigation.authorizationScreen
+import com.mihaltsov.neo.feature.checkin.navigation.checkInScreen
+import com.mihaltsov.neo.feature.mainQueue.navigation.queueScreen
+import com.mihaltsov.neo.feature.mainQueue.navigation.yourQueueNavigationRoute
 import com.mihaltsov.neo.ui.NeoAppState
 
 /**
@@ -49,5 +50,8 @@ fun NeoNavHost(
         authorizationScreen({
             println("authorizationScreen")
         })
+        checkInScreen {
+            println("checkInScreen")
+        }
     }
 }

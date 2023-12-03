@@ -18,8 +18,9 @@ package com.mihaltsov.neo.navigation
 
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.google.samples.apps.nowinandroid.core.designsystem.icon.NeoIcons
-import com.mihaltsov.feature.mainQueue.R as yourQueueR
-import com.mihaltsov.feature.authorization.R as authorizationR
+import com.mihaltsov.neo.feature.authorization.R as authorizationR
+import com.mihaltsov.neo.feature.mainQueue.R as yourQueueR
+import com.mihaltsov.neo.feature.checkIn.R as checkInR
 
 /**
  * Type for the top level destinations in the application. Each of these destinations
@@ -44,5 +45,11 @@ enum class TopLevelDestination(
         unselectedIcon = NeoIcons.BookmarksBorder,
         iconTextId = authorizationR.string.authorization,
         titleTextId = authorizationR.string.authorization,
+    ),
+    CHECK_IN(
+        selectedIcon = NeoIcons.Bookmarks,
+        unselectedIcon = NeoIcons.BookmarksBorder,
+        iconTextId = checkInR.string.check_in_title,
+        titleTextId = checkInR.string.check_in_title,
     ),
 }

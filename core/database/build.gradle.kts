@@ -5,7 +5,7 @@ plugins {
     alias(libs.plugins.neo.android.room)
 }
 android {
-    namespace = "com.mihaltsov.core.database"
+    namespace = "com.mihaltsov.neo.core.database"
 }
 dependencies {
     implementation(projects.core.model)

@@ -21,7 +21,7 @@ import androidx.datastore.core.DataStore
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
-import com.mihaltsov.core.model.UserData
+import com.mihaltsov.neo.core.model.UserData
 import com.mihaltsov.neo.core.datastore.UserPreferences
 import com.mihaltsov.neo.core.datastore.copy
 

@@ -29,14 +29,16 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navOptions
 import androidx.tracing.trace
-import com.mihaltsov.core.data.repository.UserDataRepository
-import com.mihaltsov.core.data.util.NetworkMonitor
-import com.mihaltsov.feature.authorization.navigation.authorizationNavigationRoute
-import com.mihaltsov.feature.authorization.navigation.navigateToaAuthorization
-import com.mihaltsov.feature.mainQueue.navigation.navigateToYourQueue
-import com.mihaltsov.feature.mainQueue.navigation.yourQueueNavigationRoute
+import com.mihaltsov.neo.core.data.repository.UserDataRepository
+import com.mihaltsov.neo.core.data.util.NetworkMonitor
+import com.mihaltsov.neo.feature.authorization.navigation.navigateToaAuthorization
+import com.mihaltsov.neo.feature.mainQueue.navigation.navigateToYourQueue
+import com.mihaltsov.neo.feature.mainQueue.navigation.yourQueueNavigationRoute
+import com.mihaltsov.neo.feature.authorization.navigation.authorizationNavigationRoute
+import com.mihaltsov.neo.feature.checkin.navigation.navigateToCheckIn
 import com.mihaltsov.neo.navigation.TopLevelDestination
 import com.mihaltsov.neo.navigation.TopLevelDestination.AUTHORIZATION
+import com.mihaltsov.neo.navigation.TopLevelDestination.CHECK_IN
 import com.mihaltsov.neo.navigation.TopLevelDestination.YOUR_QUEUE
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
@@ -135,6 +137,7 @@ class NeoAppState(
             when (topLevelDestination) {
                 YOUR_QUEUE -> navController.navigateToYourQueue(topLevelNavOptions)
                 AUTHORIZATION -> navController.navigateToaAuthorization(topLevelNavOptions)
+                CHECK_IN ->navController.navigateToCheckIn(topLevelNavOptions)
             }
         }
     }

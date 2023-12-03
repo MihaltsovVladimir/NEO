@@ -43,5 +43,8 @@ include(":core:database")
 include(":core:common")
 include(":core:model")
 include(":core:designsystem")
+include(":core:network")
+
 include(":feature:mainQueue")
 include(":feature:authorization")
+include(":feature:checkIn")

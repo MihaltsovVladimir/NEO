@@ -20,9 +20,9 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.core.DataStoreFactory
 import androidx.datastore.dataStoreFile
-import com.mihaltsov.core.common.network.Dispatcher
-import com.mihaltsov.core.common.network.NeoDispatchers
-import com.mihaltsov.core.common.network.di.ApplicationScope
+import com.mihaltsov.neo.core.common.network.Dispatcher
+import com.mihaltsov.neo.core.common.network.NeoDispatchers
+import com.mihaltsov.neo.core.common.network.di.ApplicationScope
 import com.mihaltsov.neo.core.datastore.IntToStringIdsMigration
 import com.mihaltsov.neo.core.datastore.UserPreferencesSerializer
 import com.mihaltsov.neo.core.datastore.UserPreferences

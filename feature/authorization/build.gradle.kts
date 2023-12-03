@@ -20,7 +20,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mihaltsov.feature.authorization"
+    namespace = "com.mihaltsov.neo.feature.authorization"
 }
 
 dependencies {

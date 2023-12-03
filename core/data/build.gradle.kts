@@ -5,11 +5,10 @@ plugins {
     id("kotlinx-serialization")
 }
 android {
-    namespace = "com.mihaltsov.core.data"
+    namespace = "com.mihaltsov.neo.core.data"
 }
 dependencies {
     implementation(projects.core.common)
-    implementation(projects.core.database)
     implementation(projects.core.datastore)
     implementation(projects.core.model)
     implementation(libs.androidx.core.ktx)
