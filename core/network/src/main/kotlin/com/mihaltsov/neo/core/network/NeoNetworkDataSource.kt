@@ -16,19 +16,13 @@
 
 package com.mihaltsov.neo.core.network
 
-import com.mihaltsov.neo.core.network.model.NetworkChangeList
-import com.mihaltsov.neo.core.network.model.NetworkNewsResource
-import com.mihaltsov.neo.core.network.model.NetworkTopic
+import com.mihaltsov.neo.core.network.model.QueueDataResponse
+import kotlinx.coroutines.flow.Flow
 
 /**
  * Interface representing network calls to the NIA backend
  */
-interface NiaNetworkDataSource {
-    suspend fun getTopics(ids: List<String>? = null): List<NetworkTopic>
+interface NeoNetworkDataSource {
 
-    suspend fun getNewsResources(ids: List<String>? = null): List<NetworkNewsResource>
-
-    suspend fun getTopicChangeList(after: Int? = null): List<NetworkChangeList>
-
-    suspend fun getNewsResourceChangeList(after: Int? = null): List<NetworkChangeList>
+    suspend fun queueData(): QueueDataResponse
 }

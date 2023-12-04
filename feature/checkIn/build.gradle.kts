@@ -24,6 +24,7 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.common)
     implementation(libs.androidx.compose.material3.windowSizeClass)
     implementation(libs.kotlinx.datetime)
     implementation(libs.androidx.activity.compose)

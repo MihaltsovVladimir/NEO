@@ -28,8 +28,6 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.common)
-    implementation(projects.core.model)
     implementation(libs.coil.kt)
     implementation(libs.coil.kt.svg)
     implementation(libs.kotlinx.coroutines.android)
@@ -38,4 +36,7 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
+    
+    implementation(projects.core.common)
+    implementation(projects.core.model)
 }

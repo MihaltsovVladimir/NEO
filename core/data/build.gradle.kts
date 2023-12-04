@@ -8,11 +8,13 @@ android {
     namespace = "com.mihaltsov.neo.core.data"
 }
 dependencies {
-    implementation(projects.core.common)
-    implementation(projects.core.datastore)
-    implementation(projects.core.model)
     implementation(libs.androidx.core.ktx)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
+
+    implementation(projects.core.common)
+    implementation(projects.core.datastore)
+    implementation(projects.core.network)
+    implementation(projects.core.model)
 }

@@ -20,8 +20,8 @@ import android.content.Context
 import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.util.DebugLogger
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.mihaltsov.neo.core.network.BuildConfig
-import com.mihaltsov.neo.core.network.fake.FakeAssetManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -29,8 +29,10 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.Call
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
@@ -45,23 +47,33 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun providesFakeAssetManager(
-        @ApplicationContext context: Context,
-    ): FakeAssetManager = FakeAssetManager(context.assets::open)
+    fun provideOkHttpCallFactory(): Call.Factory {
+        return OkHttpClient.Builder()
+            .addInterceptor(
+                HttpLoggingInterceptor()
+                    .apply {
+                        if (BuildConfig.DEBUG) {
+                            setLevel(HttpLoggingInterceptor.Level.BODY)
+                        }
+                    },
+            )
+            .build()
+    }
 
     @Provides
     @Singleton
-    fun okHttpCallFactory(): Call.Factory = OkHttpClient.Builder()
-        .addInterceptor(
-            HttpLoggingInterceptor()
-                .apply {
-                    if (BuildConfig.DEBUG) {
-                        setLevel(HttpLoggingInterceptor.Level.BODY)
-                    }
-                },
-        )
-        .build()
-
+    fun provideRetrofit(
+        networkJson: Json,
+        okhttpCallFactory: Call.Factory,
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://testserver.services.clevertec.ru/api/InSync.BY_3/mobile/api/")
+            .callFactory(okhttpCallFactory)
+            .addConverterFactory(
+                networkJson.asConverterFactory("application/json".toMediaType()),
+            )
+            .build()
+    }
     /**
      * Since we're displaying SVGs in the app, Coil needs an ImageLoader which supports this
      * format. During Coil's initialization it will call `applicationContext.newImageLoader()` to
@@ -71,21 +83,23 @@ object NetworkModule {
      */
     @Provides
     @Singleton
-    fun imageLoader(
+    fun provideImageLoader(
         okHttpCallFactory: Call.Factory,
         @ApplicationContext application: Context,
-    ): ImageLoader = ImageLoader.Builder(application)
-        .callFactory(okHttpCallFactory)
-        .components {
-            add(SvgDecoder.Factory())
-        }
-        // Assume most content images are versioned urls
-        // but some problematic images are fetching each time
-        .respectCacheHeaders(false)
-        .apply {
-            if (BuildConfig.DEBUG) {
-                logger(DebugLogger())
+    ): ImageLoader {
+        return ImageLoader.Builder(application)
+            .callFactory(okHttpCallFactory)
+            .components {
+                add(SvgDecoder.Factory())
             }
-        }
-        .build()
+            // Assume most content images are versioned urls
+            // but some problematic images are fetching each time
+            .respectCacheHeaders(false)
+            .apply {
+                if (BuildConfig.DEBUG) {
+                    logger(DebugLogger())
+                }
+            }
+            .build()
+    }
 }

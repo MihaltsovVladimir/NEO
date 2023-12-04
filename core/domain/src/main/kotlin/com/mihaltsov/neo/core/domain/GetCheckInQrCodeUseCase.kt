@@ -28,7 +28,5 @@ class GetCheckInQrCodeUseCase @Inject constructor(
     private val searchContentsRepository: CompositeUserQrRepository,
 ) {
 
-    suspend operator fun invoke(userId: String): Flow<UserQrModel> {
-        return searchContentsRepository.getQrCode(userId)
-    }
+    operator fun invoke(newTestData: String): Flow<UserQrModel> = searchContentsRepository(newTestData)
 }

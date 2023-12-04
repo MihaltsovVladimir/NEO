@@ -14,9 +14,9 @@ class FakeQrRepository @Inject constructor(
     @Dispatcher(IO) private val ioDispatcher: CoroutineDispatcher,
 ) : QrRepository {
 
-    override suspend fun getUserQr(userId: String): Flow<UserQrModel> {
+    override suspend fun getUserQr(newTestData: String): Flow<UserQrModel> {
         return flow {
-            emit(UserQrModel(qrUrl = "https://api.qrserver.com/v1/create-qr-code/?data=${userId}&amp;size=10x10"))
+            emit(UserQrModel(qrUrl = "https://api.qrserver.com/v1/create-qr-code/?data=${newTestData}&amp;size=10x10"))
         }.flowOn(ioDispatcher)
     }
 }

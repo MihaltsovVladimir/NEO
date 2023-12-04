@@ -3,6 +3,7 @@ package com.mihaltsov.neo.feature.checkin
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -20,16 +21,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mihaltsov.neo.core.designsystem.component.DynamicAsyncImage
 import com.mihaltsov.neo.core.designsystem.theme.NeoTheme
-import com.mihaltsov.neo.core.model.UserQrModel
 
 @Composable
 fun CheckInRoute(
     modifier: Modifier = Modifier,
     viewModel: CheckInViewModel = hiltViewModel(),
 ) {
-
     val textFieldValue by viewModel.inputTextFieldValue.collectAsStateWithLifecycle()
-    val checkInQrData by viewModel.checkInQrData.collectAsStateWithLifecycle()
+    val checkInUiState by viewModel.checkInUiState.collectAsStateWithLifecycle()
 
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
@@ -37,12 +36,10 @@ fun CheckInRoute(
         modifier = modifier.padding(bottom = 16.dp, end = 16.dp, start = 16.dp),
     ) {
         CheckInScreen(
-            modifier = Modifier
-                .fillMaxHeight()
-                .weight(1f),
+            modifier = Modifier.fillMaxSize(),
             textFieldValue = textFieldValue,
-            checkInQrData = checkInQrData,
-            onTextFieldChanged = viewModel::onTextFieldChanged
+            onTextFieldChanged = viewModel::onTextFieldChanged,
+            checkInUiState = checkInUiState,
         )
     }
 }
@@ -51,8 +48,8 @@ fun CheckInRoute(
 private fun CheckInScreen(
     modifier: Modifier = Modifier,
     textFieldValue: String = "",
-    checkInQrData: UserQrModel,
-    onTextFieldChanged: (String) -> Unit
+    onTextFieldChanged: (String) -> Unit,
+    checkInUiState: CheckInUiState = CheckInUiState.Loading,
 ) {
     Column(
         verticalArrangement = Arrangement.SpaceEvenly,
@@ -60,12 +57,20 @@ private fun CheckInScreen(
         modifier = modifier,
 
         ) {
-        DynamicAsyncImage(
-            imageUrl = checkInQrData.qrUrl,
-            modifier = Modifier
-                .padding(10.dp)
-                .size(100.dp),
-        )
+        when (checkInUiState) {
+            CheckInUiState.Loading,
+            CheckInUiState.LoadFailed,
+            -> Unit
+
+            is CheckInUiState.Success -> {
+                DynamicAsyncImage(
+                    imageUrl = checkInUiState.qrModel.qrUrl,
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .size(500.dp),
+                )
+            }
+        }
 
         TextField(
             modifier = Modifier

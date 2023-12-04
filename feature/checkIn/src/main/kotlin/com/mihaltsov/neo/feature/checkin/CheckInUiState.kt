@@ -14,10 +14,15 @@
  * limitations under the License.
  */
 
-package com.mihaltsov.neo.core.network.fake
+package com.mihaltsov.neo.feature.checkin
 
-import java.io.InputStream
+import com.mihaltsov.neo.core.model.UserQrModel
 
-fun interface FakeAssetManager {
-    fun open(fileName: String): InputStream
+sealed interface CheckInUiState {
+
+    data object Loading : CheckInUiState
+
+    data object LoadFailed : CheckInUiState
+
+    data class Success(val qrModel: UserQrModel = UserQrModel("CheckInUiState")) : CheckInUiState
 }
