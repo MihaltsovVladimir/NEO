@@ -67,7 +67,7 @@ object NetworkModule {
         okhttpCallFactory: Call.Factory,
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://testserver.services.clevertec.ru/api/InSync.BY_3/mobile/api/")
+            .baseUrl("https://testserver.services.clevertec.ru/api/InSync.by/api/")
             .callFactory(okhttpCallFactory)
             .addConverterFactory(
                 networkJson.asConverterFactory("application/json".toMediaType()),

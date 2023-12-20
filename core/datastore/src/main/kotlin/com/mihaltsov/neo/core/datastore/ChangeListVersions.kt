@@ -20,6 +20,6 @@ package com.mihaltsov.neo.core.datastore
  * Class summarizing the local version of each model for sync
  */
 data class ChangeListVersions(
-    val topicVersion: Int = -1,
-    val newsResourceVersion: Int = -1,
+    val userDataVersion: Int = -1,
+    val queueVersion: Int = -1,
 )

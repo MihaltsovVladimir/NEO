@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2022 The Android Open Source Project
+ * Copyright (C) 2023 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,8 @@ message UserPreferences {
   string phone = 2;
   string registrationDate = 3;
   string queueNumber = 4;
+  int32 userChangeListVersion = 5;
+  int32 queueChangeListVersion = 6;
 
-  // NEXT AVAILABLE ID: 5
+  // NEXT AVAILABLE ID: 7
 }

@@ -4,9 +4,11 @@ plugins {
     alias(libs.plugins.neo.android.hilt)
     id("kotlinx-serialization")
 }
+
 android {
     namespace = "com.mihaltsov.neo.core.data"
 }
+
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.kotlinx.coroutines.android)
@@ -17,4 +19,5 @@ dependencies {
     implementation(projects.core.datastore)
     implementation(projects.core.network)
     implementation(projects.core.model)
+    implementation(projects.core.database)
 }

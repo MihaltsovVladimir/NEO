@@ -22,14 +22,13 @@ import com.mihaltsov.neo.core.network.model.QueueDataResponse
 import kotlinx.serialization.Serializable
 import retrofit2.Retrofit
 import javax.inject.Inject
-import javax.inject.Singleton
 
 
 /**
- * Wrapper for data provided from the [NIA_BASE_URL]
+ * Wrapper for data provided from the [NEO_BASE_URL]
  */
 @Serializable
-private data class NetworkResponse<T>(
+data class NetworkResponse<T>(
     val data: T,
 )
 
@@ -40,7 +39,7 @@ class RetrofitNeoNetwork @Inject constructor(
     private val apiService: NetworkApiService,
 ) : NeoNetworkDataSource {
 
-    override suspend fun queueData(): QueueDataResponse {
-        return apiService.getQueue(userId = "userId")
+    override suspend fun queueData(): NetworkResponse<QueueDataResponse> {
+        return apiService.getQueue()
     }
 }

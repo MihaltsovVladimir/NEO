@@ -6,7 +6,6 @@ data class QueueData(val persons: List<PersonQueueData>) {
         val id: String,
         val queueNumber: Int,
         val nickName: String,
-        val oldPosition: Int,
-        val newPosition: Int
+        val isActive: Boolean
     )
 }

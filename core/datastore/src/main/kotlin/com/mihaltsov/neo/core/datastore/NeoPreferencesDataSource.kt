@@ -18,12 +18,11 @@ package com.mihaltsov.neo.core.datastore
 
 import android.util.Log
 import androidx.datastore.core.DataStore
+import com.mihaltsov.neo.core.model.UserData
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
-import com.mihaltsov.neo.core.model.UserData
-import com.mihaltsov.neo.core.datastore.UserPreferences
-import com.mihaltsov.neo.core.datastore.copy
 
 class NeoPreferencesDataSource @Inject constructor(
     private val userPreferences: DataStore<UserPreferences>,
@@ -98,6 +97,15 @@ class NeoPreferencesDataSource @Inject constructor(
         setNewsResourcesViewed(listOf(newsResourceId), viewed)
     }
 
+    suspend fun getChangeListVersions() = userPreferences.data
+        .map {
+            ChangeListVersions(
+                userDataVersion = it.userChangeListVersion,
+                queueVersion = it.queueChangeListVersion,
+            )
+        }.firstOrNull() ?: ChangeListVersions()
+
+
     suspend fun setNewsResourcesViewed(newsResourceIds: List<String>, viewed: Boolean) {
 //        userPreferences.updateData { prefs ->
 //            prefs.copy {
@@ -117,23 +125,23 @@ class NeoPreferencesDataSource @Inject constructor(
      * Update the [ChangeListVersions] using [update].
      */
     suspend fun updateChangeListVersion(update: ChangeListVersions.() -> ChangeListVersions) {
-//        try {
-//            userPreferences.updateData { currentPreferences ->
-//                val updatedChangeListVersions = update(
-//                    ChangeListVersions(
-//                        topicVersion = currentPreferences.topicChangeListVersion,
-//                        newsResourceVersion = currentPreferences.newsResourceChangeListVersion,
-//                    ),
-//                )
-//
-//                currentPreferences.copy {
-//                    topicChangeListVersion = updatedChangeListVersions.topicVersion
-//                    newsResourceChangeListVersion = updatedChangeListVersions.newsResourceVersion
-//                }
-//            }
-//        } catch (ioException: IOException) {
-//            Log.e("NiaPreferences", "Failed to update user preferences", ioException)
-//        }
+        try {
+            userPreferences.updateData { currentPreferences ->
+                val updatedChangeListVersions = update(
+                    ChangeListVersions(
+                        userDataVersion = currentPreferences.userChangeListVersion,
+                        queueVersion = currentPreferences.queueChangeListVersion,
+                    ),
+                )
+
+                currentPreferences.copy {
+                    userChangeListVersion = updatedChangeListVersions.userDataVersion
+                    queueChangeListVersion = updatedChangeListVersions.queueVersion
+                }
+            }
+        } catch (ioException: IOException) {
+            Log.e("NiaPreferences", "Failed to update user preferences", ioException)
+        }
     }
 
     suspend fun setShouldHideOnboarding(shouldHideOnboarding: Boolean) {

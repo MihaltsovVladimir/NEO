@@ -1,4 +1,3 @@
-
 /*
  * Copyright 2023 The Android Open Source Project
  *
@@ -77,7 +76,7 @@ dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.data)
     implementation(projects.core.model)
-
+    implementation(projects.sync.work)
 
     androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(libs.accompanist.testharness)
@@ -105,5 +104,4 @@ dependencies {
     testImplementation(libs.work.testing)
     testImplementation(kotlin("test"))
     kaptTest(libs.hilt.compiler)
-
 }

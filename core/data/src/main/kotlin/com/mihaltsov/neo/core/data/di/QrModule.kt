@@ -5,10 +5,10 @@ import com.mihaltsov.neo.core.data.repository.fake.FakeQrRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 interface QrModule {
 
     @Binds

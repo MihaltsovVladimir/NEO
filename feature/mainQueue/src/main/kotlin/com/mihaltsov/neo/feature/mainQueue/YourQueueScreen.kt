@@ -1,5 +1,6 @@
 package com.mihaltsov.neo.feature.mainQueue
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,7 +19,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mihaltsov.neo.core.designsystem.theme.NeoTheme
 import com.mihaltsov.neo.core.model.CardQueueModel
-import com.mihaltsov.neo.core.model.QueueData
 import com.mihaltsov.neo.core.ui.ButtonV
 import com.mihaltsov.neo.core.ui.CardV
 import kotlinx.coroutines.CoroutineScope
@@ -29,6 +29,7 @@ fun YourQueueRoute(
     modifier: Modifier = Modifier,
     viewModel: YourQueueViewModel = hiltViewModel(),
 ) {
+
     val listState: LazyListState = rememberLazyListState()
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
 
@@ -36,7 +37,7 @@ fun YourQueueRoute(
 
     PeopleElectronicQueue(
         listState = listState,
-        queueData = queueData,
+        uiState = queueData,
         onClick = {
             viewModel.removeItem(it)
         },
@@ -48,47 +49,58 @@ fun YourQueueRoute(
 private fun PeopleElectronicQueue(
     listState: LazyListState,
     modifier: Modifier = Modifier,
-    queueData: QueueData?,
+    uiState: YourQueueUiState,
     coroutineScope: CoroutineScope,
     onClick: (Int) -> Unit = {},
 ) {
-    Column(
-        verticalArrangement = Arrangement.SpaceBetween,
-        horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
-            .fillMaxSize()
-            .padding(
-                bottom = 16.dp,
-                end = 16.dp,
-                start = 16.dp
-            ),
-    ) {
-        LazyColumn(
-            state = listState,
-            modifier = Modifier.weight(1f),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
-        ) {
-            queueData?.persons?.forEach {
-                item {
-                    CardV(
-                        model = CardQueueModel(
-                            nickName = "Mihaltsov",
-                            queueNumber = it.queueNumber,
-                            oldPosition = 0,
-                            newPosition = 2
-                        ),
-                        onClick = onClick
-                    )
+
+    when (uiState) {
+        is YourQueueUiState.Loading -> {
+        }
+
+        is YourQueueUiState.Success -> {
+            Log.e("TAG", "YourQueueUiState.Success: $uiState")
+            Column(
+                verticalArrangement = Arrangement.SpaceBetween,
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = modifier
+                    .fillMaxSize()
+                    .padding(
+                        bottom = 16.dp,
+                        end = 16.dp,
+                        start = 16.dp
+                    ),
+            ) {
+
+                LazyColumn(
+                    state = listState,
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(10.dp),
+                ) {
+                    uiState.uiDataModel.persons.forEach {
+                        item {
+                            CardV(
+                                model = CardQueueModel(
+                                    nickName = it.nickName,
+                                    queueNumber = it.queueNumber,
+                                    isActive = true,
+                                ),
+                                onClick = onClick
+                            )
+                        }
+                    }
                 }
+                ButtonV(buttonText = "Show my position",
+                    modifier = Modifier,
+                    onClick = {
+                        coroutineScope.launch {
+                            listState.animateScrollToItem(10)
+                        }
+                    })
             }
         }
-        ButtonV(buttonText = "Show my position",
-            modifier = Modifier,
-            onClick = {
-                coroutineScope.launch {
-                    listState.animateScrollToItem(10)
-                }
-            })
+
+        is YourQueueUiState.LoadFailed -> {}
     }
 }
 

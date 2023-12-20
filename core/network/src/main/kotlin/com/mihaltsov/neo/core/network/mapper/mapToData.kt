@@ -7,10 +7,9 @@ fun QueueDataResponse.mapToData(): QueueData {
     return QueueData(persons.map {
         QueueData.PersonQueueData(
             id = it.id,
-            queueNumber = it.queueNumber,
+            queueNumber = it.queueNumber.toInt(),
             nickName = it.nickName,
-            oldPosition = it.oldPosition,
-            newPosition = it.newPosition,
+            isActive = it.isActive,
         )
     })
 }

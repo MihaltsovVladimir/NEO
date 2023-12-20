@@ -25,7 +25,8 @@ import com.mihaltsov.neo.core.model.CardQueueModel
 fun CardV(model: CardQueueModel, onClick: (Int) -> Unit = {}) {
     Card(
         shape = RoundedCornerShape(16.dp),
-        modifier = Modifier) {
+        modifier = Modifier
+    ) {
         Column(
             Modifier
                 .fillMaxWidth()
@@ -64,8 +65,7 @@ private fun CardVPreview() {
         CardQueueModel(
             nickName = "Mihaltsov",
             queueNumber = 1,
-            oldPosition = 0,
-            newPosition = 2
+            isActive = true,
         )
     )
 }
@@ -77,8 +77,7 @@ private fun CardVPreview11() {
         CardQueueModel(
             nickName = "Mihaltsov",
             queueNumber = 11,
-            oldPosition = 0,
-            newPosition = 2
+            isActive = true,
         )
     )
 }
@@ -91,8 +90,7 @@ private fun CardVPreviewWith1111() {
         CardQueueModel(
             nickName = "Mihaltsov",
             queueNumber = 1111,
-            oldPosition = 0,
-            newPosition = 2
+            isActive = true,
         )
     )
 }

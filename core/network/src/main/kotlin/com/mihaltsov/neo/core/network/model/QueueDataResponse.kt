@@ -11,9 +11,8 @@ data class QueueDataResponse(val persons: List<PersonQueueData>) {
     @Serializable
     data class PersonQueueData(
         val id: String,
-        val queueNumber: Int,
+        val queueNumber: String,
         val nickName: String,
-        val oldPosition: Int,
-        val newPosition: Int
+        val isActive: Boolean,
     )
 }
