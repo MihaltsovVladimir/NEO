@@ -17,6 +17,7 @@
 package com.mihaltsov.neo.core.network
 
 import com.mihaltsov.neo.core.network.model.QueueDataResponse
+import com.mihaltsov.neo.core.network.retrofit.NetworkResponse
 import kotlinx.coroutines.flow.Flow
 
 /**
@@ -24,5 +25,5 @@ import kotlinx.coroutines.flow.Flow
  */
 interface NeoNetworkDataSource {
 
-    suspend fun queueData(): QueueDataResponse
+    suspend fun queueData(): NetworkResponse<QueueDataResponse>
 }
