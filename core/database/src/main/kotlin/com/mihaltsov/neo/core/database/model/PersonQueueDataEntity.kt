@@ -37,9 +37,10 @@ data class PersonQueueDataEntity(
     val isActive: Boolean,
 )
 
-fun PersonQueueDataEntity.asExternalModel() = QueueData.PersonQueueData(
+fun PersonQueueDataEntity.asExternalModel() = QueueData.Person(
     id = id,
     queueNumber = queueNumber,
     nickName = nickName,
     isActive = isActive,
+    isMine = false,
 )

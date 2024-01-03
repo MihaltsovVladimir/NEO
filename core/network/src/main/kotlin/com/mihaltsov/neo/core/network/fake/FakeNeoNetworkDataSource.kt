@@ -18,7 +18,7 @@ package com.mihaltsov.neo.core.network.fake
 
 import com.mihaltsov.neo.core.network.NeoNetworkDataSource
 import com.mihaltsov.neo.core.network.model.QueueDataResponse
-import com.mihaltsov.neo.core.network.retrofit.NetworkResponse
+import com.mihaltsov.neo.core.network.model.UserDataResponse
 import javax.inject.Inject
 
 /**
@@ -26,87 +26,101 @@ import javax.inject.Inject
  */
 class FakeNeoNetworkDataSource @Inject constructor() : NeoNetworkDataSource {
 
-    override suspend fun queueData(): NetworkResponse<QueueDataResponse> {
+    override suspend fun queueData(): QueueDataResponse {
         return fakeQueue()
     }
 
-    private fun fakeQueue(): NetworkResponse<QueueDataResponse> {
-        return NetworkResponse(
-            QueueDataResponse(
-                listOf(
-                    QueueDataResponse.PersonQueueData(
-                        id = "Mihaltsov 6000",
-                        nickName = "Mihaltsov 6000",
-                        queueNumber = "6000",
-                        isActive = true,
-                    ),
-                    QueueDataResponse.PersonQueueData(
-                        id = "Mihaltsov 6500",
-                        nickName = "Mihaltsov 6500",
-                        queueNumber = "6500",
-                        isActive = true,
-                    ),
-                    QueueDataResponse.PersonQueueData(
-                        id = "Mihaltsov 6700",
-                        nickName = "Mihaltsov 6700",
-                        queueNumber = "6700",
-                        isActive = true,
-                    ),
-                    QueueDataResponse.PersonQueueData(
-                        id = "Mihaltsov 6800",
-                        nickName = "Mihaltsov 6800",
-                        queueNumber = "6800",
-                        isActive = true,
-                    ),
-                    QueueDataResponse.PersonQueueData(
-                        id = "Mihaltsov 6900",
-                        nickName = "Mihaltsov 6900",
-                        queueNumber = "6900",
-                        isActive = true,
-                    ),
-                    QueueDataResponse.PersonQueueData(
-                        id = "Mihaltsov 6910",
-                        nickName = "Mihaltsov 6910",
-                        queueNumber = "6910",
-                        isActive = true,
-                    ),
-                    QueueDataResponse.PersonQueueData(
-                        id = "Mihaltsov 6911",
-                        nickName = "Mihaltsov 6911",
-                        queueNumber = "6911",
-                        isActive = true,
-                    ),
-                    QueueDataResponse.PersonQueueData(
-                        id = "Mihaltsov 6912",
-                        nickName = "Mihaltsov 6912",
-                        queueNumber = "6912",
-                        isActive = true,
-                    ),
-                    QueueDataResponse.PersonQueueData(
-                        id = "Mihaltsov 6913",
-                        nickName = "Mihaltsov 6913",
-                        queueNumber = "6913",
-                        isActive = true,
-                    ),
-                    QueueDataResponse.PersonQueueData(
-                        id = "Mihaltsov 6914",
-                        nickName = "Mihaltsov 6914",
-                        queueNumber = "6914",
-                        isActive = true,
-                    ),
-                    QueueDataResponse.PersonQueueData(
-                        id = "Mihaltsov 6915",
-                        nickName = "Mihaltsov 6915",
-                        queueNumber = "6915",
-                        isActive = true,
-                    ),
-                    QueueDataResponse.PersonQueueData(
-                        id = "Mihaltsov 6916",
-                        nickName = "Mihaltsov 6916",
-                        queueNumber = "6916",
-                        isActive = true,
-                    ),
+    override suspend fun userData(): UserDataResponse {
+        return UserDataResponse(
+            id = "FakeNeoNetworkDataSource",
+            nickName = "FakeNeoNetworkDataSource",
+            phone = "FakeNeoNetworkDataSource",
+            registrationDate = "FakeNeoNetworkDataSource",
+            queues = listOf(
+                UserDataResponse.Queues(
+                    id = "FakeNeoNetworkDataSource",
+                    number = "999"
                 )
+            )
+        )
+    }
+
+    private fun fakeQueue(): QueueDataResponse {
+        return QueueDataResponse(
+            "",
+            listOf(
+                QueueDataResponse.PersonQueueData(
+                    id = "Mihaltsov 6000",
+                    nickName = "Mihaltsov 6000",
+                    queueNumber = "6000",
+                    isActive = true,
+                ),
+                QueueDataResponse.PersonQueueData(
+                    id = "Mihaltsov 6500",
+                    nickName = "Mihaltsov 6500",
+                    queueNumber = "6500",
+                    isActive = true,
+                ),
+                QueueDataResponse.PersonQueueData(
+                    id = "Mihaltsov 6700",
+                    nickName = "Mihaltsov 6700",
+                    queueNumber = "6700",
+                    isActive = true,
+                ),
+                QueueDataResponse.PersonQueueData(
+                    id = "Mihaltsov 6800",
+                    nickName = "Mihaltsov 6800",
+                    queueNumber = "6800",
+                    isActive = true,
+                ),
+                QueueDataResponse.PersonQueueData(
+                    id = "Mihaltsov 6900",
+                    nickName = "Mihaltsov 6900",
+                    queueNumber = "6900",
+                    isActive = true,
+                ),
+                QueueDataResponse.PersonQueueData(
+                    id = "Mihaltsov 6910",
+                    nickName = "Mihaltsov 6910",
+                    queueNumber = "6910",
+                    isActive = true,
+                ),
+                QueueDataResponse.PersonQueueData(
+                    id = "Mihaltsov 6911",
+                    nickName = "Mihaltsov 6911",
+                    queueNumber = "6911",
+                    isActive = true,
+                ),
+                QueueDataResponse.PersonQueueData(
+                    id = "Mihaltsov 6912",
+                    nickName = "Mihaltsov 6912",
+                    queueNumber = "6912",
+                    isActive = true,
+                ),
+                QueueDataResponse.PersonQueueData(
+                    id = "Mihaltsov 6913",
+                    nickName = "Mihaltsov 6913",
+                    queueNumber = "6913",
+                    isActive = true,
+                ),
+                QueueDataResponse.PersonQueueData(
+                    id = "Mihaltsov 6914",
+                    nickName = "Mihaltsov 6914",
+                    queueNumber = "6914",
+                    isActive = true,
+                ),
+                QueueDataResponse.PersonQueueData(
+                    id = "Mihaltsov 6915",
+                    nickName = "Mihaltsov 6915",
+                    queueNumber = "6915",
+                    isActive = true,
+                ),
+                QueueDataResponse.PersonQueueData(
+                    id = "Mihaltsov 6916",
+                    nickName = "Mihaltsov 6916",
+                    queueNumber = "6916",
+                    isActive = true,
+                ),
             )
         )
     }

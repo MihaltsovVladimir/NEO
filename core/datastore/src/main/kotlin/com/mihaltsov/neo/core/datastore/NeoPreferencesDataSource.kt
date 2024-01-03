@@ -19,142 +19,87 @@ package com.mihaltsov.neo.core.datastore
 import android.util.Log
 import androidx.datastore.core.DataStore
 import com.mihaltsov.neo.core.model.UserData
-import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.io.IOException
+import java.util.UUID
 import javax.inject.Inject
 
 class NeoPreferencesDataSource @Inject constructor(
     private val userPreferences: DataStore<UserPreferences>,
 ) {
-    val userData = userPreferences.data
-        .map {
-            UserData(
-                nickName = "it.bookmarkedNewsResourceIdsMap.keys",
-                phone = "it.viewedNewsResourceIdsMap.keys",
-                registrationDate = "it.followedTopicIdsMap.keys",
-                queueNumber = 1
-            )
-        }
 
-    suspend fun setFollowedTopicIds(topicIds: Set<String>) {
-        try {
-            userPreferences.updateData {
-                it.copy {
-//                    followedTopicIds.clear()
-//                    followedTopicIds.putAll(topicIds.associateWith { true })
-//                    updateShouldHideOnboardingIfNecessary()
-                }
-            }
-        } catch (ioException: IOException) {
-            Log.e("NiaPreferences", "Failed to update user preferences", ioException)
-        }
-    }
-
-    suspend fun setTopicIdFollowed(topicId: String, followed: Boolean) {
-        try {
-            userPreferences.updateData {
-                it.copy {
-                    if (followed) {
-//                        followedTopicIds.put(topicId, true)
-                    } else {
-//                        followedTopicIds.remove(topicId)
-                    }
-//                    updateShouldHideOnboardingIfNecessary()
-                }
-            }
-        } catch (ioException: IOException) {
-            Log.e("NiaPreferences", "Failed to update user preferences", ioException)
-        }
-    }
-
-    suspend fun setDynamicColorPreference(useDynamicColor: Boolean) {
-//        userPreferences.updateData {
-//            it.copy {
-//                this.useDynamicColor = useDynamicColor
-//            }
-//        }
-    }
-
-
-    suspend fun setNewsResourceBookmarked(newsResourceId: String, bookmarked: Boolean) {
-//        try {
-//            userPreferences.updateData {
-//                it.copy {
-//                    if (bookmarked) {
-//                        bookmarkedNewsResourceIds.put(newsResourceId, true)
-//                    } else {
-//                        bookmarkedNewsResourceIds.remove(newsResourceId)
-//                    }
-//                }
-//            }
-//        } catch (ioException: IOException) {
-//            Log.e("NiaPreferences", "Failed to update user preferences", ioException)
-//        }
-    }
-
-    suspend fun setNewsResourceViewed(newsResourceId: String, viewed: Boolean) {
-        setNewsResourcesViewed(listOf(newsResourceId), viewed)
-    }
-
-    suspend fun getChangeListVersions() = userPreferences.data
-        .map {
-            ChangeListVersions(
-                userDataVersion = it.userChangeListVersion,
-                queueVersion = it.queueChangeListVersion,
-            )
-        }.firstOrNull() ?: ChangeListVersions()
-
-
-    suspend fun setNewsResourcesViewed(newsResourceIds: List<String>, viewed: Boolean) {
-//        userPreferences.updateData { prefs ->
-//            prefs.copy {
-//                newsResourceIds.forEach { id ->
-//                    if (viewed) {
-//                        viewedNewsResourceIds.put(id, true)
-//                    } else {
-//                        viewedNewsResourceIds.remove(id)
-//                    }
-//                }
-//            }
-//        }
-    }
-
-
-    /**
-     * Update the [ChangeListVersions] using [update].
-     */
-    suspend fun updateChangeListVersion(update: ChangeListVersions.() -> ChangeListVersions) {
-        try {
-            userPreferences.updateData { currentPreferences ->
-                val updatedChangeListVersions = update(
-                    ChangeListVersions(
-                        userDataVersion = currentPreferences.userChangeListVersion,
-                        queueVersion = currentPreferences.queueChangeListVersion,
-                    ),
+    val userData: Flow<UserData>
+        get() {
+            return userPreferences.data.map {
+                UserData(
+                    id = it.userId,
+                    nickName = it.nickName,
+                    phone = it.phone,
+                    queues = it.userQueuesMap,
                 )
+            }
+        }
 
-                currentPreferences.copy {
-                    userChangeListVersion = updatedChangeListVersions.userDataVersion
-                    queueChangeListVersion = updatedChangeListVersions.queueVersion
+    /** id of device where app is run */
+    val deviceId: Flow<String>
+        get() {
+            return userPreferences.data.map { it.deviceId }
+        }
+
+    suspend fun setUpDeviceId() {
+        try {
+            userPreferences.updateData {
+                it.copy {
+                    if (it.deviceId.isNullOrEmpty()) {
+                        this.deviceId = UUID.randomUUID().toString()
+                    }
                 }
             }
         } catch (ioException: IOException) {
-            Log.e("NiaPreferences", "Failed to update user preferences", ioException)
+            Log.e("NeoPreferences", "Failed to update user preferences", ioException)
         }
     }
 
-    suspend fun setShouldHideOnboarding(shouldHideOnboarding: Boolean) {
-//        userPreferences.updateData {
-//            it.copy {
-//                this.shouldHideOnboarding = shouldHideOnboarding
-//            }
-//        }
+    suspend fun addNewQueue(queueId: String, number: String) {
+        try {
+            userPreferences.updateData {
+                it.copy {
+                    userQueues.put(queueId, number)
+                }
+            }
+        } catch (ioException: IOException) {
+            Log.e("NeoPreferences", "Failed to update user preferences", ioException)
+        }
+    }
+
+    suspend fun removeQueue(queueId: String) {
+        try {
+            userPreferences.updateData {
+                it.copy {
+                    userQueues.remove(queueId)
+                }
+            }
+        } catch (ioException: IOException) {
+            Log.e("NeoPreferences", "Failed to update user preferences", ioException)
+        }
+    }
+
+    suspend fun setUpUserData(userData: UserData) {
+        try {
+            userPreferences.updateData {
+                it.copy {
+                    this.userId = userData.id
+                    this.nickName = userData.nickName
+                    this.phone = userData.phone
+                    this.userQueues.clear()
+                    userData.queues.forEach { it ->
+                        userQueues.put(it.key, it.value)
+                    }
+                }
+            }
+        } catch (ioException: IOException) {
+            Log.e("NeoPreferences", "Failed to update user preferences", ioException)
+        }
     }
 }
-
-//private fun UserPreferencesKt.Dsl.updateShouldHideOnboardingIfNecessary() {
-//    if (followedTopicIds.isEmpty() && followedAuthorIds.isEmpty()) {
-//        shouldHideOnboarding = false
-//    }
-//}

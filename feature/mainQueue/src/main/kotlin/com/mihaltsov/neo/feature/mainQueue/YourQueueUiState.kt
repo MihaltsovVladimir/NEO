@@ -8,5 +8,5 @@ sealed interface YourQueueUiState {
 
     data object LoadFailed : YourQueueUiState
 
-    data class Success(val uiDataModel: QueueData = QueueData(listOf())) : YourQueueUiState
+    data class Success(val uiDataModel: QueueData = QueueData(id = "", persons = listOf())) : YourQueueUiState
 }

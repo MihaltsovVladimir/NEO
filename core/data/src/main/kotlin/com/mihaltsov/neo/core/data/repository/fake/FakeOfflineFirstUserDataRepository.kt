@@ -1,6 +1,7 @@
 package com.mihaltsov.neo.core.data.repository.fake
 
 import com.mihaltsov.neo.core.data.repository.UserDataRepository
+import com.mihaltsov.neo.core.data.util.Synchronizer
 import com.mihaltsov.neo.core.model.UserData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOf
@@ -10,10 +11,14 @@ class FakeOfflineFirstUserDataRepository @Inject constructor() : UserDataReposit
 
     override val userData: Flow<UserData> = flowOf(
         UserData(
+            id = "id",
             nickName = "Mihaltsov",
             phone = "+375445504442",
-            registrationDate = "ddd",
-            queueNumber = 1
+            queues = mapOf()
         )
     )
+
+    override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
+        return true
+    }
 }

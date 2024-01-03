@@ -1,15 +1,33 @@
 package com.mihaltsov.neo.core.network.mapper
 
 import com.mihaltsov.neo.core.model.QueueData
+import com.mihaltsov.neo.core.model.UserData
 import com.mihaltsov.neo.core.network.model.QueueDataResponse
+import com.mihaltsov.neo.core.network.model.UserDataResponse
 
 fun QueueDataResponse.mapToData(): QueueData {
-    return QueueData(persons.map {
-        QueueData.PersonQueueData(
-            id = it.id,
-            queueNumber = it.queueNumber.toInt(),
-            nickName = it.nickName,
-            isActive = it.isActive,
-        )
-    })
+    return QueueData(
+        id = id,
+        persons = persons.map {
+            QueueData.Person(
+                id = it.id,
+                queueNumber = it.queueNumber.toInt(),
+                nickName = it.nickName,
+                isActive = it.isActive,
+                isMine = false,
+            )
+        })
+}
+
+fun UserDataResponse.mapToData(): UserData {
+    val map = mutableMapOf<String, String>()
+    queues.forEach {
+        map[it.id] = it.number
+    }
+    return UserData(
+        id = id,
+        nickName = nickName,
+        phone = phone,
+        queues = map
+    )
 }

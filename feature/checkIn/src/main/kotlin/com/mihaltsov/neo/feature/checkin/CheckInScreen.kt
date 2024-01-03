@@ -64,11 +64,16 @@ private fun CheckInScreen(
 
             is CheckInUiState.Success -> {
                 DynamicAsyncImage(
-                    imageUrl = checkInUiState.qrModel.qrUrl,
+                    imageUrl = checkInUiState.qrModel.qrModel.qrUrl,
                     modifier = Modifier
                         .padding(10.dp)
                         .size(500.dp),
                 )
+                if (!checkInUiState.qrModel.testDataStore.queues.get("d").isNullOrBlank()){
+                    Text(
+                        text = checkInUiState.qrModel.testDataStore.queues.size.toString()
+                    )
+                }
             }
         }
 

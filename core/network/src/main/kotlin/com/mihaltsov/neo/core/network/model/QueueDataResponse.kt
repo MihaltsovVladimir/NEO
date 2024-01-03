@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
  * Network representation of [QueueDataResponse]
  */
 @Serializable
-data class QueueDataResponse(val persons: List<PersonQueueData>) {
+data class QueueDataResponse(val id: String, val persons: List<PersonQueueData>) {
 
     @Serializable
     data class PersonQueueData(

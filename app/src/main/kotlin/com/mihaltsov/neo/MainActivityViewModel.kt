@@ -1,17 +1,12 @@
 package com.mihaltsov.neo
 
 import androidx.lifecycle.ViewModel
-import com.mihaltsov.neo.core.data.repository.TestHilt
 import com.mihaltsov.neo.core.model.UserData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MainActivityViewModel @Inject constructor(
-    val userDataRepository: TestHilt,
-) : ViewModel() {
-
-    val dd = userDataRepository.text()
+class MainActivityViewModel @Inject constructor() : ViewModel() {
 
 //    val uiState: StateFlow<MainActivityUiState> = userDataRepository.userData.map {
 //        Success(it)

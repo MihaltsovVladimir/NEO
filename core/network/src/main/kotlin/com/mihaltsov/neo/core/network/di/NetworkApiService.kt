@@ -2,7 +2,6 @@ package com.mihaltsov.neo.core.network.di
 
 import com.mihaltsov.neo.core.network.model.QueueDataResponse
 import com.mihaltsov.neo.core.network.model.UserDataResponse
-import com.mihaltsov.neo.core.network.retrofit.NetworkResponse
 import retrofit2.http.GET
 
 /**
@@ -10,9 +9,9 @@ import retrofit2.http.GET
  */
 interface NetworkApiService {
 
-    @GET("profile/getUserInfo")
+    @GET("user")
     suspend fun getUserData(): UserDataResponse
 
-    @GET("Profile/GetUserInfo")
-    suspend fun getQueue(): NetworkResponse<QueueDataResponse>
+    @GET("queue")
+    suspend fun getQueue(): QueueDataResponse
 }

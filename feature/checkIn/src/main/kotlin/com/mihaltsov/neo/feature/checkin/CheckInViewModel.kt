@@ -5,10 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mihaltsov.neo.core.common.result.Result
 import com.mihaltsov.neo.core.common.result.asResult
+import com.mihaltsov.neo.core.data.repository.UserDataRepository
 import com.mihaltsov.neo.core.domain.GetCheckInQrCodeUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -19,6 +21,7 @@ private const val TEXT_VALUE = "TEXT_VALUE"
 @HiltViewModel
 class CheckInViewModel @Inject constructor(
     checkInQrCodeUseCase: GetCheckInQrCodeUseCase,
+    private val userRepository: UserDataRepository,
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
@@ -28,6 +31,9 @@ class CheckInViewModel @Inject constructor(
     val checkInUiState: StateFlow<CheckInUiState> =
         inputTextFieldValue
             .flatMapConcat { checkInQrCodeUseCase(it) }
+            .combine(userRepository.userData) { qr, userData ->
+                ScreenDataTestDataStore(qr,userData)
+            }
             .asResult()
             .map { result ->
                 when (result) {

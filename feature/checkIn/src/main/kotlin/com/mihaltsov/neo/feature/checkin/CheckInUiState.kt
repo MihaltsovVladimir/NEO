@@ -16,6 +16,7 @@
 
 package com.mihaltsov.neo.feature.checkin
 
+import com.mihaltsov.neo.core.model.UserData
 import com.mihaltsov.neo.core.model.UserQrModel
 
 sealed interface CheckInUiState {
@@ -24,5 +25,12 @@ sealed interface CheckInUiState {
 
     data object LoadFailed : CheckInUiState
 
-    data class Success(val qrModel: UserQrModel = UserQrModel("CheckInUiState")) : CheckInUiState
+    data class Success(
+        val qrModel: ScreenDataTestDataStore = ScreenDataTestDataStore(),
+    ) : CheckInUiState
 }
+
+class ScreenDataTestDataStore(
+    val qrModel: UserQrModel = UserQrModel("CheckInUiState"),
+    val testDataStore: UserData = UserData("", "", "", mapOf())
+)

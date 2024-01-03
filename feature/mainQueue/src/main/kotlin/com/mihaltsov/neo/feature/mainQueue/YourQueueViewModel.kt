@@ -2,7 +2,7 @@ package com.mihaltsov.neo.feature.mainQueue
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mihaltsov.neo.core.data.repository.QueueDataRepository
+import com.mihaltsov.neo.core.domain.QueueUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -12,21 +12,21 @@ import javax.inject.Inject
 
 @HiltViewModel
 class YourQueueViewModel @Inject constructor(
-    queueDataRepository: QueueDataRepository,
+    queueUseCase: QueueUseCase,
 ) : ViewModel() {
 
     val queueData: StateFlow<YourQueueUiState> =
-        queueDataRepository.queueData.map {
-            if (it.persons.isEmpty()){
+        queueUseCase().map {
+            if (it.persons.isEmpty()) {
                 YourQueueUiState.LoadFailed
             } else {
                 YourQueueUiState.Success(it)
             }
         }.stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = YourQueueUiState.Loading
-            )
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5_000),
+            initialValue = YourQueueUiState.Loading
+        )
 
     fun removeItem(position: Int) {
         println(" position  $position")

@@ -16,10 +16,8 @@
 
 package com.mihaltsov.neo.core.data.di
 
-import com.mihaltsov.neo.core.data.repository.TestHilt
-import com.mihaltsov.neo.core.data.repository.TestHiltImpl
+import com.mihaltsov.neo.core.data.repository.OfflineFirstUserDataRepository
 import com.mihaltsov.neo.core.data.repository.UserDataRepository
-import com.mihaltsov.neo.core.data.repository.fake.FakeOfflineFirstUserDataRepository
 import com.mihaltsov.neo.core.data.util.ConnectivityManagerNetworkMonitor
 import com.mihaltsov.neo.core.data.util.NetworkMonitor
 import dagger.Binds
@@ -29,14 +27,14 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-interface DataModule {
+interface UserDataModule {
 
     @Binds
     fun bindsNetworkMonitor(networkMonitor: ConnectivityManagerNetworkMonitor): NetworkMonitor
 
-    @Binds
-    fun bindsUserDataRepository(userDataRepository: FakeOfflineFirstUserDataRepository): UserDataRepository
+//    @Binds
+//    fun bindsFakeUserDataRepository(userDataRepository: FakeOfflineFirstUserDataRepository): UserDataRepository
 
     @Binds
-    fun bindsFakeUserDataRepository(test: TestHiltImpl): TestHilt
+    fun bindsUserDataRepository(userDataRepository: OfflineFirstUserDataRepository): UserDataRepository
 }

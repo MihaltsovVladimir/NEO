@@ -1,6 +1,5 @@
 package com.mihaltsov.neo.feature.mainQueue
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,7 +19,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mihaltsov.neo.core.designsystem.theme.NeoTheme
 import com.mihaltsov.neo.core.model.CardQueueModel
 import com.mihaltsov.neo.core.ui.ButtonV
-import com.mihaltsov.neo.core.ui.CardV
+import com.mihaltsov.neo.core.ui.PersonQueueCard
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -59,7 +58,6 @@ private fun PeopleElectronicQueue(
         }
 
         is YourQueueUiState.Success -> {
-            Log.e("TAG", "YourQueueUiState.Success: $uiState")
             Column(
                 verticalArrangement = Arrangement.SpaceBetween,
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -71,7 +69,6 @@ private fun PeopleElectronicQueue(
                         start = 16.dp
                     ),
             ) {
-
                 LazyColumn(
                     state = listState,
                     modifier = Modifier.weight(1f),
@@ -79,11 +76,12 @@ private fun PeopleElectronicQueue(
                 ) {
                     uiState.uiDataModel.persons.forEach {
                         item {
-                            CardV(
+                            PersonQueueCard(
                                 model = CardQueueModel(
                                     nickName = it.nickName,
                                     queueNumber = it.queueNumber,
                                     isActive = true,
+                                    isMine = it.isMine
                                 ),
                                 onClick = onClick
                             )

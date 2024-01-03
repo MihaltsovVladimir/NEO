@@ -27,8 +27,8 @@ import androidx.work.WorkerParameters
 import com.mihaltsov.neo.core.common.network.Dispatcher
 import com.mihaltsov.neo.core.common.network.NeoDispatchers
 import com.mihaltsov.neo.core.data.repository.QueueDataRepository
+import com.mihaltsov.neo.core.data.repository.UserDataRepository
 import com.mihaltsov.neo.core.data.util.Synchronizer
-import com.mihaltsov.neo.core.datastore.ChangeListVersions
 import com.mihaltsov.neo.core.datastore.NeoPreferencesDataSource
 import com.mihaltsov.neo.sync.initializers.SyncConstraints
 import com.mihaltsov.neo.sync.initializers.syncForegroundInfo
@@ -48,6 +48,7 @@ class SyncWorker @AssistedInject constructor(
     @Assisted private val appContext: Context,
     @Assisted workerParams: WorkerParameters,
     private val queueDataRepository: QueueDataRepository,
+    private val userDataRepository: UserDataRepository,
     private val preferences: NeoPreferencesDataSource,
     @Dispatcher(NeoDispatchers.IO)
     private val ioDispatcher: CoroutineDispatcher,
@@ -57,12 +58,11 @@ class SyncWorker @AssistedInject constructor(
 
     override suspend fun doWork(): Result = withContext(ioDispatcher) {
         traceAsync("Sync", 0) {
-
+            preferences.setUpDeviceId() //todo need to replace
             // First sync the repositories in parallel
             val syncedSuccessfully = awaitAll(
-                async {
-                    queueDataRepository.sync()
-                      },
+                async { queueDataRepository.sync() },
+                async { userDataRepository.sync() }
             ).all { it }
 
             if (syncedSuccessfully) {
@@ -83,13 +83,5 @@ class SyncWorker @AssistedInject constructor(
             .setConstraints(SyncConstraints)
             .setInputData(SyncWorker::class.delegatedData())
             .build()
-    }
-
-    override suspend fun getChangeListVersions(): ChangeListVersions {
-        return preferences.getChangeListVersions()
-    }
-
-    override suspend fun updateChangeListVersions(update: ChangeListVersions.() -> ChangeListVersions) {
-        TODO("Not yet implemented")
     }
 }

@@ -12,9 +12,8 @@ class CompositeUserQrRepository @Inject constructor(
     private val userDataRepository: UserDataRepository,
 ) {
 
-    operator fun invoke(newTestData: String): Flow<UserQrModel> = runBlocking {
+    suspend operator fun invoke(newTestData: String): Flow<UserQrModel> =
         qrRepository.getUserQr(newTestData)
-    }
 
 //        userDataRepository.userData
 //            .flatMapLatest {

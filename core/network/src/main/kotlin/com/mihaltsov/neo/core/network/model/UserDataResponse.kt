@@ -7,8 +7,16 @@ import kotlinx.serialization.Serializable
  */
 @Serializable
 data class UserDataResponse(
+    val id: String,
     val nickName: String,
     val phone: String,
     val registrationDate: String,
-    val queueNumber: Int
-)
+    val queues: List<Queues>,
+) {
+
+    @Serializable
+    data class Queues(
+        val id: String,
+        val number: String,
+    )
+}

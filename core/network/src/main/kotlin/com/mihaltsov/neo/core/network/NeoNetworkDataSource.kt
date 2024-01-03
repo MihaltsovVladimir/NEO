@@ -17,13 +17,14 @@
 package com.mihaltsov.neo.core.network
 
 import com.mihaltsov.neo.core.network.model.QueueDataResponse
-import com.mihaltsov.neo.core.network.retrofit.NetworkResponse
-import kotlinx.coroutines.flow.Flow
+import com.mihaltsov.neo.core.network.model.UserDataResponse
 
 /**
- * Interface representing network calls to the NIA backend
+ * Interface representing network calls to the NEO backend
  */
 interface NeoNetworkDataSource {
 
-    suspend fun queueData(): NetworkResponse<QueueDataResponse>
+    suspend fun userData(): UserDataResponse
+
+    suspend fun queueData(): QueueDataResponse
 }

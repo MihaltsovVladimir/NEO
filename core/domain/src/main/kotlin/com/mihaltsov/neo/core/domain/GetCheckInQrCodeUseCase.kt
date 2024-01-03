@@ -25,8 +25,8 @@ import javax.inject.Inject
  * A use case which returns current Qr code for check in in queue
  */
 class GetCheckInQrCodeUseCase @Inject constructor(
-    private val searchContentsRepository: CompositeUserQrRepository,
+    private val repository: CompositeUserQrRepository,
 ) {
 
-    operator fun invoke(newTestData: String): Flow<UserQrModel> = searchContentsRepository(newTestData)
+    suspend operator fun invoke(newTestData: String): Flow<UserQrModel> = repository(newTestData)
 }
