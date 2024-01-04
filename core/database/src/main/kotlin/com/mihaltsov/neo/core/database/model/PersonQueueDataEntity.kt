@@ -35,6 +35,7 @@ data class PersonQueueDataEntity(
     @ColumnInfo(defaultValue = "")
     val nickName: String,
     val isActive: Boolean,
+    val queueId: String
 )
 
 fun PersonQueueDataEntity.asExternalModel() = QueueData.Person(

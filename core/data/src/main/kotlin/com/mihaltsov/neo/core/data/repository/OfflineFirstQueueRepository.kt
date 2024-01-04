@@ -19,7 +19,7 @@ class OfflineFirstQueueRepository @Inject constructor(
 
     override val queueData: Flow<QueueData> = queueDao.getPersonsEntitiesFlow().map {
         QueueData(
-            id = "1",
+            id = it.first().queueId,
             persons = it.map { entity ->
             entity.asExternalModel()
         })
@@ -27,7 +27,7 @@ class OfflineFirstQueueRepository @Inject constructor(
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
         return synchronizer.changeQueueSync(
-            networkData = network.queueData().mapToData().persons.map { it.asEntity() },
+            networkData = network.queueData().mapToData().asEntity(),
             dataBaseData = queueDao.getPersonsEntitiesList(),
             modelDeleter = queueDao::deletePersonsByIds,
             modelUpdater = queueDao::upsertPersons,

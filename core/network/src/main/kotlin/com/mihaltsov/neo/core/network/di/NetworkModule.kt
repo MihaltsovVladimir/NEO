@@ -35,6 +35,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
+private const val BASE_URL = "http://192.168.1.103:9997/"
+
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
@@ -67,13 +69,14 @@ object NetworkModule {
         okhttpCallFactory: Call.Factory,
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://192.168.0.153:9997/")
+            .baseUrl(BASE_URL)
             .callFactory(okhttpCallFactory)
             .addConverterFactory(
                 networkJson.asConverterFactory("application/json".toMediaType()),
             )
             .build()
     }
+
     /**
      * Since we're displaying SVGs in the app, Coil needs an ImageLoader which supports this
      * format. During Coil's initialization it will call `applicationContext.newImageLoader()` to
