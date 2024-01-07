@@ -12,17 +12,16 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-class OfflineFirstQueueRepository @Inject constructor(
+class OfflineFirstPersonQueueRepository @Inject constructor(
     private val network: NeoNetworkDataSource,
     private val queueDao: PersonsQueueDao,
 ) : QueueDataRepository {
 
     override val queueData: Flow<QueueData> = queueDao.getPersonsEntitiesFlow().map {
         QueueData(
-            id = it.first().queueId,
-            persons = it.map { entity ->
-            entity.asExternalModel()
-        })
+            id = "it[0].queueId",
+            persons = it.map { entity -> entity.asExternalModel() }
+        )
     }
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean {

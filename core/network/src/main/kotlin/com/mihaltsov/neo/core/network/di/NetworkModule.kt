@@ -35,7 +35,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
-private const val BASE_URL = "http://192.168.1.103:9997/"
+private const val BASE_URL = "http://192.168.1.105:9997/"
 
 @Module
 @InstallIn(SingletonComponent::class)

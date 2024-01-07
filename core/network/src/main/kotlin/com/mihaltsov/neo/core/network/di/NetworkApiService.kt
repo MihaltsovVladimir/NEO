@@ -1,5 +1,6 @@
 package com.mihaltsov.neo.core.network.di
 
+import com.mihaltsov.neo.core.network.model.ExistQueuesDataResponse
 import com.mihaltsov.neo.core.network.model.QueueDataResponse
 import com.mihaltsov.neo.core.network.model.UserDataResponse
 import retrofit2.http.GET
@@ -14,4 +15,7 @@ interface NetworkApiService {
 
     @GET("queue")
     suspend fun getQueue(): QueueDataResponse
+
+    @GET("existqueues")
+    suspend fun getQueues(): ExistQueuesDataResponse
 }

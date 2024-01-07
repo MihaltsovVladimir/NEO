@@ -18,9 +18,9 @@ package com.mihaltsov.neo.core.network.retrofit
 
 import com.mihaltsov.neo.core.network.NeoNetworkDataSource
 import com.mihaltsov.neo.core.network.di.NetworkApiService
+import com.mihaltsov.neo.core.network.model.ExistQueuesDataResponse
 import com.mihaltsov.neo.core.network.model.QueueDataResponse
 import com.mihaltsov.neo.core.network.model.UserDataResponse
-import kotlinx.serialization.Serializable
 import retrofit2.Retrofit
 import javax.inject.Inject
 
@@ -31,11 +31,9 @@ class RetrofitNeoNetwork @Inject constructor(
     private val apiService: NetworkApiService,
 ) : NeoNetworkDataSource {
 
-    override suspend fun userData(): UserDataResponse {
-        return apiService.getUserData()
-    }
+    override suspend fun userData(): UserDataResponse = apiService.getUserData()
 
-    override suspend fun queueData(): QueueDataResponse {
-        return apiService.getQueue()
-    }
+    override suspend fun queueData(): QueueDataResponse = apiService.getQueue()
+
+    override suspend fun existQueue(): ExistQueuesDataResponse = apiService.getQueues()
 }

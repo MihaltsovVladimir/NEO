@@ -1,3 +1,5 @@
+@file:JvmName("ExistQueuesDataEntityKt")
+
 /*
  * Copyright 2023 The Android Open Source Project
  *
@@ -14,22 +16,22 @@
  * limitations under the License.
  */
 
-package com.mihaltsov.neo.feature.checkin.navigation
+package com.mihaltsov.neo.core.database.model
 
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
-import androidx.navigation.compose.composable
-import com.mihaltsov.neo.feature.checkin.CheckInRoute
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.mihaltsov.neo.core.model.QueueItemData
 
-const val CHECK_IN_ROUTE = "checkIn_route"
+/**
+ * Defines a topic a user may follow.
+ * It has a many to many relationship with [ExistQueuesDataEntity]
+ */
+@Entity(tableName = "existQueuesData")
+data class ExistQueuesDataEntity(
+    @PrimaryKey
+    val id: String,
+    val title: String,
+    val description: String,
+)
 
-fun NavController.navigateToCheckIn(navOptions: NavOptions) {
-    navigate(CHECK_IN_ROUTE, navOptions)
-}
-
-fun NavGraphBuilder.checkInScreen(onItemClick: (String) -> Unit) {
-    composable(CHECK_IN_ROUTE) {
-        CheckInRoute()
-    }
-}
+fun ExistQueuesDataEntity.asExternalModel(): QueueItemData = QueueItemData(id, title, description)

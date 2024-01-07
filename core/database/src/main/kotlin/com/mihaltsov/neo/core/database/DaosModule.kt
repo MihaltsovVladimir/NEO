@@ -17,6 +17,7 @@
 package com.mihaltsov.neo.core.database
 
 import com.mihaltsov.neo.core.database.dao.PersonsQueueDao
+import com.mihaltsov.neo.core.database.dao.QueuesDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,4 +29,7 @@ object DaosModule {
 
     @Provides
     fun providesPersonsQueueDao(database: NeoDatabase): PersonsQueueDao = database.personsQueueDao()
+
+    @Provides
+    fun providesQueuesDao(database: NeoDatabase): QueuesDao = database.queuesDao()
 }

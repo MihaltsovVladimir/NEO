@@ -33,7 +33,6 @@ class OfflineFirstUserDataRepository @Inject constructor(
     override val userData: Flow<UserData> = neoPreferencesDataSource.userData
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
-
         return synchronizer.changeUserDataSync(
             networkData = network.userData().mapToData(),
             modelUpdater = neoPreferencesDataSource::setUpUserData

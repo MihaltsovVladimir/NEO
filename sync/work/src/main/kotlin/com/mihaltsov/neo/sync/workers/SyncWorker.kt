@@ -27,6 +27,7 @@ import androidx.work.WorkerParameters
 import com.mihaltsov.neo.core.common.network.Dispatcher
 import com.mihaltsov.neo.core.common.network.NeoDispatchers
 import com.mihaltsov.neo.core.data.repository.QueueDataRepository
+import com.mihaltsov.neo.core.data.repository.QueuesRepository
 import com.mihaltsov.neo.core.data.repository.UserDataRepository
 import com.mihaltsov.neo.core.data.util.Synchronizer
 import com.mihaltsov.neo.core.datastore.NeoPreferencesDataSource
@@ -47,7 +48,8 @@ import kotlinx.coroutines.withContext
 class SyncWorker @AssistedInject constructor(
     @Assisted private val appContext: Context,
     @Assisted workerParams: WorkerParameters,
-    private val queueDataRepository: QueueDataRepository,
+    private val personQueueDataRepository: QueueDataRepository,
+    private val queuesRepository: QueuesRepository,
     private val userDataRepository: UserDataRepository,
     private val preferences: NeoPreferencesDataSource,
     @Dispatcher(NeoDispatchers.IO)
@@ -61,8 +63,9 @@ class SyncWorker @AssistedInject constructor(
             preferences.setUpDeviceId() //todo need to replace
             // First sync the repositories in parallel
             val syncedSuccessfully = awaitAll(
-                async { queueDataRepository.sync() },
-                async { userDataRepository.sync() }
+                async { personQueueDataRepository.sync() },
+                async { userDataRepository.sync() },
+                async { queuesRepository.sync() }
             ).all { it }
 
             if (syncedSuccessfully) {

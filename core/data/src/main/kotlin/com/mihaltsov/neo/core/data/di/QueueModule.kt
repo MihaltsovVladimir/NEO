@@ -1,7 +1,9 @@
 package com.mihaltsov.neo.core.data.di
 
 import com.mihaltsov.neo.core.data.repository.QueueDataRepository
-import com.mihaltsov.neo.core.data.repository.OfflineFirstQueueRepository
+import com.mihaltsov.neo.core.data.repository.OfflineFirstPersonQueueRepository
+import com.mihaltsov.neo.core.data.repository.OfflineFirstQueuesRepository
+import com.mihaltsov.neo.core.data.repository.QueuesRepository
 import com.mihaltsov.neo.core.network.NeoNetworkDataSource
 import com.mihaltsov.neo.core.network.retrofit.RetrofitNeoNetwork
 import dagger.Binds
@@ -14,7 +16,10 @@ import dagger.hilt.components.SingletonComponent
 interface QueueModule {
 
     @Binds
-    fun bindsQueueRepository(queueDataRepository: OfflineFirstQueueRepository): QueueDataRepository
+    fun bindsPersonQueueRepository(repository: OfflineFirstPersonQueueRepository): QueueDataRepository
+
+    @Binds
+    fun bindsExistQueuesRepository(repository: OfflineFirstQueuesRepository): QueuesRepository
 
 //    @Binds
 //    fun bindsFakeNetworkDataSource(queueDataRepository: FakeNeoNetworkDataSource): NeoNetworkDataSource

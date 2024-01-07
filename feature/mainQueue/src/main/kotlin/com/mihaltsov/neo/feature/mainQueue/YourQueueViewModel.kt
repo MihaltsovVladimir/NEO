@@ -1,8 +1,10 @@
 package com.mihaltsov.neo.feature.mainQueue
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mihaltsov.neo.core.domain.QueueUseCase
+import com.mihaltsov.neo.feature.mainQueue.navigation.QueueArgs
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -12,8 +14,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class YourQueueViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     queueUseCase: QueueUseCase,
 ) : ViewModel() {
+
+    private val queueArgs: QueueArgs = QueueArgs(savedStateHandle)
+
+    val queueId = queueArgs.queueId
 
     val queueData: StateFlow<YourQueueUiState> =
         queueUseCase().map {

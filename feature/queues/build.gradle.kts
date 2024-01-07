@@ -13,23 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.mihaltsov.neo.feature.checkin.navigation
-
-import androidx.navigation.NavController
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
-import androidx.navigation.compose.composable
-import com.mihaltsov.neo.feature.checkin.CheckInRoute
-
-const val CHECK_IN_ROUTE = "checkIn_route"
-
-fun NavController.navigateToCheckIn(navOptions: NavOptions) {
-    navigate(CHECK_IN_ROUTE, navOptions)
+plugins {
+    alias(libs.plugins.neo.android.feature)
+    alias(libs.plugins.neo.android.library.compose)
+    alias(libs.plugins.neo.android.library.jacoco)
 }
 
-fun NavGraphBuilder.checkInScreen(onItemClick: (String) -> Unit) {
-    composable(CHECK_IN_ROUTE) {
-        CheckInRoute()
-    }
+android {
+    namespace = "com.mihaltsov.neo.feature.queues"
+}
+
+dependencies {
+    implementation(libs.androidx.compose.material3.windowSizeClass)
+    implementation(libs.kotlinx.datetime)
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.accompanist.permissions)
 }

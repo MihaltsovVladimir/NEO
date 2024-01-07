@@ -17,6 +17,7 @@
 package com.mihaltsov.neo.core.network.fake
 
 import com.mihaltsov.neo.core.network.NeoNetworkDataSource
+import com.mihaltsov.neo.core.network.model.ExistQueuesDataResponse
 import com.mihaltsov.neo.core.network.model.QueueDataResponse
 import com.mihaltsov.neo.core.network.model.UserDataResponse
 import javax.inject.Inject
@@ -28,6 +29,10 @@ class FakeNeoNetworkDataSource @Inject constructor() : NeoNetworkDataSource {
 
     override suspend fun queueData(): QueueDataResponse {
         return fakeQueue()
+    }
+
+    override suspend fun existQueue(): ExistQueuesDataResponse {
+        return ExistQueuesDataResponse(listOf(ExistQueuesDataResponse.Queue("Mock ID", "Mock title", "Mock description")))
     }
 
     override suspend fun userData(): UserDataResponse {

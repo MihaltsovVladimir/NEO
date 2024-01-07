@@ -21,8 +21,9 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import com.mihaltsov.neo.feature.authorization.navigation.authorizationScreen
 import com.mihaltsov.neo.feature.checkin.navigation.checkInScreen
-import com.mihaltsov.neo.feature.mainQueue.navigation.queueScreen
-import com.mihaltsov.neo.feature.mainQueue.navigation.yourQueueNavigationRoute
+import com.mihaltsov.neo.feature.mainQueue.navigation.yourQueueScreen
+import com.mihaltsov.neo.feature.queues.navigation.QUEUES_ROUTE
+import com.mihaltsov.neo.feature.queues.navigation.queuesGraph
 import com.mihaltsov.neo.ui.NeoAppState
 
 /**
@@ -36,7 +37,7 @@ import com.mihaltsov.neo.ui.NeoAppState
 fun NeoNavHost(
     appState: NeoAppState,
     modifier: Modifier = Modifier,
-    startDestination: String = yourQueueNavigationRoute,
+    startDestination: String = QUEUES_ROUTE,
 ) {
     val navController = appState.navController
     NavHost(
@@ -44,14 +45,26 @@ fun NeoNavHost(
         startDestination = startDestination,
         modifier = modifier,
     ) {
-        queueScreen({
-            println("queueScreen")
-        })
-        authorizationScreen({
-            println("authorizationScreen")
-        })
-        checkInScreen {
-            println("checkInScreen")
-        }
+        authorizationScreen {}
+        checkInScreen {}
+        queuesGraph(
+            onQueueClick = {  },
+            nestedGraphs = {
+                yourQueueScreen(
+                    onBackClick = navController::popBackStack
+                )
+            }
+        )
+        yourQueueScreen{}
+//        navigation(startDestination = QUEUES_ROUTE, route = QUEUES_GRAPH_ROUTE_PATTERN) {
+//            composable(QUEUES_ROUTE) {
+//                QueuesRoute()
+//            }
+//            composable(YOUR_QUEUE_ROUTE) {
+//                YourQueueRoute(
+//                    onBackClick = {  },
+//                )
+//            }
+//        }
     }
 }

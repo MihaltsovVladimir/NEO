@@ -49,4 +49,6 @@ include(":sync")
 include(":feature:mainQueue")
 include(":feature:authorization")
 include(":feature:checkIn")
+include(":feature:queues")
+
 include(":sync:work")

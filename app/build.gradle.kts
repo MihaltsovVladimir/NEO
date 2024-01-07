@@ -70,6 +70,7 @@ dependencies {
     implementation(projects.feature.mainQueue)
     implementation(projects.feature.authorization)
     implementation(projects.feature.checkIn)
+    implementation(projects.feature.queues)
 
     implementation(projects.core.common)
     implementation(projects.core.ui)

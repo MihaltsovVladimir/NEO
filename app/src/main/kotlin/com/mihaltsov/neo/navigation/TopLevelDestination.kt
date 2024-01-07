@@ -21,6 +21,7 @@ import com.google.samples.apps.nowinandroid.core.designsystem.icon.NeoIcons
 import com.mihaltsov.neo.feature.authorization.R as authorizationR
 import com.mihaltsov.neo.feature.mainQueue.R as yourQueueR
 import com.mihaltsov.neo.feature.checkIn.R as checkInR
+import com.mihaltsov.neo.feature.queues.R as queuesR
 
 /**
  * Type for the top level destinations in the application. Each of these destinations
@@ -33,12 +34,11 @@ enum class TopLevelDestination(
     val iconTextId: Int,
     val titleTextId: Int,
 ) {
-
-    YOUR_QUEUE(
+    QUEUES(
         selectedIcon = NeoIcons.Upcoming,
         unselectedIcon = NeoIcons.UpcomingBorder,
-        iconTextId = yourQueueR.string.your_queue,
-        titleTextId = yourQueueR.string.your_queue,
+        iconTextId = queuesR.string.queues,
+        titleTextId = queuesR.string.queues,
     ),
     AUTHORIZATION(
         selectedIcon = NeoIcons.Bookmarks,

@@ -18,20 +18,23 @@ package com.mihaltsov.neo.core.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
 import com.mihaltsov.neo.core.database.dao.PersonsQueueDao
-import com.mihaltsov.neo.core.database.util.InstantConverter
+import com.mihaltsov.neo.core.database.dao.QueuesDao
+import com.mihaltsov.neo.core.database.model.ExistQueuesDataEntity
 import com.mihaltsov.neo.core.database.model.PersonQueueDataEntity
 
 @Database(
-    entities = [PersonQueueDataEntity::class, ],
+    entities = [
+        PersonQueueDataEntity::class,
+        ExistQueuesDataEntity::class,
+    ],
     version = 1,
     exportSchema = true,
 )
 
-@TypeConverters(InstantConverter::class,)
-
 abstract class NeoDatabase : RoomDatabase() {
 
     abstract fun personsQueueDao(): PersonsQueueDao
+
+    abstract fun queuesDao(): QueuesDao
 }

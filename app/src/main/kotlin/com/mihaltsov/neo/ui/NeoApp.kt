@@ -54,7 +54,6 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.testTagsAsResourceId
@@ -93,7 +92,7 @@ fun NeoApp(
         userNewsResourceRepository = userNewsResourceRepository,
     ),
 ) {
-    val shouldShowGradientBackground = appState.currentTopLevelDestination == TopLevelDestination.YOUR_QUEUE
+    val shouldShowGradientBackground = appState.currentTopLevelDestination == TopLevelDestination.AUTHORIZATION
     var showSettingsDialog by rememberSaveable {
         mutableStateOf(false)
     }
@@ -138,7 +137,7 @@ fun NeoApp(
                             destinationsWithUnreadResources = unreadDestinations,
                             onNavigateToDestination = appState::navigateToTopLevelDestination,
                             currentDestination = appState.currentDestination,
-                            modifier = Modifier.testTag("NiaBottomBar"),
+                            modifier = Modifier,
                         )
                     }
                 },
@@ -156,9 +155,7 @@ fun NeoApp(
                             destinationsWithUnreadResources = unreadDestinations,
                             onNavigateToDestination = appState::navigateToTopLevelDestination,
                             currentDestination = appState.currentDestination,
-                            modifier = Modifier
-                                .testTag("NiaNavRail")
-                                .safeDrawingPadding(),
+                            modifier = Modifier.safeDrawingPadding(),
                         )
                     }
 
@@ -172,9 +169,7 @@ fun NeoApp(
                                 navigationIconContentDescription = "settingsR.string.top_app_bar_navigation_icon_description",
                                 actionIcon = NeoIcons.Settings,
                                 actionIconContentDescription = "top_app_bar_action_icon_description",
-                                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                                    containerColor = Color.Transparent,
-                                ),
+                                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = Color.Transparent,),
                                 onActionClick = { showSettingsDialog = true },
                                 onNavigationClick = {
                                     println("appState.navigateToSearch() ")

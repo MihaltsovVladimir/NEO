@@ -16,6 +16,7 @@
 
 package com.mihaltsov.neo.core.network
 
+import com.mihaltsov.neo.core.network.model.ExistQueuesDataResponse
 import com.mihaltsov.neo.core.network.model.QueueDataResponse
 import com.mihaltsov.neo.core.network.model.UserDataResponse
 
@@ -27,4 +28,6 @@ interface NeoNetworkDataSource {
     suspend fun userData(): UserDataResponse
 
     suspend fun queueData(): QueueDataResponse
+
+    suspend fun existQueue(): ExistQueuesDataResponse
 }

@@ -17,7 +17,9 @@
 package com.mihaltsov.neo.core.data.util
 
 import android.util.Log
+import com.mihaltsov.neo.core.database.model.ExistQueuesDataEntity
 import com.mihaltsov.neo.core.database.model.PersonQueueDataEntity
+import com.mihaltsov.neo.core.model.QueueItemData
 import com.mihaltsov.neo.core.model.UserData
 import kotlin.coroutines.cancellation.CancellationException
 
@@ -96,4 +98,11 @@ suspend fun Synchronizer.changeUserDataSync(
     modelUpdater: suspend (UserData) -> Unit,
 ) = suspendRunCatching {
     modelUpdater(networkData)
+}.isSuccess
+
+suspend fun Synchronizer.changeExistQueuesSync(
+    networkData: List<QueueItemData>,
+    modelAdd: suspend (List<ExistQueuesDataEntity>) -> Unit,
+) = suspendRunCatching {
+    modelAdd(networkData.map { ExistQueuesDataEntity(it.id, it.title, it.description) })
 }.isSuccess

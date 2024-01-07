@@ -22,10 +22,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mihaltsov.neo.core.designsystem.theme.NeoTheme
-import com.mihaltsov.neo.core.model.CardQueueModel
+import com.mihaltsov.neo.core.model.QueuePersonCardModel
 
 @Composable
-fun PersonQueueCard(model: CardQueueModel, onClick: (Int) -> Unit = {}) {
+fun PersonQueueCard(model: QueuePersonCardModel, onClick: (Int) -> Unit = {}) {
     Card(
         shape = RoundedCornerShape(16.dp),
         border = if (model.isMine) BorderStroke(
@@ -71,7 +71,7 @@ fun PersonQueueCard(model: CardQueueModel, onClick: (Int) -> Unit = {}) {
 private fun CardVPreview() {
     NeoTheme {
         PersonQueueCard(
-            CardQueueModel(
+            QueuePersonCardModel(
                 nickName = "Mihaltsov",
                 queueNumber = 1,
                 isActive = true,
@@ -86,7 +86,7 @@ private fun CardVPreview() {
 private fun CardVPreview11() {
     NeoTheme {
         PersonQueueCard(
-            CardQueueModel(
+            QueuePersonCardModel(
                 nickName = "Mihaltsov",
                 queueNumber = 11,
                 isActive = true,
@@ -102,7 +102,7 @@ private fun CardVPreview11() {
 private fun CardVPreviewWith1111() {
     NeoTheme {
         PersonQueueCard(
-            CardQueueModel(
+            QueuePersonCardModel(
                 nickName = "Mihaltsov",
                 queueNumber = 1111,
                 isActive = true,

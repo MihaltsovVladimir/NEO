@@ -14,25 +14,27 @@
  * limitations under the License.
  */
 
-package com.mihaltsov.neo.feature.mainQueue.navigation
+package com.mihaltsov.neo.feature.queues.navigation
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptions
-import androidx.navigation.NavType
 import androidx.navigation.compose.composable
-import androidx.navigation.navArgument
-import androidx.navigation.navDeepLink
-import com.mihaltsov.neo.feature.mainQueue.YourQueueRoute
+import com.mihaltsov.neo.feature.queues.QueuesRoute
 
-const val yourQueueNavigationRoute = "for_you_route"
+const val QUEUES_GRAPH_ROUTE_PATTERN = "queues_graph"
+const val QUEUES_ROUTE = "queues_route"
 
-fun NavController.navigateToYourQueue(navOptions: NavOptions? = null) {
-    this.navigate(yourQueueNavigationRoute, navOptions)
+fun NavController.navigateToQueuesGraph(navOptions: NavOptions) {
+    navigate(QUEUES_ROUTE, navOptions)
 }
 
-fun NavGraphBuilder.queueScreen(onItemClick: (String) -> Unit) {
-    composable(route = yourQueueNavigationRoute,) {
-        YourQueueRoute()
+fun NavGraphBuilder.queuesGraph(
+    onQueueClick: (String) -> Unit,
+    nestedGraphs: NavGraphBuilder.() -> Unit,
+) {
+    composable(QUEUES_ROUTE) {
+        QueuesRoute()
     }
+
 }

@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mihaltsov.neo.core.designsystem.theme.NeoTheme
-import com.mihaltsov.neo.core.model.CardQueueModel
+import com.mihaltsov.neo.core.model.QueuePersonCardModel
 import com.mihaltsov.neo.core.ui.ButtonV
 import com.mihaltsov.neo.core.ui.PersonQueueCard
 import kotlinx.coroutines.CoroutineScope
@@ -27,6 +27,7 @@ import kotlinx.coroutines.launch
 fun YourQueueRoute(
     modifier: Modifier = Modifier,
     viewModel: YourQueueViewModel = hiltViewModel(),
+    onBackClick: () -> Unit,
 ) {
 
     val listState: LazyListState = rememberLazyListState()
@@ -77,7 +78,7 @@ private fun PeopleElectronicQueue(
                     uiState.uiDataModel.persons.forEach {
                         item {
                             PersonQueueCard(
-                                model = CardQueueModel(
+                                model = QueuePersonCardModel(
                                     nickName = it.nickName,
                                     queueNumber = it.queueNumber,
                                     isActive = true,
@@ -106,6 +107,6 @@ private fun PeopleElectronicQueue(
 @Composable
 private fun TestQueueScreenPreview() {
     NeoTheme {
-        YourQueueRoute()
+        YourQueueRoute(onBackClick = {})
     }
 }

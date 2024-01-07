@@ -31,15 +31,16 @@ import androidx.navigation.navOptions
 import androidx.tracing.trace
 import com.mihaltsov.neo.core.data.repository.UserDataRepository
 import com.mihaltsov.neo.core.data.util.NetworkMonitor
+import com.mihaltsov.neo.feature.authorization.navigation.AUTH_ROUTE
 import com.mihaltsov.neo.feature.authorization.navigation.navigateToaAuthorization
-import com.mihaltsov.neo.feature.mainQueue.navigation.navigateToYourQueue
-import com.mihaltsov.neo.feature.mainQueue.navigation.yourQueueNavigationRoute
-import com.mihaltsov.neo.feature.authorization.navigation.authorizationNavigationRoute
+import com.mihaltsov.neo.feature.checkin.navigation.CHECK_IN_ROUTE
 import com.mihaltsov.neo.feature.checkin.navigation.navigateToCheckIn
+import com.mihaltsov.neo.feature.queues.navigation.QUEUES_ROUTE
+import com.mihaltsov.neo.feature.queues.navigation.navigateToQueuesGraph
 import com.mihaltsov.neo.navigation.TopLevelDestination
 import com.mihaltsov.neo.navigation.TopLevelDestination.AUTHORIZATION
 import com.mihaltsov.neo.navigation.TopLevelDestination.CHECK_IN
-import com.mihaltsov.neo.navigation.TopLevelDestination.YOUR_QUEUE
+import com.mihaltsov.neo.navigation.TopLevelDestination.QUEUES
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -85,8 +86,9 @@ class NeoAppState(
 
     val currentTopLevelDestination: TopLevelDestination?
         @Composable get() = when (currentDestination?.route) {
-            yourQueueNavigationRoute -> YOUR_QUEUE
-            authorizationNavigationRoute -> AUTHORIZATION
+            QUEUES_ROUTE -> QUEUES
+            CHECK_IN_ROUTE -> CHECK_IN
+            AUTH_ROUTE -> AUTHORIZATION
             else -> null
         }
 
@@ -108,7 +110,7 @@ class NeoAppState(
      * Map of top level destinations to be used in the TopBar, BottomBar and NavRail. The key is the
      * route.
      */
-    val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.values().asList()
+    val topLevelDestinations: List<TopLevelDestination> = TopLevelDestination.entries
 
 
     /**
@@ -135,9 +137,9 @@ class NeoAppState(
             }
 
             when (topLevelDestination) {
-                YOUR_QUEUE -> navController.navigateToYourQueue(topLevelNavOptions)
                 AUTHORIZATION -> navController.navigateToaAuthorization(topLevelNavOptions)
-                CHECK_IN ->navController.navigateToCheckIn(topLevelNavOptions)
+                CHECK_IN -> navController.navigateToCheckIn(topLevelNavOptions)
+                QUEUES -> navController.navigateToQueuesGraph(topLevelNavOptions)
             }
         }
     }
@@ -148,8 +150,8 @@ class NeoAppState(
     val topLevelDestinationsWithUnreadResources: StateFlow<Set<TopLevelDestination>> =
         flowOf(
             setOfNotNull(
-                YOUR_QUEUE,
-//                AUTHORIZATION,
+//                YOUR_QUEUE,
+                AUTHORIZATION,
             )
         ).stateIn(
             coroutineScope,

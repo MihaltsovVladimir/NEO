@@ -22,14 +22,14 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.mihaltsov.neo.feature.authorization.AuthorizationRoute
 
-const val authorizationNavigationRoute = "authorization"
+const val AUTH_ROUTE = "authorization_route"
 
 fun NavController.navigateToaAuthorization(navOptions: NavOptions? = null) {
-    navigate(authorizationNavigationRoute, navOptions)
+    navigate(AUTH_ROUTE, navOptions)
 }
 
 fun NavGraphBuilder.authorizationScreen(onItemClick: (String) -> Unit) {
-    composable(authorizationNavigationRoute) {
+    composable(AUTH_ROUTE) {
         AuthorizationRoute()
     }
 }

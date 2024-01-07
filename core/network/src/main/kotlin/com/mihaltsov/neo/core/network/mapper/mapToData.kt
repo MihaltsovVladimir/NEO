@@ -1,7 +1,9 @@
 package com.mihaltsov.neo.core.network.mapper
 
 import com.mihaltsov.neo.core.model.QueueData
+import com.mihaltsov.neo.core.model.QueueItemData
 import com.mihaltsov.neo.core.model.UserData
+import com.mihaltsov.neo.core.network.model.ExistQueuesDataResponse
 import com.mihaltsov.neo.core.network.model.QueueDataResponse
 import com.mihaltsov.neo.core.network.model.UserDataResponse
 
@@ -30,4 +32,8 @@ fun UserDataResponse.mapToData(): UserData {
         phone = phone,
         queues = map
     )
+}
+
+fun ExistQueuesDataResponse.map(): List<QueueItemData> {
+    return items.map { QueueItemData(it.id, it.title, it.description) }
 }
