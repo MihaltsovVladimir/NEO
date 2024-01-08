@@ -22,19 +22,16 @@ import androidx.navigation.NavOptions
 import androidx.navigation.compose.composable
 import com.mihaltsov.neo.feature.queues.QueuesRoute
 
-const val QUEUES_GRAPH_ROUTE_PATTERN = "queues_graph"
 const val QUEUES_ROUTE = "queues_route"
 
 fun NavController.navigateToQueuesGraph(navOptions: NavOptions) {
     navigate(QUEUES_ROUTE, navOptions)
 }
 
-fun NavGraphBuilder.queuesGraph(
-    onQueueClick: (String) -> Unit,
-    nestedGraphs: NavGraphBuilder.() -> Unit,
+fun NavGraphBuilder.queuesScreen(
+    onQueueClick: (String) -> Unit
 ) {
     composable(QUEUES_ROUTE) {
-        QueuesRoute()
+        QueuesRoute(onQueueClick = onQueueClick)
     }
-
 }

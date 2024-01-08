@@ -19,36 +19,41 @@ package com.mihaltsov.neo.feature.mainQueue.navigation
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
+import androidx.navigation.NavType
 import androidx.navigation.compose.composable
+import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import com.mihaltsov.neo.feature.mainQueue.YourQueueRoute
 import java.net.URLDecoder
+import java.net.URLEncoder
 
 const val YOUR_QUEUE_ROUTE = "your_queue_route"
 private val URL_CHARACTER_ENCODING = Charsets.UTF_8.name()
 internal const val QUEUE_ID_ARG = "queueId"
+private const val DEEP_LINK_URI_PATTERN = "https://www.neo.by/yourqueue/{$QUEUE_ID_ARG}"
 
 internal class QueueArgs(val queueId: String) {
     constructor(savedStateHandle: SavedStateHandle) :
             this(URLDecoder.decode(checkNotNull(savedStateHandle[QUEUE_ID_ARG]), URL_CHARACTER_ENCODING))
 }
 
-fun NavController.navigateToYourQueue(navOptions: NavOptions) {
-    navigate(YOUR_QUEUE_ROUTE, navOptions)
+fun NavController.navigateToYourQueue(queueId: String) {
+    val encodedId = URLEncoder.encode(queueId, URL_CHARACTER_ENCODING)
+    navigate("$YOUR_QUEUE_ROUTE/$encodedId") {
+        launchSingleTop = true
+    }
 }
-//fun NavController.navigateToYourQueue(topicId: String) {
-//    val encodedId = URLEncoder.encode(topicId, URL_CHARACTER_ENCODING)
-//    navigate("$YOUR_QUEUE_ROUTE/$encodedId") {
-//        launchSingleTop = true
-//    }
-//}
 
 fun NavGraphBuilder.yourQueueScreen(
     onBackClick: () -> Unit,
 ) {
-    composable(YOUR_QUEUE_ROUTE) {
-        YourQueueRoute(
-            onBackClick = onBackClick,
-        )
+    composable(
+        route = "$YOUR_QUEUE_ROUTE/{$QUEUE_ID_ARG}",
+        arguments = listOf(
+            navArgument(QUEUE_ID_ARG) { type = NavType.StringType },
+        ),
+        deepLinks = listOf(navDeepLink { uriPattern = DEEP_LINK_URI_PATTERN })
+    ) {
+        YourQueueRoute(onBackClick = onBackClick)
     }
 }

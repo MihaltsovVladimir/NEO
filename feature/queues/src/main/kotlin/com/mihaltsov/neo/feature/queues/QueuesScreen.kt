@@ -29,11 +29,10 @@ import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun QueuesRoute(
+    onQueueClick: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: QueuesViewModel = hiltViewModel(),
 ) {
-    val onQueueClick: (String) -> Unit = {}
-
     val listState: LazyListState = rememberLazyListState()
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
     val queuesData by viewModel.queueData.collectAsStateWithLifecycle()
@@ -88,7 +87,6 @@ private fun QueuesScreen(
 @Composable
 private fun TestQueueScreenPreview() {
     NeoTheme {
-//        QueuesRoute(onQueueClick = {})
-        QueuesRoute()
+        QueuesRoute({})
     }
 }

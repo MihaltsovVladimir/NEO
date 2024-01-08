@@ -106,6 +106,7 @@ fun NeoApp(
             },
         ) {
             val snackbarHostState = remember { SnackbarHostState() }
+            val destination = appState.currentTopLevelDestination
 
             val isOffline by appState.isOffline.collectAsStateWithLifecycle()
 
@@ -131,7 +132,7 @@ fun NeoApp(
                 contentWindowInsets = WindowInsets(0, 0, 0, 0),
                 snackbarHost = { SnackbarHost(snackbarHostState) },
                 bottomBar = {
-                    if (appState.shouldShowBottomBar) {
+                    if (appState.shouldShowBottomBar && destination != null) {
                         NiaBottomBar(
                             destinations = appState.topLevelDestinations,
                             destinationsWithUnreadResources = unreadDestinations,
@@ -161,7 +162,6 @@ fun NeoApp(
 
                     Column(Modifier.fillMaxSize()) {
                         // Show the top app bar on top level destinations.
-                        val destination = appState.currentTopLevelDestination
                         if (destination != null) {
                             NeoTopAppBar(
                                 titleRes = destination.titleTextId,

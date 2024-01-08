@@ -7,7 +7,6 @@
     <application
         android:name=".NeoApplication"
         android:allowBackup="true"
-        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -15,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NEO"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
@@ -26,10 +26,16 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
             <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- adb shell am start -W -a android.intent.action.View -d "https://www.neo.by/yourqueue/123" -->
                 <data
-                    android:scheme="https"
-                    android:host="www.neo.by" />
+                    android:host="www.neo.by"
+                    android:scheme="https" />
             </intent-filter>
         </activity>
     </application>
