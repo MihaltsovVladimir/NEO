@@ -14,23 +14,27 @@ import javax.inject.Inject
 
 class OfflineFirstPersonQueueRepository @Inject constructor(
     private val network: NeoNetworkDataSource,
-    private val queueDao: PersonsQueueDao,
+    private val database: PersonsQueueDao,
 ) : QueueDataRepository {
 
-    override val queueData: Flow<QueueData> = queueDao.getPersonsEntitiesFlow().map {
-        QueueData(
-            id = "it[0].queueId",
-            persons = it.map { entity -> entity.asExternalModel() }
-        )
+    override val queueData: Flow<QueueData> = database.getPersonsEntitiesFlow().map {
+        QueueData(it.map { entity -> entity.asExternalModel() })
+    }
+
+    override suspend fun getQueueDetails(queueId: String) {
+        if (database.getPersonsEntitiesListByQueueId(queueId).isEmpty()) {
+            val networkData = network.getQueueDetails(queueId)
+            database.insertOrIgnorePersons(networkData.mapToData().asEntity())
+        }
     }
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
         return synchronizer.changeQueueSync(
             networkData = network.queueData().mapToData().asEntity(),
-            dataBaseData = queueDao.getPersonsEntitiesList(),
-            modelDeleter = queueDao::deletePersonsByIds,
-            modelUpdater = queueDao::upsertPersons,
-            modelAdd = queueDao::insertOrIgnorePersons
+            dataBaseData = database.getPersonsEntitiesList(),
+            modelDeleter = database::deletePersonsByIds,
+            modelUpdater = database::upsertPersons,
+            modelAdd = database::insertOrIgnorePersons
         )
     }
 }

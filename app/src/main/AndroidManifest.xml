@@ -32,7 +32,7 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <!-- adb shell am start -W -a android.intent.action.View -d "https://www.neo.by/yourqueue/123" -->
+                <!-- adb shell am start -W -a android.intent.action.View -d "https://www.neo.by/queueDetails/123" -->
                 <data
                     android:host="www.neo.by"
                     android:scheme="https" />

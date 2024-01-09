@@ -3,6 +3,7 @@ package com.mihaltsov.neo.core.data.repository
 import com.mihaltsov.neo.core.data.util.Synchronizer
 import com.mihaltsov.neo.core.data.util.changeExistQueuesSync
 import com.mihaltsov.neo.core.database.dao.QueuesDao
+import com.mihaltsov.neo.core.database.model.ExistQueuesDataEntity
 import com.mihaltsov.neo.core.database.model.asExternalModel
 import com.mihaltsov.neo.core.model.QueueItemData
 import com.mihaltsov.neo.core.network.NeoNetworkDataSource
@@ -22,9 +23,11 @@ class OfflineFirstQueuesRepository @Inject constructor(
         }
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
-        queuesDao.nukeTable()
         return synchronizer.changeExistQueuesSync(
-            networkData = network.existQueue().map(),
+            networkData = network.existQueue().map().map { ExistQueuesDataEntity(it.id, it.title, it.description) },
+            dataBaseData = queuesDao.getQueuesEntitiesList(),
+            modelUpdater = queuesDao::upsertQueues,
+            modelDeleter = queuesDao::deleteQueueByIds,
             modelAdd = queuesDao::insertOrIgnoreQueues
         )
     }

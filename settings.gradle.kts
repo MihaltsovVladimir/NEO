@@ -46,7 +46,7 @@ include(":core:designsystem")
 include(":core:network")
 include(":sync")
 
-include(":feature:mainQueue")
+include(":feature:queueDetails")
 include(":feature:authorization")
 include(":feature:checkIn")
 include(":feature:queues")

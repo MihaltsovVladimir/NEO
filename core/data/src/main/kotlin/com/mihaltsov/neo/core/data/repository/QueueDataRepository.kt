@@ -10,4 +10,6 @@ interface QueueDataRepository : Syncable {
      * Stream of [QueueData]
      */
     val queueData: Flow<QueueData>
+
+    suspend fun getQueueDetails(queueId: String)
 }

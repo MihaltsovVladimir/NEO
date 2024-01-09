@@ -29,5 +29,7 @@ interface NeoNetworkDataSource {
 
     suspend fun queueData(): QueueDataResponse
 
+    suspend fun getQueueDetails(queueId: String): QueueDataResponse
+
     suspend fun existQueue(): ExistQueuesDataResponse
 }

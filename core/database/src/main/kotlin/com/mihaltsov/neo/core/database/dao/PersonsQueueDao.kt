@@ -30,14 +30,14 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface PersonsQueueDao {
 
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun insertPersons(persons: List<PersonQueueDataEntity>)
-
     @Query(value = """SELECT * FROM personQueueData""")
     fun getPersonsEntitiesFlow(): Flow<List<PersonQueueDataEntity>>
 
     @Query(value = """SELECT * FROM personQueueData""")
     fun getPersonsEntitiesList(): List<PersonQueueDataEntity>
+
+    @Query(value = """SELECT * FROM personQueueData WHERE queueId in (:queueId)""")
+    fun getPersonsEntitiesListByQueueId(queueId: String): List<PersonQueueDataEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrIgnorePersons(entities: List<PersonQueueDataEntity>): List<Long>

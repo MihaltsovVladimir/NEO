@@ -10,7 +10,7 @@ fun QueueData.asEntity(): List<PersonQueueDataEntity> {
             queueNumber = it.queueNumber,
             nickName = it.nickName,
             isActive = it.isActive,
-            queueId = id
+            queueId = it.queueId
         )
     }
 }

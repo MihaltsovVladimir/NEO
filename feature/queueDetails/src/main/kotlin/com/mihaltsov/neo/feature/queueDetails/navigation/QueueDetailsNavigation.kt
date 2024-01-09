@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.mihaltsov.neo.feature.mainQueue.navigation
+package com.mihaltsov.neo.feature.queueDetails.navigation
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.NavController
@@ -23,37 +23,37 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
-import com.mihaltsov.neo.feature.mainQueue.YourQueueRoute
+import com.mihaltsov.neo.feature.queueDetails.QueueDetailsRoute
 import java.net.URLDecoder
 import java.net.URLEncoder
 
-const val YOUR_QUEUE_ROUTE = "your_queue_route"
+const val QUEUE_DETAILS_ROUTE = "queue_details_route"
 private val URL_CHARACTER_ENCODING = Charsets.UTF_8.name()
 internal const val QUEUE_ID_ARG = "queueId"
-private const val DEEP_LINK_URI_PATTERN = "https://www.neo.by/yourqueue/{$QUEUE_ID_ARG}"
+private const val DEEP_LINK_URI_PATTERN = "https://www.neo.by/queueDetails/{$QUEUE_ID_ARG}"
 
 internal class QueueArgs(val queueId: String) {
     constructor(savedStateHandle: SavedStateHandle) :
             this(URLDecoder.decode(checkNotNull(savedStateHandle[QUEUE_ID_ARG]), URL_CHARACTER_ENCODING))
 }
 
-fun NavController.navigateToYourQueue(queueId: String) {
+fun NavController.navigateToQueueDetails(queueId: String) {
     val encodedId = URLEncoder.encode(queueId, URL_CHARACTER_ENCODING)
-    navigate("$YOUR_QUEUE_ROUTE/$encodedId") {
+    navigate("$QUEUE_DETAILS_ROUTE/$encodedId") {
         launchSingleTop = true
     }
 }
 
-fun NavGraphBuilder.yourQueueScreen(
+fun NavGraphBuilder.queueDetailsScreen(
     onBackClick: () -> Unit,
 ) {
     composable(
-        route = "$YOUR_QUEUE_ROUTE/{$QUEUE_ID_ARG}",
+        route = "$QUEUE_DETAILS_ROUTE/{$QUEUE_ID_ARG}",
         arguments = listOf(
             navArgument(QUEUE_ID_ARG) { type = NavType.StringType },
         ),
         deepLinks = listOf(navDeepLink { uriPattern = DEEP_LINK_URI_PATTERN })
     ) {
-        YourQueueRoute(onBackClick = onBackClick)
+        QueueDetailsRoute(onBackClick = onBackClick)
     }
 }

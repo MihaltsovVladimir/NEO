@@ -1,4 +1,4 @@
-package com.mihaltsov.neo.feature.mainQueue
+package com.mihaltsov.neo.feature.queueDetails
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,9 +24,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
-fun YourQueueRoute(
+fun QueueDetailsRoute(
     modifier: Modifier = Modifier,
-    viewModel: YourQueueViewModel = hiltViewModel(),
+    viewModel: QueueDetailsViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
 ) {
 
@@ -49,16 +49,16 @@ fun YourQueueRoute(
 private fun PeopleElectronicQueue(
     listState: LazyListState,
     modifier: Modifier = Modifier,
-    uiState: YourQueueUiState,
+    uiState: QueueDetailsUiState,
     coroutineScope: CoroutineScope,
     onClick: (Int) -> Unit = {},
 ) {
 
     when (uiState) {
-        is YourQueueUiState.Loading -> {
+        is QueueDetailsUiState.Loading -> {
         }
 
-        is YourQueueUiState.Success -> {
+        is QueueDetailsUiState.Success -> {
             Column(
                 verticalArrangement = Arrangement.SpaceBetween,
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -99,7 +99,7 @@ private fun PeopleElectronicQueue(
             }
         }
 
-        is YourQueueUiState.LoadFailed -> {}
+        is QueueDetailsUiState.LoadFailed -> {}
     }
 }
 
@@ -107,6 +107,6 @@ private fun PeopleElectronicQueue(
 @Composable
 private fun TestQueueScreenPreview() {
     NeoTheme {
-        YourQueueRoute(onBackClick = {})
+        QueueDetailsRoute(onBackClick = {})
     }
 }

@@ -9,7 +9,6 @@ import com.mihaltsov.neo.core.network.model.UserDataResponse
 
 fun QueueDataResponse.mapToData(): QueueData {
     return QueueData(
-        id = id,
         persons = persons.map {
             QueueData.Person(
                 id = it.id,
@@ -17,6 +16,7 @@ fun QueueDataResponse.mapToData(): QueueData {
                 nickName = it.nickName,
                 isActive = it.isActive,
                 isMine = false,
+                queueId = id
             )
         })
 }

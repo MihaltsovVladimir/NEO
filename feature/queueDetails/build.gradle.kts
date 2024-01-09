@@ -20,7 +20,7 @@ plugins {
 }
 
 android {
-    namespace = "com.mihaltsov.neo.feature.mainQueue"
+    namespace = "com.mihaltsov.neo.feature.queueDetails"
 }
 
 dependencies {

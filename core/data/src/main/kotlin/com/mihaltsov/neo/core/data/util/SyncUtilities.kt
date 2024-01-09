@@ -19,7 +19,6 @@ package com.mihaltsov.neo.core.data.util
 import android.util.Log
 import com.mihaltsov.neo.core.database.model.ExistQueuesDataEntity
 import com.mihaltsov.neo.core.database.model.PersonQueueDataEntity
-import com.mihaltsov.neo.core.model.QueueItemData
 import com.mihaltsov.neo.core.model.UserData
 import kotlin.coroutines.cancellation.CancellationException
 
@@ -76,16 +75,10 @@ suspend fun Synchronizer.changeQueueSync(
     val updateItems: MutableList<PersonQueueDataEntity> = mutableListOf()
     val deleteItems: MutableList<PersonQueueDataEntity> = mutableListOf()
     networkData.forEach {
-        if (!dataBaseData.contains(it)) {
-            addNewItems.add(it)
-        } else {
-            updateItems.add(it)
-        }
+        if (!dataBaseData.contains(it)) addNewItems.add(it) else updateItems.add(it)
     }
     dataBaseData.forEach {
-        if (!networkData.contains(it)) {
-            deleteItems.add(it)
-        }
+        if (!networkData.contains(it)) deleteItems.add(it)
     }
 //    val (deleted, updated) = updateItems.partition(PersonQueueDataEntity::isActive)
     modelDeleter(deleteItems.map { it.id })
@@ -101,8 +94,25 @@ suspend fun Synchronizer.changeUserDataSync(
 }.isSuccess
 
 suspend fun Synchronizer.changeExistQueuesSync(
-    networkData: List<QueueItemData>,
+    networkData: List<ExistQueuesDataEntity>,
+    dataBaseData: List<ExistQueuesDataEntity>,
+    modelUpdater: suspend (List<ExistQueuesDataEntity>) -> Unit,
+    modelDeleter: suspend (List<String>) -> Unit,
     modelAdd: suspend (List<ExistQueuesDataEntity>) -> Unit,
 ) = suspendRunCatching {
-    modelAdd(networkData.map { ExistQueuesDataEntity(it.id, it.title, it.description) })
+
+    val addItems: MutableList<ExistQueuesDataEntity> = mutableListOf()
+    val updateItems: MutableList<ExistQueuesDataEntity> = mutableListOf()
+    val deleteItems: MutableList<String> = mutableListOf()
+    networkData.forEach {
+        if (!dataBaseData.contains(it)) addItems.add(it) else updateItems.add(it)
+    }
+    dataBaseData.forEach {
+        if (!networkData.contains(it)) {
+            deleteItems.add(it.id)
+        }
+    }
+    modelUpdater(updateItems)
+    modelDeleter(deleteItems)
+    modelAdd(addItems)
 }.isSuccess

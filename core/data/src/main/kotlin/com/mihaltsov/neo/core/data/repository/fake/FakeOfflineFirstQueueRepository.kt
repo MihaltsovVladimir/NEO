@@ -9,9 +9,9 @@ import javax.inject.Inject
 
 class FakeOfflineFirstQueueRepository @Inject constructor() : QueueDataRepository {
 
-    override val queueData: Flow<QueueData> = flow {
-        QueueData("", listOf())
-    }
+    override val queueData: Flow<QueueData> = flow { QueueData(listOf()) }
+
+    override suspend fun getQueueDetails(queueId: String) {}
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
         return true

@@ -44,4 +44,5 @@ fun PersonQueueDataEntity.asExternalModel() = QueueData.Person(
     nickName = nickName,
     isActive = isActive,
     isMine = false,
+    queueId = queueId
 )

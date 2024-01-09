@@ -20,8 +20,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import com.mihaltsov.neo.feature.authorization.navigation.authorizationScreen
 import com.mihaltsov.neo.feature.checkin.navigation.checkInScreen
-import com.mihaltsov.neo.feature.mainQueue.navigation.navigateToYourQueue
-import com.mihaltsov.neo.feature.mainQueue.navigation.yourQueueScreen
+import com.mihaltsov.neo.feature.queueDetails.navigation.navigateToQueueDetails
+import com.mihaltsov.neo.feature.queueDetails.navigation.queueDetailsScreen
 import com.mihaltsov.neo.feature.queues.navigation.QUEUES_ROUTE
 import com.mihaltsov.neo.feature.queues.navigation.queuesScreen
 import com.mihaltsov.neo.ui.NeoAppState
@@ -45,7 +45,7 @@ fun NeoNavHost(
     ) {
         authorizationScreen {}
         checkInScreen {}
-        queuesScreen(onQueueClick = navController::navigateToYourQueue)
-        yourQueueScreen(onBackClick = navController::popBackStack)
+        queuesScreen(onQueueClick = navController::navigateToQueueDetails)
+        queueDetailsScreen(onBackClick = navController::popBackStack)
     }
 }

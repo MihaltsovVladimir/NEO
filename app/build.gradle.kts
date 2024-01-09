@@ -67,7 +67,7 @@ android {
 }
 
 dependencies {
-    implementation(projects.feature.mainQueue)
+    implementation(projects.feature.queueDetails)
     implementation(projects.feature.authorization)
     implementation(projects.feature.checkIn)
     implementation(projects.feature.queues)

@@ -33,6 +33,9 @@ interface QueuesDao {
     @Query(value = """SELECT * FROM existQueuesData""")
     fun getQueuesEntitiesFlow(): Flow<List<ExistQueuesDataEntity>>
 
+    @Query(value = """SELECT * FROM existQueuesData""")
+    fun getQueuesEntitiesList(): List<ExistQueuesDataEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertOrIgnoreQueues(entities: List<ExistQueuesDataEntity>): List<Long>
 

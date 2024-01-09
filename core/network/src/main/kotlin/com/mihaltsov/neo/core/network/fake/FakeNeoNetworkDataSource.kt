@@ -31,6 +31,10 @@ class FakeNeoNetworkDataSource @Inject constructor() : NeoNetworkDataSource {
         return fakeQueue()
     }
 
+    override suspend fun getQueueDetails(queueId: String): QueueDataResponse {
+        return fakeQueue()
+    }
+
     override suspend fun existQueue(): ExistQueuesDataResponse {
         return ExistQueuesDataResponse(listOf(ExistQueuesDataResponse.Queue("Mock ID", "Mock title", "Mock description")))
     }

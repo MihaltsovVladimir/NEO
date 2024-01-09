@@ -63,7 +63,7 @@ class SyncWorker @AssistedInject constructor(
             preferences.setUpDeviceId() //todo need to replace
             // First sync the repositories in parallel
             val syncedSuccessfully = awaitAll(
-                async { personQueueDataRepository.sync() },
+//                async { personQueueDataRepository.sync() },
                 async { userDataRepository.sync() },
                 async { queuesRepository.sync() }
             ).all { it }

@@ -19,7 +19,6 @@ package com.mihaltsov.neo.navigation
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.google.samples.apps.nowinandroid.core.designsystem.icon.NeoIcons
 import com.mihaltsov.neo.feature.authorization.R as authorizationR
-import com.mihaltsov.neo.feature.mainQueue.R as yourQueueR
 import com.mihaltsov.neo.feature.checkIn.R as checkInR
 import com.mihaltsov.neo.feature.queues.R as queuesR
 
