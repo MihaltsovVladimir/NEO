@@ -9,54 +9,48 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mihaltsov.neo.core.designsystem.theme.NeoTheme
 import com.mihaltsov.neo.core.model.QueuePersonCardModel
-import com.mihaltsov.neo.core.ui.ButtonV
+import com.mihaltsov.neo.core.ui.ApplyButton
 import com.mihaltsov.neo.core.ui.PersonQueueCard
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
 @Composable
 fun QueueDetailsRoute(
-    modifier: Modifier = Modifier,
     viewModel: QueueDetailsViewModel = hiltViewModel(),
     onBackClick: () -> Unit,
 ) {
-
     val listState: LazyListState = rememberLazyListState()
-    val coroutineScope: CoroutineScope = rememberCoroutineScope()
-
     val queueData by viewModel.queueData.collectAsStateWithLifecycle()
 
-    PeopleElectronicQueue(
+    QueueDetailScreen(
         listState = listState,
         uiState = queueData,
-        onClick = {
-            viewModel.removeItem(it)
-        },
-        coroutineScope = coroutineScope,
+        onItemClick = { println(" number $it") },
+        onApplyButtonClick = { viewModel.applyToQueue()},
     )
 }
 
 @Composable
-private fun PeopleElectronicQueue(
+private fun QueueDetailScreen(
     listState: LazyListState,
     modifier: Modifier = Modifier,
     uiState: QueueDetailsUiState,
-    coroutineScope: CoroutineScope,
-    onClick: (Int) -> Unit = {},
+    onApplyButtonClick: () -> Unit,
+    onItemClick: (Int) -> Unit = {},
 ) {
 
     when (uiState) {
-        is QueueDetailsUiState.Loading -> {
-        }
+        is QueueDetailsUiState.Loading -> {}
+
+
+        is QueueDetailsUiState.LoadFailed -> {}
 
         is QueueDetailsUiState.Success -> {
             Column(
@@ -84,22 +78,22 @@ private fun PeopleElectronicQueue(
                                     isActive = true,
                                     isMine = it.isMine
                                 ),
-                                onClick = onClick
+                                onClick = onItemClick
                             )
                         }
                     }
                 }
-                ButtonV(buttonText = "Show my position",
-                    modifier = Modifier,
-                    onClick = {
-                        coroutineScope.launch {
-                            listState.animateScrollToItem(10)
-                        }
-                    })
+                val hasInQueue = uiState.uiDataModel.persons.any { it.isMine }
+                if (!hasInQueue) {
+                    ApplyButton(
+                        buttonText = stringResource(R.string.queue_details_apply_to_queue),
+                        modifier = Modifier,
+                        onClick = {
+                            onApplyButtonClick()
+                        })
+                }
             }
         }
-
-        is QueueDetailsUiState.LoadFailed -> {}
     }
 }
 

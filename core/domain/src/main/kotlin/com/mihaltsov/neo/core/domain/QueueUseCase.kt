@@ -17,10 +17,8 @@ class QueueUseCase @Inject constructor(
 
     operator fun invoke(): Flow<QueueData> {
         return queueRepository.queueData.combine(userRepository.userData) { queueData, userData ->
-            if (userData.queues.keys.contains(queueData.persons.first().queueId)) {  //TODO
-                QueueData(
-                    persons = checkById(queueData.persons, userData.id)
-                )
+            if (queueData.persons.isNotEmpty() && userData.queues.keys.contains(queueData.persons.first().queueId)) {  //TODO
+                QueueData(checkById(queueData.persons, userData.id))
             } else queueData
         }
     }
@@ -30,8 +28,6 @@ class QueueUseCase @Inject constructor(
     }
 
     private fun checkById(persons: List<QueueData.Person>, userId: String): List<QueueData.Person> {
-        return persons.map {
-            if (it.id == userId) it.copy(isMine = true) else it
-        }
+        return persons.map { it.copy(isMine = it.id == userId) }
     }
 }

@@ -16,10 +16,12 @@
 
 package com.mihaltsov.neo.core.network.fake
 
+import com.mihaltsov.neo.core.network.DTO.request.ApplyToQueueRequest
+import com.mihaltsov.neo.core.network.DTO.response.EmptyResponse
 import com.mihaltsov.neo.core.network.NeoNetworkDataSource
-import com.mihaltsov.neo.core.network.model.ExistQueuesDataResponse
-import com.mihaltsov.neo.core.network.model.QueueDataResponse
-import com.mihaltsov.neo.core.network.model.UserDataResponse
+import com.mihaltsov.neo.core.network.DTO.response.ExistQueuesDataResponse
+import com.mihaltsov.neo.core.network.DTO.response.QueueDataResponse
+import com.mihaltsov.neo.core.network.DTO.response.UserDataResponse
 import javax.inject.Inject
 
 /**
@@ -37,6 +39,10 @@ class FakeNeoNetworkDataSource @Inject constructor() : NeoNetworkDataSource {
 
     override suspend fun existQueue(): ExistQueuesDataResponse {
         return ExistQueuesDataResponse(listOf(ExistQueuesDataResponse.Queue("Mock ID", "Mock title", "Mock description")))
+    }
+
+    override suspend fun applyToQueue(request: ApplyToQueueRequest): EmptyResponse {
+        return EmptyResponse()
     }
 
     override suspend fun userData(): UserDataResponse {

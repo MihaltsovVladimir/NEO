@@ -4,19 +4,16 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.mihaltsov.neo.core.designsystem.theme.NeoTheme
-import androidx.core.R as searchR
 
 @Composable
-fun ButtonV(
+fun ApplyButton(
     buttonText: String, onClick: () -> Unit = {},
     modifier: Modifier = Modifier) {
     Button(
@@ -36,6 +33,6 @@ fun ButtonV(
 @Composable
 private fun ButtonVPreview() {
     NeoTheme {
-        ButtonV(buttonText = "Some text", onClick = {}, modifier = Modifier)
+        ApplyButton(buttonText = "Some text", onClick = {}, modifier = Modifier)
     }
 }

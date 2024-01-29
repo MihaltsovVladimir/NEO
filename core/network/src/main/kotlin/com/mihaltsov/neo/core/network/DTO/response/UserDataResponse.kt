@@ -1,4 +1,4 @@
-package com.mihaltsov.neo.core.network.model
+package com.mihaltsov.neo.core.network.DTO.response
 
 import kotlinx.serialization.Serializable
 

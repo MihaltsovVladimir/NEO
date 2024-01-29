@@ -48,6 +48,9 @@ interface PersonsQueueDao {
     @Query(value = """DELETE FROM personQueueData WHERE id in (:ids)""")
     suspend fun deletePersonsByIds(ids: List<String>)
 
+    @Query("SELECT count(*) FROM personQueueData WHERE queueId in (:queueId)")
+    fun getCount(queueId: String): Int
+
     @Query("""DELETE FROM personQueueData""")
     suspend fun nukeTable()
 }

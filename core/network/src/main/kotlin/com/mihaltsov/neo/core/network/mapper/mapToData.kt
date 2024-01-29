@@ -3,9 +3,9 @@ package com.mihaltsov.neo.core.network.mapper
 import com.mihaltsov.neo.core.model.QueueData
 import com.mihaltsov.neo.core.model.QueueItemData
 import com.mihaltsov.neo.core.model.UserData
-import com.mihaltsov.neo.core.network.model.ExistQueuesDataResponse
-import com.mihaltsov.neo.core.network.model.QueueDataResponse
-import com.mihaltsov.neo.core.network.model.UserDataResponse
+import com.mihaltsov.neo.core.network.DTO.response.ExistQueuesDataResponse
+import com.mihaltsov.neo.core.network.DTO.response.QueueDataResponse
+import com.mihaltsov.neo.core.network.DTO.response.UserDataResponse
 
 fun QueueDataResponse.mapToData(): QueueData {
     return QueueData(

@@ -16,11 +16,13 @@
 
 package com.mihaltsov.neo.core.network.retrofit
 
+import com.mihaltsov.neo.core.network.DTO.request.ApplyToQueueRequest
+import com.mihaltsov.neo.core.network.DTO.response.EmptyResponse
+import com.mihaltsov.neo.core.network.DTO.response.ExistQueuesDataResponse
+import com.mihaltsov.neo.core.network.DTO.response.QueueDataResponse
+import com.mihaltsov.neo.core.network.DTO.response.UserDataResponse
 import com.mihaltsov.neo.core.network.NeoNetworkDataSource
 import com.mihaltsov.neo.core.network.di.NetworkApiService
-import com.mihaltsov.neo.core.network.model.ExistQueuesDataResponse
-import com.mihaltsov.neo.core.network.model.QueueDataResponse
-import com.mihaltsov.neo.core.network.model.UserDataResponse
 import retrofit2.Retrofit
 import javax.inject.Inject
 
@@ -38,4 +40,6 @@ class RetrofitNeoNetwork @Inject constructor(
     override suspend fun getQueueDetails(queueId: String): QueueDataResponse = apiService.getQueueDetails(queueId).first() //TODO
 
     override suspend fun existQueue(): ExistQueuesDataResponse = apiService.getQueues()
+
+    override suspend fun applyToQueue(request: ApplyToQueueRequest): EmptyResponse = apiService.postApply(request)
 }

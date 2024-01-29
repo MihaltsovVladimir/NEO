@@ -16,9 +16,11 @@
 
 package com.mihaltsov.neo.core.network
 
-import com.mihaltsov.neo.core.network.model.ExistQueuesDataResponse
-import com.mihaltsov.neo.core.network.model.QueueDataResponse
-import com.mihaltsov.neo.core.network.model.UserDataResponse
+import com.mihaltsov.neo.core.network.DTO.request.ApplyToQueueRequest
+import com.mihaltsov.neo.core.network.DTO.response.EmptyResponse
+import com.mihaltsov.neo.core.network.DTO.response.ExistQueuesDataResponse
+import com.mihaltsov.neo.core.network.DTO.response.QueueDataResponse
+import com.mihaltsov.neo.core.network.DTO.response.UserDataResponse
 
 /**
  * Interface representing network calls to the NEO backend
@@ -32,4 +34,6 @@ interface NeoNetworkDataSource {
     suspend fun getQueueDetails(queueId: String): QueueDataResponse
 
     suspend fun existQueue(): ExistQueuesDataResponse
+
+    suspend fun applyToQueue(request: ApplyToQueueRequest): EmptyResponse
 }
