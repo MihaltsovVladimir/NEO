@@ -61,6 +61,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
+import com.google.firebase.Firebase
+import com.google.firebase.database.database
 import com.google.samples.apps.nowinandroid.core.designsystem.icon.NeoIcons
 import com.mihaltsov.neo.core.data.repository.UserDataRepository
 import com.mihaltsov.neo.core.data.util.NetworkMonitor
@@ -172,7 +174,10 @@ fun NeoApp(
                                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = Color.Transparent,),
                                 onActionClick = { showSettingsDialog = true },
                                 onNavigationClick = {
-                                    println("appState.navigateToSearch() ")
+                                    val database = Firebase.database
+                                    val myRef = database.getReference("message")
+
+                                    myRef.setValue("Hello, World!")
                                 },
                             )
                         }

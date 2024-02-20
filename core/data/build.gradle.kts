@@ -14,6 +14,8 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.datetime)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.firebase.common.ktx)
+    implementation(libs.firebase.database.ktx)
 
     implementation(projects.core.common)
     implementation(projects.core.datastore)
