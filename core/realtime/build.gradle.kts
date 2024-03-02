@@ -25,7 +25,7 @@ android {
     buildFeatures {
         buildConfig = true
     }
-    namespace = "com.mihaltsov.neo.core.network"
+    namespace = "com.mihaltsov.neo.realtime"
 }
 
 dependencies {
@@ -39,7 +39,8 @@ dependencies {
     implementation(libs.retrofit.kotlin.serialization)
     implementation(libs.firebase.common.ktx)
     implementation(libs.firebase.database.ktx)
-    
+
     implementation(projects.core.common)
     implementation(projects.core.model)
+    implementation(project(":core:network"))
 }

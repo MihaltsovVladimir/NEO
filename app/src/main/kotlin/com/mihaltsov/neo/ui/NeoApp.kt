@@ -62,6 +62,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import com.google.firebase.Firebase
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.database
 import com.google.samples.apps.nowinandroid.core.designsystem.icon.NeoIcons
 import com.mihaltsov.neo.core.data.repository.UserDataRepository
@@ -69,14 +70,15 @@ import com.mihaltsov.neo.core.data.util.NetworkMonitor
 import com.mihaltsov.neo.core.designsystem.NeoBackground
 import com.mihaltsov.neo.core.designsystem.NeoGradientBackground
 import com.mihaltsov.neo.core.designsystem.NeoNavigationBarItem
+import com.mihaltsov.neo.core.designsystem.NeoTopAppBar
 import com.mihaltsov.neo.core.designsystem.NiaNavigationDefaults
 import com.mihaltsov.neo.core.designsystem.NiaNavigationRail
 import com.mihaltsov.neo.core.designsystem.NiaNavigationRailItem
-import com.mihaltsov.neo.core.designsystem.NeoTopAppBar
 import com.mihaltsov.neo.core.designsystem.theme.GradientColors
 import com.mihaltsov.neo.core.designsystem.theme.LocalGradientColors
 import com.mihaltsov.neo.navigation.NeoNavHost
 import com.mihaltsov.neo.navigation.TopLevelDestination
+import com.mihaltsov.neo.realtime.RealtimeDataSource
 
 @OptIn(
     ExperimentalMaterial3Api::class,
@@ -88,6 +90,8 @@ fun NeoApp(
     windowSizeClass: WindowSizeClass,
     networkMonitor: NetworkMonitor,
     userNewsResourceRepository: UserDataRepository,
+    realtimeRepository: RealtimeDataSource = RealtimeDataSource(),
+    realTimeDatabase: DatabaseReference = Firebase.database.reference,
     appState: NeoAppState = rememberNeoAppState(
         networkMonitor = networkMonitor,
         windowSizeClass = windowSizeClass,
@@ -174,10 +178,7 @@ fun NeoApp(
                                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = Color.Transparent,),
                                 onActionClick = { showSettingsDialog = true },
                                 onNavigationClick = {
-                                    val database = Firebase.database
-                                    val myRef = database.getReference("message")
-
-                                    myRef.setValue("Hello, World!")
+                                    realTimeDatabase.child("queues").setValue("Hello, World!")
                                 },
                             )
                         }

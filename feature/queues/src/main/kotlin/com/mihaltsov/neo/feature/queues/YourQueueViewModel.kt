@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class QueuesViewModel @Inject constructor(
-    repository: QueuesRepository,
+    repository: QueuesRepository
 ) : ViewModel() {
 
     val queueData: StateFlow<QueuesUiState> =

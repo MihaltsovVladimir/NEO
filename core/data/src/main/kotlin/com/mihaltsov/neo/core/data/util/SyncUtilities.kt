@@ -112,7 +112,11 @@ suspend fun Synchronizer.changeExistQueuesSync(
             deleteItems.add(it.id)
         }
     }
-    modelUpdater(updateItems)
-    modelDeleter(deleteItems)
-    modelAdd(addItems)
+    try {
+        modelUpdater(updateItems)
+        modelDeleter(deleteItems)
+        modelAdd(addItems)
+    } catch (e: CancellationException) {
+        // Do nothing to only cancel execution of database updates in case of new syncing
+    }
 }.isSuccess
