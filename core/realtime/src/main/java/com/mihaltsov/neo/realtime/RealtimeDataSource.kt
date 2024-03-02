@@ -1,10 +1,10 @@
 package com.mihaltsov.neo.realtime
 
-import com.google.android.gms.tasks.Task
 import com.google.firebase.Firebase
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.GenericTypeIndicator
+import com.google.firebase.database.collection.ArraySortedMap
 import com.google.firebase.database.database
 import com.mihaltsov.neo.core.network.DTO.request.ApplyToQueueRequest
 import com.mihaltsov.neo.core.network.DTO.response.EmptyResponse
@@ -13,31 +13,45 @@ import com.mihaltsov.neo.core.network.DTO.response.QueueDataResponse
 import com.mihaltsov.neo.core.network.DTO.response.UserDataResponse
 import com.mihaltsov.neo.core.network.NeoNetworkDataSource
 import com.mihaltsov.neo.realtime.dto.QueueRealtime
+import com.mihaltsov.neo.realtime.dto.UserDataRealtime
+import java.lang.IllegalStateException
 import java.util.UUID
 import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-private const val QUEUES = "queues"
 
 class RealtimeDataSource @Inject constructor() : NeoNetworkDataSource {
 
     private val realTimeDatabase: DatabaseReference by lazy { Firebase.database.reference }
 
     fun addQueue(title: String, description: String) {
-        getQueuesTask().addOnSuccessListener {
-            val newQueueEntry = QueueRealtime(UUID.randomUUID().toString(), title, description, emptyList())
-            realTimeDatabase.child(QUEUES).setValue(getQueuesFromSnapshot(it) + newQueueEntry)
-        }
+        val newQueueEntry = QueueRealtime(UUID.randomUUID().toString(), title, description, emptyList())
+        realTimeDatabase.child(TableKey.QUEUES.key).child(newQueueEntry.id.orEmpty()).setValue(newQueueEntry)
     }
 
-    private fun getQueuesTask(): Task<DataSnapshot> = realTimeDatabase.child(QUEUES).get()
+    override suspend fun userData(userId: String): UserDataResponse {
+        return findUser(userId)?.let { userData ->
+            UserDataResponse(
+                id = userData.id.orEmpty(),
+                nickName = userData.nickName.orEmpty(),
+                phone = userData.phone.orEmpty(),
+                registrationDate = userData.registrationDate.orEmpty(),
+                queues = userData.queuesOfUser.orEmpty(),
+            )
+        } ?: UserDataResponse("", "", "", "", emptyList())
+    }
 
-    private fun getQueuesFromSnapshot(snapshot: DataSnapshot): List<QueueRealtime> =
-        snapshot.getValue(object : GenericTypeIndicator<List<QueueRealtime>>() {}).orEmpty()
-
-    override suspend fun userData(): UserDataResponse {
-        TODO("Not yet implemented")
+    override suspend fun applyToQueue(request: ApplyToQueueRequest): EmptyResponse {
+        val userData = findUser(request.personId) ?: throw IllegalArgumentException("User not found")
+        val queueData = findQueue(request.queueId) ?: throw IllegalArgumentException("Queue not found")
+        val childUpdates = hashMapOf<String, Any>(
+            "/${TableKey.USERS.key}/${request.personId}/queuesOfUser" to userData.queuesOfUser.orEmpty() + request.queueId,
+            "/${TableKey.QUEUES.key}/${request.queueId}/personsInQueueIds" to
+                    queueData.personsInQueueIds.orEmpty() + request.personId,
+        )
+        realTimeDatabase.updateChildren(childUpdates)
+        return EmptyResponse()
     }
 
     override suspend fun queueData(): QueueDataResponse {
@@ -48,10 +62,10 @@ class RealtimeDataSource @Inject constructor() : NeoNetworkDataSource {
         TODO("Not yet implemented")
     }
 
-    override suspend fun existQueue(): ExistQueuesDataResponse {
+    override suspend fun existingQueues(): ExistQueuesDataResponse {
         return suspendCoroutine { continuation ->
-            getQueuesTask().addOnSuccessListener { snapshot ->
-                continuation.resume(ExistQueuesDataResponse(getQueuesFromSnapshot(snapshot).map {
+            realTimeDatabase.child(TableKey.QUEUES.key).get().addOnSuccessListener { snapshot ->
+                continuation.resume(ExistQueuesDataResponse(snapshot.getValue(object : GenericTypeIndicator<HashMap<String, QueueRealtime>>() {}).orEmpty().values.map {
                     ExistQueuesDataResponse.Queue(it.id.orEmpty(), it.title.orEmpty(), it.description.orEmpty())
                 }))
             }.addOnFailureListener {
@@ -60,7 +74,30 @@ class RealtimeDataSource @Inject constructor() : NeoNetworkDataSource {
         }
     }
 
-    override suspend fun applyToQueue(request: ApplyToQueueRequest): EmptyResponse {
-        TODO("Not yet implemented")
+    private fun <T> getDataFromSnapshot(snapshot: DataSnapshot): T? =
+        snapshot.getValue(object : GenericTypeIndicator<T>() {})
+
+    @Suppress("UNCHECKED_CAST")
+    private fun <T> getListFromSnapshot(snapshot: DataSnapshot): List<T> =
+        (snapshot.value as? Map<Any, T>).orEmpty().values.toList()
+
+    private suspend fun findUser(userId: String): UserDataRealtime? {
+        return suspendCoroutine { continuation ->
+            realTimeDatabase.child(TableKey.USERS.key).child(userId).get().addOnSuccessListener { snapshot ->
+                continuation.resume(getDataFromSnapshot<UserDataRealtime>(snapshot))
+            }.addOnFailureListener {
+                throw it
+            }
+        }
+    }
+
+    private suspend fun findQueue(queueId: String): QueueRealtime? {
+        return suspendCoroutine { continuation ->
+            realTimeDatabase.child(TableKey.QUEUES.key).child(queueId).get().addOnSuccessListener { snapshot ->
+                continuation.resume(getDataFromSnapshot<QueueRealtime>(snapshot))
+            }.addOnFailureListener {
+                throw it
+            }
+        }
     }
 }

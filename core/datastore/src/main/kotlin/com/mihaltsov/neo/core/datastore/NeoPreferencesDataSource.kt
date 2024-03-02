@@ -36,7 +36,7 @@ class NeoPreferencesDataSource @Inject constructor(
                     id = it.userId,
                     nickName = it.nickName,
                     phone = it.phone,
-                    queues = it.userQueuesMap,
+                    queues = it.userQueuesList,
                 )
             }
         }
@@ -64,9 +64,7 @@ class NeoPreferencesDataSource @Inject constructor(
     suspend fun addNewQueue(queueId: String, number: String) {
         try {
             userPreferences.updateData {
-                it.copy {
-                    userQueues.put(queueId, number)
-                }
+                it.copy { userQueues += queueId }
             }
         } catch (ioException: IOException) {
             Log.e("NeoPreferences", "Failed to update user preferences", ioException)
@@ -75,10 +73,8 @@ class NeoPreferencesDataSource @Inject constructor(
 
     suspend fun removeQueue(queueId: String) {
         try {
-            userPreferences.updateData {
-                it.copy {
-                    userQueues.remove(queueId)
-                }
+            userPreferences.updateData { preferences ->
+                preferences.copy { userQueues.filter { it != queueId } }
             }
         } catch (ioException: IOException) {
             Log.e("NeoPreferences", "Failed to update user preferences", ioException)
@@ -93,9 +89,7 @@ class NeoPreferencesDataSource @Inject constructor(
                     this.nickName = userData.nickName
                     this.phone = userData.phone
                     this.userQueues.clear()
-                    userData.queues.forEach { it ->
-                        userQueues.put(it.key, it.value)
-                    }
+                    userQueues += userData.queues
                 }
             }
         } catch (ioException: IOException) {

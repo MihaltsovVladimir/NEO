@@ -25,7 +25,7 @@ message UserPreferences {
   string registrationDate = 3;
   string queueNumber = 4;
   string userId = 5;
-  map<string, string> user_queues = 6;
+  repeated string user_queues = 6;
   string deviceId = 7;
 
   // NEXT AVAILABLE ID: 8

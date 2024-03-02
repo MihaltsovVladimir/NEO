@@ -42,5 +42,5 @@ dependencies {
 
     implementation(projects.core.common)
     implementation(projects.core.model)
-    implementation(project(":core:network"))
+    api(projects.core.network)
 }

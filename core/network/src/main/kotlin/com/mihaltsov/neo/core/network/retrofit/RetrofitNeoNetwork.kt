@@ -33,13 +33,13 @@ class RetrofitNeoNetwork @Inject constructor(
     private val apiService: NetworkApiService,
 ) : NeoNetworkDataSource {
 
-    override suspend fun userData(): UserDataResponse = apiService.getUserData()
+    override suspend fun userData(userId: String): UserDataResponse = apiService.getUserData()
 
     override suspend fun queueData(): QueueDataResponse = apiService.getQueue()
 
     override suspend fun getQueueDetails(queueId: String): QueueDataResponse = apiService.getQueueDetails(queueId).first() //TODO
 
-    override suspend fun existQueue(): ExistQueuesDataResponse = apiService.getQueues()
+    override suspend fun existingQueues(): ExistQueuesDataResponse = apiService.getQueues()
 
     override suspend fun applyToQueue(request: ApplyToQueueRequest): EmptyResponse = apiService.postApply(request)
 }

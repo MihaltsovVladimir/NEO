@@ -26,5 +26,5 @@ interface QueueModule {
 //    fun bindsFakeNetworkDataSource(queueDataRepository: FakeNeoNetworkDataSource): NeoNetworkDataSource
 
     @Binds
-    fun bindsNetworkDataSource(queueDataRepository: RetrofitNeoNetwork): NeoNetworkDataSource
+    fun bindsNetworkDataSource(queueDataRepository: RealtimeDataSource): NeoNetworkDataSource
 }

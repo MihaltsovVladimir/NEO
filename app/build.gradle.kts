@@ -79,8 +79,8 @@ dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.data)
     implementation(projects.core.model)
-    implementation(projects.sync.work)
     implementation(projects.core.realtime)
+    implementation(projects.sync.work)
 
     androidTestImplementation(libs.androidx.navigation.testing)
     androidTestImplementation(libs.accompanist.testharness)

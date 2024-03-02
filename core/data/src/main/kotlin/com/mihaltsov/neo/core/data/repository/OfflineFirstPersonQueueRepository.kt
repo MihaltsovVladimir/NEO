@@ -41,9 +41,7 @@ class OfflineFirstPersonQueueRepository @Inject constructor(
         network.applyToQueue(
             ApplyToQueueRequest(
                 queueId = queueId,
-                id = userData.id,
-                nickName = userData.nickName,
-                queueNumber = database.getCount(queueId).toString(),
+                personId = userData.id,
             )
         )
     }

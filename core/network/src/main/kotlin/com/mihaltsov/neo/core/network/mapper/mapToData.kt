@@ -22,15 +22,11 @@ fun QueueDataResponse.mapToData(): QueueData {
 }
 
 fun UserDataResponse.mapToData(): UserData {
-    val map = mutableMapOf<String, String>()
-    queues.forEach {
-        map[it.id] = it.number
-    }
     return UserData(
         id = id,
         nickName = nickName,
         phone = phone,
-        queues = map
+        queues = queues
     )
 }
 

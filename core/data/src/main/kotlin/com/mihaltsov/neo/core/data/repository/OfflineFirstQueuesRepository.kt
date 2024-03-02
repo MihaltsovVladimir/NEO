@@ -15,7 +15,6 @@ import javax.inject.Inject
 class OfflineFirstQueuesRepository @Inject constructor(
     private val network: NeoNetworkDataSource,
     private val queuesDao: QueuesDao,
-    private val realtimeRepository: RealtimeDataSource
 ) : QueuesRepository {
 
     override val existQueues: Flow<List<QueueItemData>> =
@@ -25,7 +24,7 @@ class OfflineFirstQueuesRepository @Inject constructor(
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
         return synchronizer.changeExistQueuesSync(
-            networkData = realtimeRepository.existQueue().items.map { ExistQueuesDataEntity(it.id, it.title, it.description) },
+            networkData = network.existingQueues().items.map { ExistQueuesDataEntity(it.id, it.title, it.description) },
             dataBaseData = queuesDao.getQueuesEntitiesList(),
             modelUpdater = queuesDao::upsertQueues,
             modelDeleter = queuesDao::deleteQueueByIds,

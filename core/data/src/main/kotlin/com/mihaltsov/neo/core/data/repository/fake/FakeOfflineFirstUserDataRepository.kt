@@ -14,7 +14,7 @@ class FakeOfflineFirstUserDataRepository @Inject constructor() : UserDataReposit
             id = "id",
             nickName = "Mihaltsov",
             phone = "+375445504442",
-            queues = mapOf()
+            queues = emptyList()
         )
     )
 
