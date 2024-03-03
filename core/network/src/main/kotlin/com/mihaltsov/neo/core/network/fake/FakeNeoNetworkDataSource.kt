@@ -29,10 +29,6 @@ import javax.inject.Inject
  */
 class FakeNeoNetworkDataSource @Inject constructor() : NeoNetworkDataSource {
 
-    override suspend fun queueData(): QueueDataResponse {
-        return fakeQueue()
-    }
-
     override suspend fun getQueueDetails(queueId: String): QueueDataResponse {
         return fakeQueue()
     }

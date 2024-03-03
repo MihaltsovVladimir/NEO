@@ -29,8 +29,6 @@ interface NeoNetworkDataSource {
 
     suspend fun userData(userId: String): UserDataResponse
 
-    suspend fun queueData(): QueueDataResponse
-
     suspend fun getQueueDetails(queueId: String): QueueDataResponse
 
     suspend fun existingQueues(): ExistQueuesDataResponse

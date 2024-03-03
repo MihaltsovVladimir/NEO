@@ -35,8 +35,6 @@ class RetrofitNeoNetwork @Inject constructor(
 
     override suspend fun userData(userId: String): UserDataResponse = apiService.getUserData()
 
-    override suspend fun queueData(): QueueDataResponse = apiService.getQueue()
-
     override suspend fun getQueueDetails(queueId: String): QueueDataResponse = apiService.getQueueDetails(queueId).first() //TODO
 
     override suspend fun existingQueues(): ExistQueuesDataResponse = apiService.getQueues()

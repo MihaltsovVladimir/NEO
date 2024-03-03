@@ -48,7 +48,7 @@ class OfflineFirstPersonQueueRepository @Inject constructor(
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
         return synchronizer.changeQueueSync(
-            networkData = network.queueData().mapToData().asEntity(),
+            networkData = network.getQueueDetails(queueIdFlow.value).mapToData().asEntity(),
             dataBaseData = database.getPersonsEntitiesList(),
             modelDeleter = database::deletePersonsByIds,
             modelUpdater = database::upsertPersons,

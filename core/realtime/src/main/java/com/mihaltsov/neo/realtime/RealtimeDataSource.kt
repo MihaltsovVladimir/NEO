@@ -45,6 +45,7 @@ class RealtimeDataSource @Inject constructor() : NeoNetworkDataSource {
     override suspend fun applyToQueue(request: ApplyToQueueRequest): EmptyResponse {
         val userData = findUser(request.personId) ?: throw IllegalArgumentException("User not found")
         val queueData = findQueue(request.queueId) ?: throw IllegalArgumentException("Queue not found")
+
         val childUpdates = hashMapOf<String, Any>(
             "/${TableKey.USERS.key}/${request.personId}/queuesOfUser" to userData.queuesOfUser.orEmpty() + request.queueId,
             "/${TableKey.QUEUES.key}/${request.queueId}/personsInQueueIds" to
@@ -54,32 +55,31 @@ class RealtimeDataSource @Inject constructor() : NeoNetworkDataSource {
         return EmptyResponse()
     }
 
-    override suspend fun queueData(): QueueDataResponse {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun getQueueDetails(queueId: String): QueueDataResponse {
-        TODO("Not yet implemented")
+        val queueData = findQueue(queueId) ?: throw IllegalArgumentException("Queue not found")
+        return QueueDataResponse(
+            id = queueId,
+            persons = queueData.personsInQueueIds.orEmpty().mapIndexed { userOrdinal, userId ->
+                QueueDataResponse.PersonQueueData(userId, userOrdinal.toString(), findUser(userId)?.nickName.orEmpty(), true)
+            }
+        )
     }
 
     override suspend fun existingQueues(): ExistQueuesDataResponse {
         return suspendCoroutine { continuation ->
             realTimeDatabase.child(TableKey.QUEUES.key).get().addOnSuccessListener { snapshot ->
-                continuation.resume(ExistQueuesDataResponse(snapshot.getValue(object : GenericTypeIndicator<HashMap<String, QueueRealtime>>() {}).orEmpty().values.map {
-                    ExistQueuesDataResponse.Queue(it.id.orEmpty(), it.title.orEmpty(), it.description.orEmpty())
-                }))
+                continuation.resume(ExistQueuesDataResponse(
+                    snapshot.getValue(object : GenericTypeIndicator<HashMap<String, QueueRealtime>>() {}).orEmpty().values.map {
+                        ExistQueuesDataResponse.Queue(it.id.orEmpty(), it.title.orEmpty(), it.description.orEmpty())
+                    }
+                ))
             }.addOnFailureListener {
                 continuation.resume(ExistQueuesDataResponse(emptyList()))
             }
         }
     }
 
-    private fun <T> getDataFromSnapshot(snapshot: DataSnapshot): T? =
-        snapshot.getValue(object : GenericTypeIndicator<T>() {})
-
-    @Suppress("UNCHECKED_CAST")
-    private fun <T> getListFromSnapshot(snapshot: DataSnapshot): List<T> =
-        (snapshot.value as? Map<Any, T>).orEmpty().values.toList()
+    private fun <T> getDataFromSnapshot(snapshot: DataSnapshot): T? = snapshot.getValue(object : GenericTypeIndicator<T>() {})
 
     private suspend fun findUser(userId: String): UserDataRealtime? {
         return suspendCoroutine { continuation ->
