@@ -22,5 +22,5 @@ dependencies {
     implementation(projects.core.network)
     implementation(projects.core.model)
     implementation(projects.core.database)
-    implementation(project(":core:realtime"))
+    implementation(projects.core.realtime)
 }

@@ -25,11 +25,6 @@ class RealtimeDataSource @Inject constructor() : NeoNetworkDataSource {
 
     private val realTimeDatabase: DatabaseReference by lazy { Firebase.database.reference }
 
-    fun addQueue(title: String, description: String) {
-        val newQueueEntry = QueueRealtime(UUID.randomUUID().toString(), title, description, emptyList())
-        realTimeDatabase.child(TableKey.QUEUES.key).child(newQueueEntry.id.orEmpty()).setValue(newQueueEntry)
-    }
-
     override suspend fun userData(userId: String): UserDataResponse {
         return findUser(userId)?.let { userData ->
             UserDataResponse(
@@ -77,6 +72,11 @@ class RealtimeDataSource @Inject constructor() : NeoNetworkDataSource {
                 continuation.resume(ExistQueuesDataResponse(emptyList()))
             }
         }
+    }
+
+    fun addQueue(title: String, description: String) {
+        val newQueueEntry = QueueRealtime(UUID.randomUUID().toString(), title, description, emptyList())
+        realTimeDatabase.child(TableKey.QUEUES.key).child(newQueueEntry.id.orEmpty()).setValue(newQueueEntry)
     }
 
     private fun <T> getDataFromSnapshot(snapshot: DataSnapshot): T? = snapshot.getValue(object : GenericTypeIndicator<T>() {})

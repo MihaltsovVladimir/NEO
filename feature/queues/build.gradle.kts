@@ -28,5 +28,5 @@ dependencies {
     implementation(libs.kotlinx.datetime)
     implementation(libs.androidx.activity.compose)
     implementation(libs.accompanist.permissions)
-    implementation(project(":core:realtime"))
+    implementation(projects.core.realtime)
 }
