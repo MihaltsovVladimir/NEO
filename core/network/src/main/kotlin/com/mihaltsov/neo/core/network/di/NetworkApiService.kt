@@ -19,9 +19,6 @@ interface NetworkApiService {
     suspend fun getUserData(): UserDataResponse
 
     @GET("queues")
-    suspend fun getQueue(): QueueDataResponse
-
-    @GET("queues")
     suspend fun getQueueDetails(@Query("id") queueId: String): List<QueueDataResponse>
 
     @POST("queues")

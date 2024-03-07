@@ -67,10 +67,10 @@ import com.mihaltsov.neo.core.data.util.NetworkMonitor
 import com.mihaltsov.neo.core.designsystem.NeoBackground
 import com.mihaltsov.neo.core.designsystem.NeoGradientBackground
 import com.mihaltsov.neo.core.designsystem.NeoNavigationBarItem
+import com.mihaltsov.neo.core.designsystem.NeoTopAppBar
 import com.mihaltsov.neo.core.designsystem.NiaNavigationDefaults
 import com.mihaltsov.neo.core.designsystem.NiaNavigationRail
 import com.mihaltsov.neo.core.designsystem.NiaNavigationRailItem
-import com.mihaltsov.neo.core.designsystem.NeoTopAppBar
 import com.mihaltsov.neo.core.designsystem.theme.GradientColors
 import com.mihaltsov.neo.core.designsystem.theme.LocalGradientColors
 import com.mihaltsov.neo.navigation.NeoNavHost

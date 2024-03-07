@@ -34,7 +34,7 @@ class OfflineFirstUserDataRepository @Inject constructor(
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
         return synchronizer.changeUserDataSync(
-            networkData = network.userData().mapToData(),
+            networkData = network.userData("").mapToData(),
             modelUpdater = neoPreferencesDataSource::setUpUserData
         )
     }

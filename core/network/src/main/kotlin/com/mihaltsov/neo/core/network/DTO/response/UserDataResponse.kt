@@ -11,12 +11,5 @@ data class UserDataResponse(
     val nickName: String,
     val phone: String,
     val registrationDate: String,
-    val queues: List<Queues>,
-) {
-
-    @Serializable
-    data class Queues(
-        val id: String,
-        val number: String,
-    )
-}
+    val queues: List<String>
+)

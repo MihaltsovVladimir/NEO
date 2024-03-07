@@ -7,7 +7,7 @@ import com.mihaltsov.neo.core.database.model.ExistQueuesDataEntity
 import com.mihaltsov.neo.core.database.model.asExternalModel
 import com.mihaltsov.neo.core.model.QueueItemData
 import com.mihaltsov.neo.core.network.NeoNetworkDataSource
-import com.mihaltsov.neo.core.network.mapper.map
+import com.mihaltsov.neo.realtime.RealtimeDataSource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -24,7 +24,7 @@ class OfflineFirstQueuesRepository @Inject constructor(
 
     override suspend fun syncWith(synchronizer: Synchronizer): Boolean {
         return synchronizer.changeExistQueuesSync(
-            networkData = network.existQueue().map().map { ExistQueuesDataEntity(it.id, it.title, it.description) },
+            networkData = network.existingQueues().items.map { ExistQueuesDataEntity(it.id, it.title, it.description) },
             dataBaseData = queuesDao.getQueuesEntitiesList(),
             modelUpdater = queuesDao::upsertQueues,
             modelDeleter = queuesDao::deleteQueueByIds,

@@ -22,7 +22,9 @@ plugins {
     alias(libs.plugins.neo.android.application.jacoco)
     alias(libs.plugins.neo.android.hilt)
     id("jacoco")
-    id("com.google.android.gms.oss-licenses-plugin")}
+    id("com.google.android.gms.oss-licenses-plugin")
+    id("com.google.gms.google-services")
+}
 
 android {
     defaultConfig {
@@ -77,6 +79,7 @@ dependencies {
     implementation(projects.core.designsystem)
     implementation(projects.core.data)
     implementation(projects.core.model)
+    implementation(projects.core.realtime)
     implementation(projects.sync.work)
 
     androidTestImplementation(libs.androidx.navigation.testing)
@@ -98,6 +101,8 @@ dependencies {
     implementation(libs.androidx.profileinstaller)
     implementation(libs.kotlinx.coroutines.guava)
     implementation(libs.coil.kt)
+    implementation(libs.firebase.common.ktx)
+    implementation(libs.firebase.database.ktx)
 
     // Core functions
     testImplementation(libs.androidx.navigation.testing)

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.lazy.LazyListState
@@ -16,6 +17,11 @@ import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
@@ -25,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.mihaltsov.neo.core.designsystem.theme.NeoTheme
+import com.mihaltsov.neo.realtime.RealtimeDataSource
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -52,35 +59,52 @@ private fun QueuesScreen(
     feedState: QueuesUiState,
     coroutineScope: CoroutineScope,
     onQueueClick: (String) -> Unit,
+    realtimeRepository: RealtimeDataSource = RealtimeDataSource()
 ) {
 
     val state = rememberLazyStaggeredGridState()
 
-    Box(modifier = modifier.fillMaxSize()) {
-        LazyVerticalStaggeredGrid(
-            columns = StaggeredGridCells.Fixed(2),
-            contentPadding = PaddingValues(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp),
-            verticalItemSpacing = 24.dp,
-            modifier = Modifier,
-            state = state,
-        ) {
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    val number = (0..200).random()
+                    realtimeRepository.addQueue("Title $number", "Queue description $number")
+                          },
+                modifier = Modifier
+            ) {
+                Icon(Icons.Default.Add, contentDescription = "Добавить очередь")
+            }
+        },
+    ) {
+        Box(modifier = modifier.padding(it).fillMaxSize()) {
+            LazyVerticalStaggeredGrid(
+                columns = StaggeredGridCells.Fixed(2),
+                contentPadding = PaddingValues(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalItemSpacing = 24.dp,
+                modifier = Modifier,
+                state = state,
+            ) {
 
-            queuesFeed(
-                feedState = feedState,
-                onQueueClick = onQueueClick,
-            )
-            item(span = StaggeredGridItemSpan.FullLine, contentType = "bottomSpacing") {
-                Column {
-                    Spacer(modifier = Modifier.height(8.dp))
-                    // Add space for the content to clear the "offline" snackbar.
-                    // TODO: Check that the Scaffold handles this correctly in NiaApp
-                    // if (isOffline) Spacer(modifier = Modifier.height(48.dp))
-                    Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
+                queuesFeed(
+                    feedState = feedState,
+                    onQueueClick = onQueueClick,
+                )
+                item(span = StaggeredGridItemSpan.FullLine, contentType = "bottomSpacing") {
+                    Column {
+                        Spacer(modifier = Modifier.height(8.dp))
+                        // Add space for the content to clear the "offline" snackbar.
+                        // TODO: Check that the Scaffold handles this correctly in NiaApp
+                        // if (isOffline) Spacer(modifier = Modifier.height(48.dp))
+                        Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.safeDrawing))
+                    }
                 }
             }
         }
     }
+
 }
 
 @Preview

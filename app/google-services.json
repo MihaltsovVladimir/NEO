@@ -1,0 +1,49 @@
+{
+  "project_info": {
+    "project_number": "865644478883",
+    "firebase_url": "https://neo-queue-default-rtdb.firebaseio.com",
+    "project_id": "neo-queue",
+    "storage_bucket": "neo-queue.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865644478883:android:0f8ca7d8ac713652705a16",
+        "android_client_info": {
+          "package_name": "com.mihaltsov.neo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRBY3Nir61ZvP_oKTeH9qLbJ6C65oJ5Ik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:865644478883:android:1c4e356b0b0fe061705a16",
+        "android_client_info": {
+          "package_name": "com.mihaltsov.neo.demo.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRBY3Nir61ZvP_oKTeH9qLbJ6C65oJ5Ik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

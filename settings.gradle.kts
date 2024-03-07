@@ -52,3 +52,4 @@ include(":feature:checkIn")
 include(":feature:queues")
 
 include(":sync:work")
+include(":core:realtime")

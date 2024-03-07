@@ -32,5 +32,5 @@ sealed interface CheckInUiState {
 
 class ScreenDataTestDataStore(
     val qrModel: UserQrModel = UserQrModel("CheckInUiState"),
-    val testDataStore: UserData = UserData("", "", "", mapOf())
+    val testDataStore: UserData = UserData("", "", "", emptyList())
 )

@@ -14,19 +14,22 @@
  * limitations under the License.
  */
 plugins {
-    alias(libs.plugins.neo.android.feature)
-    alias(libs.plugins.neo.android.library.compose)
-    alias(libs.plugins.neo.android.library.jacoco)
+    alias(libs.plugins.neo.android.library)
+    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "com.mihaltsov.neo.feature.queues"
+    buildFeatures {
+        buildConfig = true
+    }
+    namespace = "com.mihaltsov.neo.realtime"
 }
 
 dependencies {
-    implementation(libs.androidx.compose.material3.windowSizeClass)
-    implementation(libs.kotlinx.datetime)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.accompanist.permissions)
-    implementation(projects.core.realtime)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.firebase.common.ktx)
+    implementation(libs.firebase.database.ktx)
+
+    implementation(projects.core.model)
+    api(projects.core.network)
 }

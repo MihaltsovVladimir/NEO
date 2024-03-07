@@ -69,11 +69,6 @@ private fun CheckInScreen(
                         .padding(10.dp)
                         .size(500.dp),
                 )
-                if (!checkInUiState.qrModel.testDataStore.queues.get("d").isNullOrBlank()){
-                    Text(
-                        text = checkInUiState.qrModel.testDataStore.queues.size.toString()
-                    )
-                }
             }
         }
 

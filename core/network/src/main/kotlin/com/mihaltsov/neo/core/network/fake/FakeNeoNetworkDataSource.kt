@@ -29,15 +29,11 @@ import javax.inject.Inject
  */
 class FakeNeoNetworkDataSource @Inject constructor() : NeoNetworkDataSource {
 
-    override suspend fun queueData(): QueueDataResponse {
-        return fakeQueue()
-    }
-
     override suspend fun getQueueDetails(queueId: String): QueueDataResponse {
         return fakeQueue()
     }
 
-    override suspend fun existQueue(): ExistQueuesDataResponse {
+    override suspend fun existingQueues(): ExistQueuesDataResponse {
         return ExistQueuesDataResponse(listOf(ExistQueuesDataResponse.Queue("Mock ID", "Mock title", "Mock description")))
     }
 
@@ -45,18 +41,13 @@ class FakeNeoNetworkDataSource @Inject constructor() : NeoNetworkDataSource {
         return EmptyResponse()
     }
 
-    override suspend fun userData(): UserDataResponse {
+    override suspend fun userData(userId: String): UserDataResponse {
         return UserDataResponse(
             id = "FakeNeoNetworkDataSource",
             nickName = "FakeNeoNetworkDataSource",
             phone = "FakeNeoNetworkDataSource",
             registrationDate = "FakeNeoNetworkDataSource",
-            queues = listOf(
-                UserDataResponse.Queues(
-                    id = "FakeNeoNetworkDataSource",
-                    number = "999"
-                )
-            )
+            queues = listOf("FakeNeoNetworkDataSource", "999")
         )
     }
 

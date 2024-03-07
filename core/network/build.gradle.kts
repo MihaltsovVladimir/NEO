@@ -18,6 +18,7 @@ plugins {
     alias(libs.plugins.neo.android.library.jacoco)
     alias(libs.plugins.neo.android.hilt)
     id("kotlinx-serialization")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -36,6 +37,8 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.retrofit.core)
     implementation(libs.retrofit.kotlin.serialization)
+    implementation(libs.firebase.common.ktx)
+    implementation(libs.firebase.database.ktx)
     
     implementation(projects.core.common)
     implementation(projects.core.model)

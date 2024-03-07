@@ -6,6 +6,7 @@ import com.mihaltsov.neo.core.data.repository.OfflineFirstQueuesRepository
 import com.mihaltsov.neo.core.data.repository.QueuesRepository
 import com.mihaltsov.neo.core.network.NeoNetworkDataSource
 import com.mihaltsov.neo.core.network.retrofit.RetrofitNeoNetwork
+import com.mihaltsov.neo.realtime.RealtimeDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -25,5 +26,5 @@ interface QueueModule {
 //    fun bindsFakeNetworkDataSource(queueDataRepository: FakeNeoNetworkDataSource): NeoNetworkDataSource
 
     @Binds
-    fun bindsNetworkDataSource(queueDataRepository: RetrofitNeoNetwork): NeoNetworkDataSource
+    fun bindsNetworkDataSource(queueDataRepository: RealtimeDataSource): NeoNetworkDataSource
 }

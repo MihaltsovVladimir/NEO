@@ -27,13 +27,11 @@ import com.mihaltsov.neo.core.network.DTO.response.UserDataResponse
  */
 interface NeoNetworkDataSource {
 
-    suspend fun userData(): UserDataResponse
-
-    suspend fun queueData(): QueueDataResponse
+    suspend fun userData(userId: String): UserDataResponse
 
     suspend fun getQueueDetails(queueId: String): QueueDataResponse
 
-    suspend fun existQueue(): ExistQueuesDataResponse
+    suspend fun existingQueues(): ExistQueuesDataResponse
 
     suspend fun applyToQueue(request: ApplyToQueueRequest): EmptyResponse
 }
